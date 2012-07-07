@@ -1,0 +1,36 @@
+body {
+  padding-top: 60px;
+}
+
+* { box-sizing: border-box; }
+
+.navbar .brand {
+  background-image: url('../img/henrietta-and-jude-90.png');
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position: 10px 50%;
+  padding-left: 50px;
+  margin-left: 0;
+}
+
+.editor {
+  border: 1px solid #eee;
+  margin: 10px 0 10px 0;
+}
+
+.CodeMirror pre {
+  line-height: 1.5em;
+  letter-spacing: 1.5;
+}
+
+.editor .CodeMirror {
+  font-family: Monaco, Menlo,"Andale Mono","lucida console","Courier New",monospace !important;
+}
+
+.btn + .btn {
+  margin: 0 10px;
+}
+
+.CodeMirror .cm-s-default span.cm-comment {
+  color: #aaa;
+}

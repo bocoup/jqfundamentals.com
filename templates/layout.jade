@@ -1,0 +1,22 @@
+!!! 5
+html
+  include header
+
+  body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          if title
+            a.brand(href="http://training.bocoup.com") Bocoup :: jQuery Fundamentals :: #{title}
+          else
+            a.brand(href="http://training.bocoup.com") Bocoup :: jQuery Fundamentals
+
+    .container
+      if title
+        .page-header
+          h1= title
+
+      .row
+        block body
+
+    block scripts
