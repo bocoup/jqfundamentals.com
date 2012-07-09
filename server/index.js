@@ -1,4 +1,5 @@
 var fs = require('fs');
+var Q = require('q');
 var yaml = require('js-yaml');
 var express = require('express');
 var md = require('node-markdown').Markdown;
@@ -16,11 +17,31 @@ app.set('view engine', 'jade');
 app.set('view options', { layout: false });
 
 function convertMarkdownToHtml(filename, cb) {
+  var dfd = Q.defer();
+
   fs.readFile(filename, 'utf8', function(err, data) {
-    if (!err) {
-      cb(md(data));
+    if (err) {
+      dfd.reject(err);
+    } else {
+      dfd.resolve(md(data));
     }
   });
+
+  return dfd.promise;
+}
+
+function loadYAML(filename) {
+  var dfd = Q.defer();
+
+  fs.readFile(filename, 'utf8', function(err, data) {
+    if (err) {
+      dfd.reject(err);
+    } else {
+      dfd.resolve(yaml.load(data));
+    }
+  });
+
+  return dfd.promise;
 }
 
 app.get('/', function(req,res) {
@@ -53,18 +74,22 @@ app.get('/exercises/:name/:file', function(req, res) {
 app.get('/chapter/:name', function(req, res) {
   var chapterName = req.params.name;
   var chapterMarkdown = [ contentDir, chapterName, 'index.md' ].join('/');
-  var chapterConfig = require([ contentDir, chapterName, 'config.yaml' ].join('/'));
+  var chapterConfig = [ contentDir, chapterName, 'config.yaml' ].join('/');
 
-  convertMarkdownToHtml(
-    chapterMarkdown,
-    function(err, data) {
-      res.render('chapter/index', {
-        content : data,
-        title : chapterConfig.title,
-        exercises : chapterConfig.exercises
-      });
-    }
-  );
+  Q.all([
+    convertMarkdownToHtml(chapterMarkdown),
+    loadYAML(chapterConfig)
+  ]).then(function(results) {
+    console.log('results is', results);
+    var data = results[0];
+    var config = results[1];
+
+    res.render('chapter/index', {
+      content : data,
+      title : config.title,
+      exercises : config.exercises
+    });
+  });
 
 });
 
