@@ -5,18 +5,18 @@ block css
   link(rel="stylesheet", href="/public/vendor/CodeMirror-2.25/theme/ambiance.css")
 
 block body
-  .span4
-    #exercises
+  .span7
+    #main
+      | !{content}
+  .span4.offset1
+    #exercises(data-chapter="#{chapterId}")
       select.exercise(name="exercise")
-        option(value="0") Choose an exercise
+        option(value="chapter") Chapter Examples
         for e in exercises
           option(value="#{e.id}")= e.name
 
       #editor
       #results
-  .span8
-    #main
-      | !{content}
 
 block scripts
   script(src="/public/vendor/CodeMirror-2.25/lib/codemirror.js")

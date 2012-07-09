@@ -1,1 +1,5 @@
-# hello world.
+title: Home
+menu:
+  - events
+---
+Welcome.

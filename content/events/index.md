@@ -1,3 +1,9 @@
+title: Events and Event Delegation
+chapterId: events
+exercises:
+  - name: Event exercise
+    id: event-1
+---
 jQuery lets you listen for events that occur on an element. For example, this
 code would listen for a user to click on any `a` element in the page:
 

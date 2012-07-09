@@ -1,4 +1,9 @@
 extends ../layout
 
 block body
-  | !{content}
+  .span8 !{content}
+  .span4
+    ul.nav.nav-tabs.nav-stacked
+      for item in menu
+        li
+          a(href="/chapter/#{item}")= item

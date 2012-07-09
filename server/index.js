@@ -23,21 +23,8 @@ function convertMarkdownToHtml(filename, cb) {
     if (err) {
       dfd.reject(err);
     } else {
-      dfd.resolve(md(data));
-    }
-  });
-
-  return dfd.promise;
-}
-
-function loadYAML(filename) {
-  var dfd = Q.defer();
-
-  fs.readFile(filename, 'utf8', function(err, data) {
-    if (err) {
-      dfd.reject(err);
-    } else {
-      dfd.resolve(yaml.load(data));
+      var parts = data.split('---\n');
+      dfd.resolve([ yaml.load(parts[0]), md(parts[1]) ]);
     }
   });
 
@@ -45,15 +32,13 @@ function loadYAML(filename) {
 }
 
 app.get('/', function(req,res) {
-  convertMarkdownToHtml(
-    [ contentDir, 'index.md' ].join('/'),
-    function(html) {
-      res.render('home', {
-        title : false,
-        content : html
-      });
-    }
-  );
+  convertMarkdownToHtml([ contentDir, 'index.md' ].join('/'))
+    .then(function(results) {
+      var config = results[0];
+      config.content = results[1];
+
+      res.render('home', config);
+    });
 });
 
 app.get('/exercises/:name/:file', function(req, res) {
@@ -76,19 +61,12 @@ app.get('/chapter/:name', function(req, res) {
   var chapterMarkdown = [ contentDir, chapterName, 'index.md' ].join('/');
   var chapterConfig = [ contentDir, chapterName, 'config.yaml' ].join('/');
 
-  Q.all([
-    convertMarkdownToHtml(chapterMarkdown),
-    loadYAML(chapterConfig)
-  ]).then(function(results) {
-    console.log('results is', results);
-    var data = results[0];
-    var config = results[1];
+  convertMarkdownToHtml(chapterMarkdown).then(function(results) {
+    console.log(results);
+    var config = results[0];
+    config.content = results[1];
 
-    res.render('chapter/index', {
-      content : data,
-      title : config.title,
-      exercises : config.exercises
-    });
+    res.render('chapter/index', config);
   });
 
 });
