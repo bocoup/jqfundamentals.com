@@ -27,6 +27,21 @@ body {
   font-family: Monaco, Menlo,"Andale Mono","lucida console","Courier New",monospace !important;
 }
 
+.editor .CodeMirror-scroll {
+  height: 250px;
+}
+
+.example {
+  border: 1px solid #eee;
+  margin: 20px 0;
+}
+
+.example .CodeMirror-scroll {
+  height: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
 .btn + .btn {
   margin: 0 10px;
 }

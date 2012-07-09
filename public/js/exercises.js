@@ -35,6 +35,7 @@ $(function() {
     }
 
     function executeShortcut(editor) {
+      console.log('executing shortcut', editor);
       executeAll(editor)();
     }
 
