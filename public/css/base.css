@@ -23,6 +23,18 @@ body {
   letter-spacing: 1.5;
 }
 
+.editor-buttons {
+  background-color: #f7f7f7;
+  text-align: right;
+  padding: 5px;
+  border-bottom: 1px solid #eee;
+}
+
+.editor-buttons i {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
 .editor .CodeMirror {
   font-family: Monaco, Menlo,"Andale Mono","lucida console","Courier New",monospace !important;
 }
