@@ -4,20 +4,26 @@ block css
   link(rel="stylesheet", href="/public/vendor/CodeMirror-2.25/lib/codemirror.css")
   link(rel="stylesheet", href="/public/vendor/CodeMirror-2.25/theme/ambiance.css")
 
+block header_buttons
+  .pull-right
+    button#editor-btn.btn.btn-primary Hide Editor
+
+block fixed_header
+  .container
+    #sandbox.row
+      .span8
+        #editor
+      .span4
+        #results
+
 block body
-  .row
-    .span8
-      #editor
-    .span4
-      #results
+  #main
+    if title
+      .page-header
+        h1= title
 
-  if title
-    .page-header
-      h1= title
-
-  .row
-    .span8
-      #main
+    .row
+      .span8
         | !{content}
 
 block scripts
@@ -25,4 +31,4 @@ block scripts
   script(src="/public/vendor/CodeMirror-2.25/mode/javascript/javascript.js")
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
   script(src="/public/js/editor.js")
-  script(src="/public/js/examples.js")
+  script(src="/public/js/chapter.js")

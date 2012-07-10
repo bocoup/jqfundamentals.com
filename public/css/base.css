@@ -67,3 +67,21 @@ body {
   padding: 10px;
   border: 1px solid #eee;
 }
+
+#sandbox {
+  position: fixed;
+  background-color: #fff;
+  padding: 20px 0;
+}
+
+#main {
+  margin-top: 350px;
+}
+
+.sandbox-hidden #main {
+  margin-top: 0;
+}
+
+.sandbox-hidden #sandbox {
+  display: none;
+}

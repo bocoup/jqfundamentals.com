@@ -27,7 +27,7 @@ window.CodeEditor = function(targetWindow, opts) {
   return editor;
 
   function setupButtons(editor) {
-    if (opts.noButtons) {
+    if (opts.buttons === false) {
       return;
     }
 
@@ -35,32 +35,59 @@ window.CodeEditor = function(targetWindow, opts) {
       'class' : 'editor-buttons'
     }).prependTo(t);
 
-    var executeAllButton = $('<i>', {
-      'class' : 'icon-play',
-      'title' : 'Execute Code'
-    }).appendTo(buttonArea);
-    executeAllButton.click(executeAll(editor));
+    var buttons = {
+      execute : function() {
+        var executeAllButton = $('<i>', {
+          'class' : 'icon-play',
+          'title' : 'Execute Code'
+        }).appendTo(buttonArea);
+        executeAllButton.click(executeAll(editor));
+      },
 
-    var resetButton = $('<i>', {
-      'class' : 'icon-repeat',
-      'title' : 'Reset to original'
-    }).appendTo(buttonArea);
-    resetButton.click(function() {
-      editor.setValue(opts.content);
+      reset : function() {
+        var resetButton = $('<i>', {
+          'class' : 'icon-repeat',
+          'title' : 'Reset to original'
+        }).appendTo(buttonArea);
+        resetButton.click(function() {
+          editor.setValue(opts.content);
+        });
+      },
+
+      explore : function() {
+        var exploreButton = $('<i>', {
+          'class' : 'icon-eye-open',
+          'title' : 'Try in editor'
+        }).appendTo(buttonArea);
+        exploreButton.click(explore(editor));
+      }
+    };
+
+    $.each(opts.buttons, function(idx, btn) {
+      if (buttons[btn]) {
+        buttons[btn]();
+      }
     });
+
   }
 
   function executeShortcut(editor) {
     executeAll(editor)();
   }
 
+  function explore(editor) {
+    if (!opts.onExplore) {
+      console.warn('no onExplore specified for', editor);
+      return $.noop;
+    }
+
+    return function() {
+      opts.onExplore.call(editor);
+    };
+  }
+
   function executeAll(editor) {
     return function() {
-      if (opts.onExecute) {
-        opts.onExecute.call(editor);
-        return;
-      }
-
       execute(editor.getValue());
     };
   }
@@ -75,7 +102,8 @@ window.CodeEditor = function(targetWindow, opts) {
       value : contents || ' ',
       mode : opts.mode || 'javascript',
       lineNumbers : true,
-      theme : 'default'
+      theme : 'default',
+      readOnly : opts.readOnly
     });
   }
 

@@ -1,8 +1,16 @@
 $(function() {
   var chapter = 'events';
-  var mainEditorn;
+  var mainEditor;
+  var body = $('body');
+  var editorBtn = $('#editor-btn');
 
-  $('#main pre > code').each(function() {
+  $('#main pre > code').each(createEditorForCodeBlock);
+  showExercise(chapter, 'sandbox');
+  editorBtn.on('click', function() {
+    toggleEditor();
+  });
+
+  function createEditorForCodeBlock() {
     var code = $(this);
     var pre = code.parent();
     var example = $('<div>', {
@@ -12,15 +20,26 @@ $(function() {
     new CodeEditor(window, {
       content : $.trim(code.text()),
       target : example,
-      onExecute : function() {
+      buttons : [ 'explore' ],
+      onExplore : function() {
         mainEditor.setValue(this.getValue());
-      }
+        body.removeClass('sandbox-hidden');
+        editorBtn.text('Hide Editor');
+      },
+      readOnly : true
     });
 
     pre.remove();
-  });
+  }
 
-  showExercise(chapter, 'sandbox');
+  function toggleEditor() {
+    body.toggleClass('sandbox-hidden');
+    if (body.hasClass('sandbox-hidden')) {
+      editorBtn.text('Show Editor');
+    } else {
+      editorBtn.text('Hide Editor');
+    }
+  }
 
   function showExercise(chapter, exercise) {
     var editor = $('#editor').empty();
@@ -41,7 +60,8 @@ $(function() {
     win.onload = function() {
       mainEditor = new CodeEditor(win, {
         target : target,
-        file : '/exercises/' + chapter + '/' + exercise + '.js'
+        file : '/exercises/' + chapter + '/' + exercise + '.js',
+        buttons : [ 'execute', 'reset' ]
       });
     };
   }
