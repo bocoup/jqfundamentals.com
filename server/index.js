@@ -2,7 +2,7 @@ var fs = require('fs');
 var Q = require('q');
 var yaml = require('js-yaml');
 var express = require('express');
-var md = require('node-markdown').Markdown;
+var md = require('github-flavored-markdown').parse;
 
 var app = express.createServer();
 var contentDir = __dirname + '/../content';
@@ -57,7 +57,6 @@ app.get('/exercises/:name/:file', function(req, res) {
 app.get('/chapter/:name', function(req, res) {
   var chapterName = req.params.name;
   var chapterMarkdown = [ contentDir, chapterName, 'index.md' ].join('/');
-  var chapterConfig = [ contentDir, chapterName, 'config.yaml' ].join('/');
 
   convertMarkdownToHtml(chapterMarkdown).then(function(results) {
     var config = results[0];
@@ -65,7 +64,6 @@ app.get('/chapter/:name', function(req, res) {
 
     res.render('chapter/index', config);
   });
-
 });
 
 app.listen('4444');
