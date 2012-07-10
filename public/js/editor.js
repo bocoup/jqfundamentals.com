@@ -6,7 +6,8 @@ window.CodeEditor = function(targetWindow, opts) {
   }
 
   var t = $(opts.target)[0];
-  var editor;
+  var editor = makeEditor(t, '');
+  setupButtons(editor);
 
   if (opts.file) {
     $.ajax({
@@ -14,16 +15,16 @@ window.CodeEditor = function(targetWindow, opts) {
       dataType : 'text',
       success : function(f) {
         opts.content = f;
-        editor = makeEditor(t, f);
-        setupButtons(editor);
+        editor.setValue(f);
       }
     });
   } else {
-    editor = makeEditor(t, opts.content || '');
-    setupButtons(editor);
+    editor.setValue(opts.content || '');
   }
 
   CodeMirror.keyMap['default']['Shift-Ctrl-;'] = executeShortcut;
+
+  return editor;
 
   function setupButtons(editor) {
     if (opts.noButtons) {
@@ -50,12 +51,16 @@ window.CodeEditor = function(targetWindow, opts) {
   }
 
   function executeShortcut(editor) {
-    console.log('executing shortcut', editor);
     executeAll(editor)();
   }
 
   function executeAll(editor) {
     return function() {
+      if (opts.onExecute) {
+        opts.onExecute.call(editor);
+        return;
+      }
+
       execute(editor.getValue());
     };
   }

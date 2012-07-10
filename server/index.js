@@ -47,9 +47,7 @@ app.get('/exercises/:name/:file', function(req, res) {
 
   if (/.html$/.test(file)) {
     fs.readFile(file, function(err, data) {
-      res.render('iframe', {
-        content : data
-      });
+      res.render('iframe', { content : data });
     });
   } else {
     fs.createReadStream(file).pipe(res);
@@ -62,7 +60,6 @@ app.get('/chapter/:name', function(req, res) {
   var chapterConfig = [ contentDir, chapterName, 'config.yaml' ].join('/');
 
   convertMarkdownToHtml(chapterMarkdown).then(function(results) {
-    console.log(results);
     var config = results[0];
     config.content = results[1];
 

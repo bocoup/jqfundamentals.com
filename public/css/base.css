@@ -15,7 +15,7 @@ body {
 
 .editor {
   border: 1px solid #eee;
-  margin: 10px 0 10px 0;
+  margin: 0 0 10px 0;
 }
 
 .CodeMirror pre {
@@ -35,8 +35,9 @@ body {
   cursor: pointer;
 }
 
-.editor .CodeMirror {
+.CodeMirror {
   font-family: Monaco, Menlo,"Andale Mono","lucida console","Courier New",monospace !important;
+  font-size: 90%;
 }
 
 .editor .CodeMirror-scroll {
