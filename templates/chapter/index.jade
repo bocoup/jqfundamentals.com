@@ -18,12 +18,12 @@ block fixed_header
 
 block body
   #main
-    if title
-      .page-header
-        h1= title
-
     .row
-      .span8
+      .span12
+        if title
+          .page-header
+            h1= title
+
         | !{content}
 
 block scripts

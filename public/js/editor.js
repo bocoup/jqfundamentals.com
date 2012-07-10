@@ -49,9 +49,7 @@ window.CodeEditor = function(targetWindow, opts) {
           'class' : 'icon-repeat',
           'title' : 'Reset to original'
         }).appendTo(buttonArea);
-        resetButton.click(function() {
-          editor.setValue(opts.content);
-        });
+        resetButton.click(reset(editor));
       },
 
       explore : function() {
@@ -73,6 +71,16 @@ window.CodeEditor = function(targetWindow, opts) {
 
   function executeShortcut(editor) {
     executeAll(editor)();
+  }
+
+  function reset(editor) {
+    if (!opts.onReset) {
+      console.warn('no onReset specified for', editor);
+      return $.noop;
+    }
+    return function() {
+      opts.onReset();
+    };
   }
 
   function explore(editor) {

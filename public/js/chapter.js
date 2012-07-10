@@ -3,6 +3,7 @@ $(function() {
   var mainEditor;
   var body = $('body');
   var editorBtn = $('#editor-btn');
+  var currentExercise;
 
   $('#main pre > code').each(createEditorForCodeBlock);
   showExercise(chapter, 'sandbox');
@@ -42,6 +43,8 @@ $(function() {
   }
 
   function showExercise(chapter, exercise) {
+    currentExercise = exercise;
+
     var editor = $('#editor').empty();
     var results = $('#results').empty();
     var target = $('<div>', {
@@ -61,7 +64,10 @@ $(function() {
       mainEditor = new CodeEditor(win, {
         target : target,
         file : '/exercises/' + chapter + '/' + exercise + '.js',
-        buttons : [ 'execute', 'reset' ]
+        buttons : [ 'execute', 'reset' ],
+        onReset : function() {
+          showExercise(chapter, currentExercise);
+        }
       });
     };
   }
