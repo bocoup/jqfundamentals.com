@@ -31,8 +31,8 @@ $(function() {
 
     var iframe = $('<iframe>', {
       src : '/exercises/' + chapter + '/' + exercise + '.html',
-      width : '400',
-      height: '400',
+      width : '250',
+      height: '250',
       frameBorder : '0'
     }).appendTo(results);
 
