@@ -1,5 +1,5 @@
 $(function() {
-  var chapter = $('#exercises').attr('data-chapter');
+  var chapter = 'events';
   var mainEditorn;
 
   $('#main pre > code').each(function() {

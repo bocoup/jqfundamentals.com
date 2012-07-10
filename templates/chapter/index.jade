@@ -5,11 +5,15 @@ block css
   link(rel="stylesheet", href="/public/vendor/CodeMirror-2.25/theme/ambiance.css")
 
 block body
-  #exercises.row(data-chapter="#{chapterId}")
+  .row
     .span8
       #editor
     .span4
       #results
+
+  if title
+    .page-header
+      h1= title
 
   .row
     .span8
