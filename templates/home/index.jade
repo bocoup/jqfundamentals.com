@@ -1,9 +1,17 @@
 extends ../layout
 
 block body
-  .span8 !{content}
-  .span4
-    ul.nav.nav-tabs.nav-stacked
-      for item in menu
-        li
-          a(href="/chapter/#{item}")= item
+  .hero-unit
+    h1= title
+    p !{blurb}
+  .row
+    .span4
+      ul.nav.nav-tabs.nav-stacked
+        for item in menu
+          li
+            a(href="#{item.path}")= item.name
+
+      include ../bocoup_ad
+
+    .span8
+      !{content}
