@@ -18,13 +18,18 @@ block fixed_header
 
 block body
   #main
-    .row
-      .span12
-        if title
-          .page-header
-            h1= title
+    if title
+      .page-header
+        h1= title
 
+    .row
+      .span8
         | !{content}
+      .span4
+        .well
+          p
+            img(src="/public/img/henrietta-and-jude-90.png")
+          p jQuery Fundamentals is made possible with the support of <a href="http://training.bocoup.com">Bocoup Training</a>.
 
 block scripts
   script(src="/public/vendor/CodeMirror-2.25/lib/codemirror.js")

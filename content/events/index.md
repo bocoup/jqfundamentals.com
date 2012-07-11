@@ -7,8 +7,8 @@ exercises:
 jQuery lets you listen for events that occur on an element. For example, this
 code would listen for a user to click on any `a` element in the page:
 
-    $("a").click(function(event) {
-      console.log("clicked", $(this).attr("href"));
+    $("li").click(function(event) {
+      console.log("clicked", $(this).text());
     });
 
 Once you've "bound" an event handler to an element, you can trigger that event
@@ -16,7 +16,7 @@ handler using jQuery as well. Importantly, this only triggers event handlers
 that were bound with JavaScript -- it doesn't trigger the default behavior of
 the event.
 
-    $("a").click();
+    $("li").click();
 
 Methods like `click()`, `blur()`, `change()`, and others are "shorthand"
 methods for event binding. Under the hood, they all make use of jQuery's `on()`
@@ -24,8 +24,8 @@ method. You can use the `on()` method in your own code; indeed, doing so gives
 you a lot more flexibility, as you'll see below. Here's what the `on()` method
 looks like.
 
-    $("a").on("click", function(event) {
-      console.log("clicked", $(this).attr("href"));
+    $("li").on("click", function(event) {
+      console.log("clicked", $(this).text());
     });
 
 ## Namespaced Events
@@ -34,25 +34,25 @@ One advantage that `on()` offers is the ability to use "namespaced" events.
 When would you want to use namespaces? Consider a situation where you want to
 *unbind* a click event handler. You could do it this way:
 
-    $("a").off("click");
+    $("li").off("click");
 
 However, this will unbind *all* click handlers on all `a` elements, which may
 have unintended consequences. If you originally bound your event handler using
 a namespaced event, you could target that event handler specifically:
 
-    $("a").on("click.mynamespace", function(event) {
-      console.log("clicked", $(this).attr("href"));
+    $("li").on("click.mynamespace", function(event) {
+      console.log("clicked", $(this).text());
     });
 
     // do some things
 
-    $("a").off("click.mynamespace");
+    $("li").off("click.mynamespace");
 
 This code leaves other click handlers for `a` elements untouched.
 
 Namespaces also work for triggering event handlers:
 
-    $("a").trigger("click.mynamespace");
+    $("li").trigger("click.mynamespace");
 
 ## Binding Multiple Events at Once
 
