@@ -11,9 +11,9 @@
   "dependencies" : {
     "connect" : "~2.3.6",
     "express" : "~2.5.11",
-    "github-flavored-markdown" : "1.0.1",
     "jade" : "~0.26.3",
     "js-yaml" : "~1.0.0",
-    "q" : "0.8.5"
+    "q" : "0.8.5",
+    "marked" : "0.2.5"
   }
 }
