@@ -2,7 +2,7 @@ var fs = require('fs');
 var Q = require('q');
 var yaml = require('js-yaml');
 var express = require('express');
-var md = require('github-flavored-markdown').parse;
+var md = require('marked');
 
 var app = express.createServer();
 var contentDir = __dirname + '/../content';
