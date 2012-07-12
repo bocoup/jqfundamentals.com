@@ -1,12 +1,11 @@
 $(function() {
-  var chapter = 'events';
   var mainEditor;
   var body = $('body');
   var editorBtn = $('#editor-btn');
   var currentExercise;
 
   $('#main pre > code').each(createEditorForCodeBlock);
-  showExercise(chapter, 'sandbox');
+  showExercise('sandbox', 'sandbox');
   editorBtn.on('click', function() {
     toggleEditor();
   });
