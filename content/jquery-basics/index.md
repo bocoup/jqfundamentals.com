@@ -7,13 +7,13 @@ next:
   path: /chapter/traversing-manipulating
 ---
 
-jQuery provides a way for you to manipulate a page of HTML after it's displayed
-by the browser. It also provides tools that help you listen for a user to
-interact with your page, tools that help you create animations in your page,
-and tools that let you communicate with a server without reloading the page.
-We'll get to those in a bit. First, let's look at some jQuery basics, and at
-how we can use jQuery to perform its core functionality: getting some elements
-and doing something with them.
+The jQuery library makes it easy to manipulate a page of HTML after it's
+displayed by the browser. It also provides tools that help you listen for a
+user to interact with your page, tools that help you create animations in your
+page, and tools that let you communicate with a server without reloading the
+page.  We'll get to those in a bit. First, let's look at some jQuery basics,
+and at how we can use jQuery to perform its core functionality: getting some
+elements and doing something with them.
 
 ## What&rsquo;s $, anyway?
 
@@ -287,3 +287,7 @@ the simple chain above is probably worth refactoring for readability.
 
     spans.attr( 'title', 'Hover over me' );
 
+## Conclusion
+
+We've gotten a great overview of how jQuery ticks; in the next section, we'll
+take a look at how to actually start accomplishing things with it!
