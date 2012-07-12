@@ -1,7 +1,10 @@
 title: jQuery Basics
+previous:
+  name: Home
+  path: /
 next:
-  name: Events & Event Delegation
-  path: /chapter/events
+  name: Traversing & Manipulating
+  path: /chapter/traversing-manipulating
 ---
 
 jQuery provides a way for you to manipulate a page of HTML after it's displayed
@@ -284,19 +287,3 @@ the simple chain above is probably worth refactoring for readability.
 
     spans.attr( 'title', 'Hover over me' );
 
-## Manipulating elements
-
-### Altering elements
-
-### Moving elements
-
-### Copying elements
-
-### Removing elements
-
-
-
-## Traversing the DOM
-
-
-## Chaining

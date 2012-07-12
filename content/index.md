@@ -5,6 +5,8 @@ menu:
     path: /chapter/javascript-basics
   - name: jQuery Basics
     path: /chapter/jquery-basics
+  - name: Traversing & Manipulating
+    path: /chapter/traversing-manipulating
   - name: Events & Event Delegation
     path: /chapter/events
   - name: Effects
