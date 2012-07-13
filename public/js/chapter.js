@@ -3,6 +3,7 @@ $(function() {
   var body = $('body');
   var editorBtn = $('#editor-btn');
   var currentExercise;
+  var hasLocalStorage = 'localStorage' in window;
 
   $('#main pre > code').each(createEditorForCodeBlock);
   showExercise('sandbox', 'sandbox');
@@ -25,6 +26,7 @@ $(function() {
         mainEditor.setValue(this.getValue());
         body.removeClass('sandbox-hidden');
         editorBtn.text('Hide Editor');
+        storeEditorState(true);
       },
       readOnly : true
     });
@@ -35,9 +37,17 @@ $(function() {
   function toggleEditor() {
     body.toggleClass('sandbox-hidden');
     if (body.hasClass('sandbox-hidden')) {
+      storeEditorState(false);
       editorBtn.text('Show Editor');
     } else {
+      storeEditorState(true);
       editorBtn.text('Hide Editor');
+    }
+  }
+
+  function storeEditorState(state) {
+    if (hasLocalStorage) {
+      window.localStorage.setItem('editorVisible', +state);
     }
   }
 
@@ -68,6 +78,13 @@ $(function() {
           showExercise(chapter, currentExercise);
         }
       });
+
+      if (!hasLocalStorage) { return; }
+
+      var editorVisible = +(window.localStorage.getItem('editorVisible'));
+      if (editorVisible !== null && !editorVisible) {
+        toggleEditor();
+      }
     };
   }
 
