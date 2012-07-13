@@ -16,10 +16,16 @@ window.CodeEditor = function(targetWindow, opts) {
       success : function(f) {
         opts.content = f;
         editor.setValue(f);
+        if (opts.onLoad) {
+          opts.onLoad.call(editor);
+        }
       }
     });
   } else {
     editor.setValue(opts.content || '');
+    if (opts.onLoad) {
+      opts.onLoad.call(editor);
+    }
   }
 
   CodeMirror.keyMap['default']['Shift-Ctrl-;'] = executeShortcut;

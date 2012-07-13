@@ -23,10 +23,14 @@ $(function() {
       target : example,
       buttons : [ 'explore' ],
       onExplore : function() {
-        mainEditor.setValue(this.getValue());
-        body.removeClass('sandbox-hidden');
-        editorBtn.text('Hide Editor');
-        storeEditorState(true);
+        var source = this.getValue();
+        showExercise('sandbox', 'sandbox').then(function(mainEditor) {
+          console.log('setting to', source);
+          mainEditor.setValue(source);
+          body.removeClass('sandbox-hidden');
+          editorBtn.text('Hide Editor');
+          storeEditorState(true);
+        });
       },
       readOnly : true
     });
@@ -54,6 +58,7 @@ $(function() {
   function showExercise(chapter, exercise) {
     currentExercise = exercise;
 
+    var dfd = $.Deferred();
     var editor = $('#editor').empty();
     var results = $('#results').empty();
     var target = $('<div>', {
@@ -74,10 +79,14 @@ $(function() {
         target : target,
         file : '/exercises/' + chapter + '/' + exercise + '.js',
         buttons : [ 'execute', 'reset' ],
+        onLoad : function() {
+          dfd.resolve(mainEditor);
+        },
         onReset : function() {
           showExercise(chapter, currentExercise);
         }
       });
+
 
       if (!hasLocalStorage) { return; }
 
@@ -86,6 +95,8 @@ $(function() {
         toggleEditor();
       }
     };
+
+    return dfd.promise();
   }
 
 });
