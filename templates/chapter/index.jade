@@ -31,6 +31,14 @@ block body
           li.next
             a(href="#{next.path}") Next:&nbsp;#{next.name}&nbsp;&rarr;
       .span4
+        if links
+          #links.well
+            ul.nav.nav-list
+              li.nav-header Additional Resources
+              for link in links
+                li
+                  a(href="#{link.path}")= link.name
+
         include ../bocoup_ad
 
 
