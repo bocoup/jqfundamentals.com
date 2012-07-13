@@ -8,6 +8,12 @@ next:
 links:
   - name: 'MDN: JavaScript'
     path: https://developer.mozilla.org/en/JavaScript
+  - name: 'Fixing these jQuery: A Guide to Debugging'
+    path: http://fixingthesejquery.com
+  - name: Chrome Developer Tools Cheat Sheet
+    path: https://github.com/borismus/DevTools-Lab/raw/master/cheatsheet/chromedev-cheatsheet.pdf
+  - name: 'Chrome Dev Tools: 12 Tricks to Develop Quicker (video)'
+    path: http://www.youtube.com/watch?v=nOEw9iiopwI
 ---
 
 jQuery is built on top of JavaScript, a rich and expressive language in its own
