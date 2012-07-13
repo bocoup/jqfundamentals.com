@@ -25,6 +25,10 @@ daunting. In either case, there is no grade; the goal is simply to get you
 comfortable working your way through problems you’ll commonly be called upon to
 solve using jQuery.
 
+We highly recommend using the [Chrome
+browser](https://www.google.com/intl/en/chrome/browser/) or another browser
+that supports modern JavaScript features and includes good developer tools.
+
 ## Using the built-in editor
 Most pages on this site include a built-in editor where you can try out code.
 This code will be run against the markup that's displayed in the box to the
