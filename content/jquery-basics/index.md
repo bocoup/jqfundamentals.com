@@ -1,7 +1,7 @@
 title: jQuery Basics
 previous:
-  name: Home
-  path: /
+  name: JavaScript Basics
+  path: /content/javascript-basics/
 next:
   name: Traversing & Manipulating
   path: /chapter/traversing-manipulating
