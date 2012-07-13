@@ -67,7 +67,8 @@ we can turn it into a jQuery object by passing it to the `$()` function: `$(this
 
 Note that if your selection doesn't contain any elements, then your callback
 will never run! If you need your callback to run regardless of whether there
-are elements in your selection, you can create a [named function expression](http://kangax.github.com/nfe/) and use it for both cases:
+are elements in your selection, you can create a [named function
+expression](http://kangax.github.com/nfe/) and use it for both cases:
 
     var thingToRemove = $('p.old');
     var thingToAnimate = $('#nonexistent');
@@ -95,4 +96,34 @@ The `.animate()` method takes up to three arguments:
 
 The `.animate()` method can animate to a specified final value, or it can
 increment an existing value.
+
+    $('.funtimes').animate(
+      {
+        left : '+=50', // increase by 50
+        opacity : 0.25,
+        fontSize : '12px'
+      },
+      300,
+      function() {
+        // callback to execute when the animation is done
+      }
+    );
+
+Note that if you want to animate a CSS property whose name includes a hyphen,
+you will need to use a "[camel cased](http://en.wikipedia.org/wiki/CamelCase)"
+version of the property name. For example, the `font-size` property must be
+referred to as `fontSize`.
+
+## Managing animations
+
+jQuery provides two important methods for managing animations.
+
+- `.stop()` will stop currently running animations on the selected elements.
+- `.delay()` will pause before the execution of the next animation method. Pass
+  it the number of milliseconds you want to wait.
+
+jQuery also provides methods for managing the effects queue, creating custom
+queues, and adding custom functions to these queues. These methods are beyond
+the scope of this guide, but [you can read about them
+here](http://api.jquery.com/category/effects/).
 
