@@ -5,6 +5,9 @@ previous:
 next:
   name: Effects
   path: /chapter/effects
+links: 
+  - name: jQuery Events Documentation
+    path: http://api.jquery.com/category/events/
 ---
 
 jQuery lets you listen for events that occur on an element. For example, this
