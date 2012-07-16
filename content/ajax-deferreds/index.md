@@ -5,6 +5,13 @@ previous:
 next:
   name: Best Practices
   path: /chatper/best-practices
+links:
+  - name: Ajax Documentation
+    path: http://api.jquery.com/category/ajax/
+  - name: The jqXHR Object
+    path: http://api.jquery.com/jQuery.ajax/#jqXHR
+  - name: Deferreds in jQuery
+    path: http://api.jquery.com/category/deferred-object/
 ---
 
 ## AJAX

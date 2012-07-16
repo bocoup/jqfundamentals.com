@@ -5,6 +5,11 @@ previous:
 next:
   name: Events & Event Delegation
   path: /chapter/events
+links:
+  - name: Traversal Documentation
+    path: http://api.jquery.com/category/traversing/
+  - name: Manipulation Documentation
+    path: http://api.jquery.com/category/manipulation/
 ---
 ## Altering elements
 

@@ -5,6 +5,11 @@ previous:
 next:
   name: Traversing & Manipulating
   path: /chapter/traversing-manipulating
+links:
+  - name: jQuery API Documentation
+    path: http://api.jquery.com/
+  - name: Selector Documentation
+    path: http://api.jquery.com/category/selectors/
 ---
 
 The jQuery library makes it easy to manipulate a page of HTML after it's

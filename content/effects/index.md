@@ -5,6 +5,9 @@ previous:
 next:
   name: AJAX & Deferreds
   path: /chapter/ajax-deferreds
+links:
+  - name: Effects Documentation
+    path: http://api.jquery.com/category/effects/
 ---
 
 jQuery makes it trivial to add simple effects to your page. Effects can use the built-in settings, or provide a customized duration. You can also create custom animations of arbitrary CSS properties.
