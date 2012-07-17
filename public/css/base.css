@@ -59,10 +59,6 @@ body {
   margin: 0 10px;
 }
 
-.CodeMirror .cm-s-default span.cm-comment {
-  color: #aaa;
-}
-
 #results {
   padding: 10px;
   border: 1px solid #eee;
