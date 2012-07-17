@@ -17,12 +17,17 @@ $(function() {
     var example = $('<div>', {
       'class' : 'example'
     }).insertBefore(pre)[0];
+    var content = $.trim(code.text());
+    var mode = /^</.test(content) ?
+      { name : 'xml', htmlMode : true } :
+      'javascript';
 
     new CodeEditor(window, {
-      content : $.trim(code.text()),
+      content : content,
+      mode : mode,
       target : example,
-      buttons : [ 'explore' ],
-      onExplore : function() {
+      buttons : mode === 'javascript' ? [ 'explore' ] : [],
+      onExplore : mode === 'javascript' ? function() {
         var source = this.getValue();
         showExercise('sandbox', 'sandbox').then(function(mainEditor) {
           console.log('setting to', source);
@@ -31,7 +36,7 @@ $(function() {
           editorBtn.text('Hide Editor');
           storeEditorState(true);
         });
-      },
+      } : $.noop,
       readOnly : true
     });
 

@@ -33,7 +33,7 @@ window.CodeEditor = function(targetWindow, opts) {
   return editor;
 
   function setupButtons(editor) {
-    if (opts.buttons === false) {
+    if (opts.buttons === false || !opts.buttons.length) {
       return;
     }
 
