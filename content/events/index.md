@@ -5,13 +5,13 @@ previous:
 next:
   name: Effects
   path: /chapter/effects
-links: 
+links:
   - name: jQuery Events Documentation
     path: http://api.jquery.com/category/events/
 ---
 
 jQuery lets you listen for events that occur on an element. For example, this
-code would listen for a user to click on any `a` element in the page:
+code would listen for a user to click on any `li` element in the page:
 
     $("li").click(function(event) {
       console.log("clicked", $(this).text());
@@ -20,15 +20,17 @@ code would listen for a user to click on any `a` element in the page:
 Once you've "bound" an event handler to an element, you can trigger that event
 handler using jQuery as well. Importantly, this only triggers event handlers
 that were bound with JavaScript -- it doesn't trigger the default behavior of
-the event.
+the event. For example, if you trigger the click event of an `a` element, it
+will not automatically navigate to the `href` of that element (though you could
+write code that would make it do so).
 
     $("li").click();
 
-Methods like `click()`, `blur()`, `change()`, and others are "shorthand"
+Methods like `.click()`, `.blur()`, `.change()`, and others are "shorthand"
 methods for event binding. Under the hood, they all make use of jQuery's `on()`
-method. You can use the `on()` method in your own code; indeed, doing so gives
-you a lot more flexibility, as you'll see below. Here's what the `on()` method
-looks like.
+method (or the `.bind()` method prior to version 1.7). You can use the `.on()`
+method in your own code; indeed, doing so gives you a lot more flexibility, as
+you'll see below. Here's what the `.on()` method looks like.
 
     $("li").on("click", function(event) {
       console.log("clicked", $(this).text());
@@ -36,13 +38,13 @@ looks like.
 
 ## Namespaced Events
 
-One advantage that `on()` offers is the ability to use "namespaced" events.
+One advantage that `.on()` offers is the ability to use "namespaced" events.
 When would you want to use namespaces? Consider a situation where you want to
 *unbind* a click event handler. You could do it this way:
 
     $("li").off("click");
 
-However, this will unbind *all* click handlers on all `a` elements, which may
+However, this will unbind *all* click handlers on all `li` elements, which may
 have unintended consequences. If you originally bound your event handler using
 a namespaced event, you could target that event handler specifically:
 
@@ -54,7 +56,7 @@ a namespaced event, you could target that event handler specifically:
 
     $("li").off("click.mynamespace");
 
-This code leaves other click handlers for `a` elements untouched.
+This code leaves other click handlers for `li` elements untouched.
 
 Namespaces also work for triggering event handlers:
 
@@ -62,9 +64,9 @@ Namespaces also work for triggering event handlers:
 
 ## Binding Multiple Events at Once
 
-Another benefit of using `on()` is the ability to bind to multiple events at
+Another benefit of using `.on()` is the ability to bind to multiple events at
 once. For example, you might want to run the same code when a user scrolls the
-window or when a user resizes the window. The `on()` method lets you pass both
+window or when a user resizes the window. The `.on()` method lets you pass both
 events -- in a space-separated string -- followed by the function that you want
 to handle both events:
 
@@ -72,26 +74,12 @@ to handle both events:
       console.log("The window has been resized or scrolled!");
     });
 
-
-
-///////////////////
-// The event object
-///////////////////
-
-// Whenever an event is triggered, the event handler function receives
-// one argument, an event object. It has many properties.
-$(document).on("click", function(event) {
-  console.log(event.type);    // The event type, eg. "click"
-  console.log(event.which);   // The button or kep that was pressed.
-  console.log(event.target);  // The originating element.
-  console.log(event.pageX);   // The document mouse X coordinate.
-  console.log(event.pageY);   // The document mouse Y coordinate.
-});
-
 ## The event object
 
-Whenever an event is triggered, the event handler function receives
-one argument, an event object. It has many properties.
+Whenever an event is triggered, the event handler function receives one
+argument, an event object that is normalized across browsers. This object has
+many [useful properties](http://api.jquery.com/category/events/event-object/),
+including the following:
 
     $(document).on("click", function(event) {
       console.log(event.type);    // The event type, eg. "click"
@@ -102,6 +90,10 @@ one argument, an event object. It has many properties.
     });
 
 ## Inside the event handler
+
+When you specify a function to be used as an event handler, that function gets
+access to the *raw DOM element* that initiated the event as `this`. If you want
+to use jQuery to mainpulate the element, you will need to pass it to `$()`:
 
     $("input").on("keydown", function(event) {
       // this: The element on which the event handler was bound.
@@ -114,18 +106,13 @@ one argument, an event object. It has many properties.
 
 ## Preventing the default action
 
-You've seen this before, right? Well, don't return false in your
-event handlers! This can introduce problems with event delegation.
-
-    $("a").on("click", function() {
-      // Log stuff.
-      console.log("I was just clicked!");
-      // Prevent the default action AND stop event propagation.
-      return false;
-    });
-
-By calling event.preventDefault() explicitly, only the default
-action is prevented; propagation isn't stopped.
+Often, you'll want to prevent the default action of an event; for example, you
+may want to handle a click on an `a` element using AJAX, rather than triggering
+a full page reload. Many developers achieve this by having the event handler
+return `false`, but this actually has another side effect: it stops the
+*propagation* of the event as well, which can have unintended consequences.
+The right way to prevent the default behavior of an event is to call the
+`.preventDefault()` method of the event object.
 
     $("a").on("click", function(event) {
       // Prevent the default action.
@@ -134,152 +121,68 @@ action is prevented; propagation isn't stopped.
       console.log("I was just clicked!");
     });
 
+This will allow the event to "bubble," which we'll explore below.
+
 ## Event bubbling
 
-    // <html>
-    //   <body>
-    //     <div>
-    //       <p><a href="#foo">I am a Link!</a></p>
-    //     </div>
-    //     <div>
-    //       <p><a href="#bar">I am another Link!</a></p>
-    //     </div>
-    //   </body>
-    // </html>
+Consider the following code:
 
-    // This is just for illustrative purposes!
     $("*").add([document, window]).on("click", function() {
       console.log(this);
     });
 
-## Event delegation
+It binds a click handler to all elements in a document (something you should
+*never* do in real code), as well as to the `document` and `window`. What
+happens when you click on an `a` element that's nested inside other elements?
+In fact, the click event will be triggered for the `a` element as well as for
+all of the elements that contain the `a` -- all the way up to the `document`
+and the `window`. (You can click on the <i class="icon-eye-open"></i> icon to
+try it in the sandbox yourself.)
 
-With this markup:
+This behavior is called event bubbling -- the event is triggered on the element
+on which the user clicked, and -- unless you call `.stopPropagation()` on the
+event object -- the event is then triggered all the way up the DOM.
 
-    // <a href="#foo">I am a Link!</a>
-    // <a href="#bar">I am another Link!</a>
+You can see this more clearly when you consider the following markup:
 
-    // This works like you'd expect, right?
+    <a href="#foo"><span>I am a Link!</span></a>
+    <a href="#bar"><b><i>I am another Link!</i></b></a>
+
+And the following code:
+
     $("a").on("click", function(event) {
       event.preventDefault();
       console.log( $(this).attr("href") );
     });
 
-How about with this markup?
+When you click on "I am a Link!", you are not actually clicking on an `a`, but
+rather on a `span` inside of an `a`. Nevertheless, the click event bubbles up
+to the `a`, and the bound click handler fires.
 
-    // <a href="#foo"><span>I am a Link!</span></a>
-    // <a href="#bar"><b><i>I am another Link!</i></b></a>
+## Event delegation
 
-It still works, even though you're not actually clicking the anchors.
-You're really clicking the "span" or "i" descendant elements of the
-anchors, but since they're inside the anchors, you're effectively
-clicking the anchors. This behavior we take for granted is called
-"event delegation."
+The bubbling behavior of events allows us to do "event delegation" -- binding
+handlers to high-level elements, and then detecting which low-level element
+initiated the event. For example, we could bind an event to an unordered list,
+and then determine which element initiated the event:
 
-We can bind event handlers on any parent element. But because `this`
-is the element to which the event handler was bound, this example
-isn't particularly interesting.
-
-    $(document).on("click", function(event) {
-      event.preventDefault();
-      console.log(this);
+    $('#myUnorderedList').on('click', function(event) {
+      console.log( event.target ); // logs the element that initiated the event
     });
 
-What if, instead of logging `this`, we logged event.target?
+Of course, if our unordered list contains list items that contain other markup,
+but we really only care about which list item was clicked, then this can get
+messy in a hurry. Thankfully, jQuery provides a helper that lets us specify
+which elements we care about, while still only binding to the high-level
+element.
 
-    $(document).on("click", function(event) {
-      event.preventDefault();
-      console.log(event.target);
+    $('#myUnorderedList').on('click', 'li', function(event) {
+      console.log( this ); // logs the list item that was clicked
     });
 
-Instead of logging to the console, let's see it in the page.
-
-    $(document).on("mouseover mouseout", function(event) {
-      $(event.target).toggleClass("highlight");
-    });
-
-Knowing this, how might you utilize event delegation in your code?
-
-    $(document).on("mouseover mouseout", function(event) {
-      var elem = $(event.target);
-      if ( elem.is("li") ) {
-        elem.toggleClass("highlight");
-      }
-    });
-
-Utilizing implicit iteration, the previous example could be written
-more like this:
-
-    $(document).on("mouseover mouseout", function(event) {
-      $(event.target).filter("li").toggleClass("highlight");
-    });
-
-So, that works great when li elements are interacted with directly,
-but it doesn't work well for descendant elements. How can we handle
-both?
-
-    $(document).on("mouseover mouseout", function(event) {
-      $(event.target).closest("li").toggleClass("highlight");
-    });
-
-Internally, this is exactly what jQuery event delegation does. Except
-the selector is specified between the event types and the handler,
-`this` is the element that matched that selector, and it's MUCH more
-efficient than if it was done manually with .closest().
-
-    $(document).on("mouseover mouseout", "li", function(event) {
-      $(this).toggleClass("highlight");
-    });
-
-And of course, because you're binding the event handler to a parent
-element, you don't need to re-bind event handlers every time you add
-new descendant elements matching that selector.
-
-    $("li").clone().insertAfter("#content li");
-
-## Stopping event propagation
-
-    // <html>
-    //   <body>
-    //     <div>
-    //       <p><a href="#foo">I am a Link!</a></p>
-    //     </div>
-    //     <div>
-    //       <p><a href="#bar">I am another Link!</a></p>
-    //     </div>
-    //   </body>
-    // </html>
-
-    // This is just for illustrative purposes!
-    $("*").add([document, window]).on("click", function() {
-      console.log(this);
-    });
-
-So, what if you used `return false` to prevent the default action?
-You'd also be stopping propagation, in a way that's not very easy
-to troubleshoot. Don't return false in your event handlers!
-
-    $("a").on("click", function() {
-      // Log stuff.
-      console.log("I was just clicked!");
-      // Prevent the default action AND stop event propagation. Oops?
-      return false;
-    });
-
-This prevents default, but doesn't stop propagation.
-
-    $("a").on("click", function(event) {
-      // Prevent the default action.
-      event.preventDefault();
-      // Log stuff.
-      console.log("I was just clicked!");
-    });
-
-This stops event propagation, but doesn't prevent default.
-
-    $("a").on("click", function(event) {
-      // Stop event propagation.
-      event.stopPropagation();
-      // Log stuff.
-      console.log("I was just clicked!");
-    });
+Event delegation has two main benefits. First, it allows us to bind fewer event
+handlers than we'd have to bind if we were listening to clicks on individual
+elements, which can be a big performance gain. Second, it allows us to bind to
+parent elements -- such as an unordered list -- and know that our event
+handlers will fire as expected *even if the contents of that parent element
+change*.
