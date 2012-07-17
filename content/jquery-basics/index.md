@@ -159,10 +159,6 @@ the element you're after.
     var secondListItem = listItems.eq(1);
     secondListItem.remove();
 
-### Refining and filtering selections
-
-TODO
-
 ## Creating new elements
 
 The `$` function has one last role: creating new elements. If you pass an HTML
@@ -192,6 +188,20 @@ on the various properties you can include in the object.
 Once you've created a jQuery object that contains your selection, you probably
 want to do something with your selection. Before we do that, though, there are
 a few concepts that are key to understanding the jQuery way of doing things.
+
+### Testing a selection
+
+We can determine whether a selection meets certain criteria using the `.is()`
+method. The most common way to use this method is to provide a selector as its
+sole argument. It returns `true` or `false` depending on whether the selection
+matches the selector:
+
+    $('li').eq(0).is('.special'); // false
+    $('li').eq(1).is('.special'); // true
+
+You can also pass the `.is()` method a jQuery object, a raw DOM element, or
+even a function if you need to do a more complex test. See [the
+documentation](http://api.jquery.com/is/) for more details.
 
 ### Getters, setters, and implicit iteration
 
