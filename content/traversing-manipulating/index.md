@@ -76,6 +76,9 @@ existing selection easily:
     // get the siblings of the list item
     var siblings = listItem.siblings();
 
+    // get the next sibling of the list item
+    var nextSibling = listItem.next(); // also: .prev()
+
     // get the list item's parent
     var list = listItem.parent();
 
@@ -91,7 +94,46 @@ existing selection easily:
     // find the closest ancestor of the list item that has a class of "module"
     var module = listItem.closest('.module');
 
+You can also add to an existing selection by using the `.add()` method.
+You can pass it a selector, an array of elements, a string of HTML, or a jQuery
+object.
+
+    var list = $('#my-unordered-list');
+
+    // do some stuff with the list, and then ...
+
+    var listAndListItems = list.add('#my-unordered-list li');
+
+If you change a selection by using one of the traversal methods, you can
+restore your original selection using `.end()`, or add your original selection
+to the new selection using `.andSelf()`.
+
+    var list = $('#my-unordered-list');
+
+    var listAndListItems = list.find('li').andSelf();
+
+    var justTheList = $('#my-unordered-list')
+      .find('li').addClass('awesome').end();
+
+<div class="alert alert-info"> **Note:** The `.end()` method makes it easy to
+write long chains without ever stopping to take a breath, and because of this,
+it should be used sparingly. It is often better to store multiple selections in
+variables, rather than to try to write a long chain that makes use of `.end()`
+to get back to some original selection.  While `.end()` can be useful, if you
+find yourself using it often, it's likely you should reconsider your approach.
+</div>
+
+There are several traversal methods we haven't covered here; you can read about
+all of the traversal methods in the [traversing
+documentation](http://api.jquery.com/category/traversing/).
+
 ## Manipulation
+
+jQuery's manipulation methods allow you to alter the DOM of your page using a
+syntax that's much friendlier than the one provided by native DOM manipulation
+methods. Manipulation methods return the jQuery object on which they were called,
+which means you can chain them or combine them with other jQuery methods such
+as the ones discussed above.
 
 ### Altering elements
 
