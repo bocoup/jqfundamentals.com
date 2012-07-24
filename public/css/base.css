@@ -93,3 +93,7 @@ footer {
 #links {
   padding: 8px 0;
 }
+
+.centered {
+  text-align: center;
+}
