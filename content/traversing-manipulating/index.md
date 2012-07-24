@@ -142,10 +142,57 @@ to achieve some of the most common tasks.
 
 #### Adding and removing classes
 
+The class attribute on an element can be used to target CSS rules, and can also
+be a useful way to target jQuery selections. For example, an element may have a
+class of `hidden`, with a corresponding CSS rule that causes elements with that
+class to have their `display` set to `none`. Using jQuery, we can add and
+remove classes to affect the display of elements.
+
+    $('li').addClass('hidden');
+    $('li').eq(1).removeClass('hidden');
+
 #### Changing style
 
-#### Changing other attributes
+<div class="alert alert-info">Whenever possible, you should use classes
+combined with CSS rules to affect the *presentation* of elements, and use
+jQuery only to add and remove those classes as shown above. In this section,
+we'll see how to alter the style of an element directly, but CSS rules combined
+with classes are always preferable if they can achieve the desired
+effect.</div>
 
+When you can't achieve your goal via adding and removing classes, jQuery
+provides the `.css()` method to allow you to set the style of elements
+directly. This is usually required when you want to set numeric values that can
+only be calculated at runtime -- for example, positioning information. The
+`.css()` method should *not* be used to set simple styles, such as `display:
+none` -- in almost all cases, it is preferable to achieve these changes via
+classes and CSS.
+
+For example, consider the case where you want to style an element based on the
+width of its parent element; it might be difficult or impossible to know the
+width of the parent element ahead of time in a flexible layout. In this case,
+we might resort to the `.css()` method for styling.
+
+    var list = $('#my-unordered-list');
+    var width = Math.floor(list.width() * 0.1);
+
+    list.find('li').each(function(index, element) {
+      var padding = width * index;
+      $(this).css('padding-left', padding + 'px');
+    });
+
+If you need to set multiple properties at once, you can pass an object to the
+`.css()` method rather than a property name and a value. Note that you will
+need to quote any property names that include a hyphen.
+
+    $('li').eq(1).css({
+      'font-size' : '20px',
+      'padding-left' : '20px'
+    });
+
+#### Changing the value of form elements
+
+#### Changing other attributes
 
 ### Placing elements in the document
 

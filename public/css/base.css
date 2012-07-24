@@ -97,3 +97,7 @@ footer {
 .centered {
   text-align: center;
 }
+
+h4 + .alert {
+  margin-top: 20px;
+}
