@@ -72,7 +72,7 @@ $(function() {
 
     var iframe = $('<iframe>', {
       src : '/exercises/' + chapter + '/' + exercise + '.html',
-      width : '250',
+      width : '275',
       height: '250',
       frameBorder : '0'
     }).appendTo(results);
