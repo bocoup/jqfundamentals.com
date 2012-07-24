@@ -147,9 +147,56 @@ to achieve some of the most common tasks.
 #### Changing other attributes
 
 
-### Placing and moving elements
+### Placing elements in the document
 
+Whether you've selected an element or created a new element, you can take your
+selection and place it in your document. There are generally two ways to do
+this: by calling a method on the element(s) you want to place, or by calling a
+method on the element relative to which you want to place it.
 
+For example, consider the case where you want to move the first list item in a
+list to the end of the list. There are several ways to achieve this.
+
+You could append the item to the list by calling `.appendTo()` on the list
+item:
+
+    var listItem = $('#my-unordered-list li').first();
+    listItem.appendTo('#my-unordered-list');
+
+You could append the item to the list by calling `.append()` on the list:
+
+    var listItem = $('#my-unordered-list li').first();
+    $('#my-unordered-list').append(listItem);
+
+You could insert the list item after the last list item by calling
+`.insertAfter()` on the list item that you want to move:
+
+    var listItems = $('#my-unorderd-list li');
+    listItems.first().insertAfter(listItems.last());
+
+You could also insert the list item after the last list item by calling
+`.after()` on the last list item:
+
+    var listItems = $('#my-unordered-list li');
+    listItems.last().after(listItems.first());
+
+There are many other methods for placing elements -- you can place them
+[around](http://api.jquery.com/category/manipulation/dom-insertion-around/),
+[inside](http://api.jquery.com/category/manipulation/dom-insertion-inside/),
+and
+[outside](http://api.jquery.com/category/manipulation/dom-insertion-outside/)
+of other elements, depending on your specific needs.
+
+The most effective way to place an element depends on the elements to which you
+already have access. In the example above, you might choose to append the list
+item to the unordered list if you have already selected the unordered list for
+some other purpose; or, if you already had a selection containing all of the
+list items, then placing the first list item relative to the last list item
+might be the easiest path.
+
+When choosing how to place an element, you should consider not only the easiest
+way to place it, but also the most maintainable way. Beware of placements that
+make assumptions about the exact structure of your page's HTML.
 
 ### Copying elements
 
