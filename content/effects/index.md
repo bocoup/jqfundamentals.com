@@ -10,19 +10,21 @@ links:
     path: http://api.jquery.com/category/effects/
 ---
 
-jQuery makes it trivial to add simple effects to your page. Effects can use the built-in settings, or provide a customized duration. You can also create custom animations of arbitrary CSS properties.
+jQuery makes it trivial to add simple effects to your page. Effects can use the
+built-in settings, or provide a customized duration. You can also create custom
+animations of arbitrary CSS properties.
 
 See the [effects documentation](http://api.jquery.com/category/effects/) for
 complete details on jQuery effects.
 
-**An important note about animations:** In modern browsers, and especially on
-mobile devices, it is often much more efficient to achieve animations using
-CSS, rather than JavaScript. The details of doing this are beyond the scope of
-this guide, but if you are only targeting mobile, or browsers that support CSS
-animations, then you should not use jQuery for animations. You may also want to
-consider setting `jQuery.fx.off` to true on low-resource devices; doing so will
-cause animation methods to immediately set elements to the desired state,
-rather than animating to that state.
+<div class="alert alert-info">**An important note about animations:** In modern
+browsers, and especially on mobile devices, it is often much more efficient to
+achieve animations using CSS, rather than JavaScript. The details of doing this
+are beyond the scope of this guide, but if you are only targeting mobile, or
+browsers that support CSS animations, then you should not use jQuery for
+animations. You may also want to consider setting `jQuery.fx.off` to true on
+low-resource devices; doing so will cause animation methods to immediately set
+elements to the desired state, rather than animating to that state.</div>
 
 ## Built-in Effects
 
@@ -33,9 +35,11 @@ any jQuery object:
 - **`.hide()`** Hide the selected elements.
 - **`.fadeIn()`** Animate the opacity of the selected elements to 100%.
 - **`.fadeOut()`** Animate the opacity of the selected elements to 0%.
-- **`.slideDown()`** Display the selected elements with a vertical sliding motion.
+- **`.slideDown()`** Display the selected elements with a vertical sliding
+  motion.
 - **`.slideUp()`** Hide the selected elements with a vertical sliding motion.
-- **`.slideToggle()`** Show or hide the selected elements with a vertical sliding motion, depending on whether the elements are currently visible.
+- **`.slideToggle()`** Show or hide the selected elements with a vertical
+  sliding motion, depending on whether the elements are currently visible.
 
 Once you've made a selection, it's simple to apply an effect to that selection.
 
@@ -62,7 +66,8 @@ or it may remove elments that are part of the animation. You can provide a
 callback function to the animation methods if you want to specify what should
 happen when the effect is complete. Inside the callback, `this` refers to the
 raw DOM element that the effect was applied to. Just like with event callbacks,
-we can turn it into a jQuery object by passing it to the `$()` function: `$(this)`.
+we can turn it into a jQuery object by passing it to the `$()` function:
+`$(this)`.
 
     $('p.old').fadeOut(300, function() {
       $(this).remove();
@@ -89,7 +94,8 @@ expression](http://kangax.github.com/nfe/) and use it for both cases:
 
 If the built-in animations don't suit your needs, you can use `.animate()` to
 create custom animations of any CSS property (with the notable exception of
-animating color, for which there is a [plugin](https://github.com/jquery/jquery-color/)).
+animating color, for which there is a
+[plugin](https://github.com/jquery/jquery-color/)).
 
 The `.animate()` method takes up to three arguments:
 
