@@ -137,9 +137,85 @@ as the ones discussed above.
 
 ### Altering elements
 
-### Moving elements
+There are myriad ways to alter elements using jQuery. Here, we'll look at how
+to achieve some of the most common tasks.
+
+#### Adding and removing classes
+
+#### Changing style
+
+#### Changing other attributes
+
+
+### Placing and moving elements
+
+
 
 ### Copying elements
 
+You can make a copy of an element or a set of elements using jQuery's
+`.clone()` method. This will make a copy of the elements, but note that the
+copy is only in memory -- you will need to place it in the document yourself.
+You can manipulate the cloned element or elements before placing them into the
+document.
+
+    var clones = $('li').clone();
+    clones.html( function( index, oldHtml ) { return oldHtml + '!!!'; } );
+    $('#my-unordered-list').append(clones);
+
+<div class="alert alert-info">**Note:** jQuery will not prevent you from
+cloning an element with an ID, but you should ensure that you change or remove
+the cloned element's `id` attribute before inserting it into the document, as a
+document should never have more than one element with a particular ID.</div>
+
 ### Removing elements
 
+There are three ways to remove elements from the document: `.remove()`,
+`.detach()`, and `.replaceWith()`. Each method serves a particular purpose.
+
+The `.remove()` method should be used to remove elements permanently, as it
+will also unbind any event handlers attached to the elements being removed. The
+`.remove()` method returns a reference to the removed elements, but if you
+re-add the removed elements, the removed elements will no longer have events
+bound to them.
+
+    $('#my-unordered-list li').click(function() {
+      alert $(this).text();
+    });
+
+    var removedListItem = $('#my-unordered-list li').first().remove();
+
+    removedListItem.appendTo('#my-unordered-list');
+    removedListItem.trigger('click'); // no alert!
+
+The `.detach()` method is useful for temporarily removing elements from the
+document; for example, if you need to do complex manipulations that would cause
+frequent reflows or repaints, you could use `.detach()` to temporarily remove
+the affected elements from the document before you do the complex
+manipulations. Elements removed with `.detach()` will retain their event
+handlers; you can re-add them to the document with
+
+    $('#my-unordered-list li').click(function() {
+      alert $(this).text();
+    });
+
+    var detachedListItem = $('#my-unordered-list li').first().detach();
+
+    detachedListItem.appendTo('#my-unordered-list');
+    detachedListItem.trigger('click'); // alert!
+
+Finally, the `.replaceWith()` method replaces an element or elements with the
+element or HTML passed as an argument to `.replaceWith()`. The replaced
+elements are returned, but just like with `.remove()`, all event handlers are
+unbound from the replaced elements.
+
+    $('#my-unordered-list li').click(function() {
+      alert $(this).text();
+    });
+
+    var replacedListItem = $('#my-unordered-list li').first()
+      .replaceWith('<li>new!</li>');
+
+    replacedListItem.appendTo('#my-unordered-list');
+
+    replacedListItem.trigger('click'); // no alert!
