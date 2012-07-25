@@ -43,16 +43,16 @@ any jQuery object:
 
 Once you've made a selection, it's simple to apply an effect to that selection.
 
-    $('.hidden').show();
+    $( '.hidden' ).show();
 
 You can also specify the duration of built-in effects. There are two ways to do
 this: you can specify a time in milliseconds ...
 
-    $('.hidden').show(300);
+    $( '.hidden' ).show( 300 );
 
 ... or use one of the pre-defined speeds:
 
-    $('.hidden').show('slow');
+    $( '.hidden' ).show( 'slow' );
 
 The predefined speeds are specified in the `jQuery.fx.speeds` object; you can
 modify this object to override the defaults, or extend it with new names:
@@ -67,10 +67,10 @@ callback function to the animation methods if you want to specify what should
 happen when the effect is complete. Inside the callback, `this` refers to the
 raw DOM element that the effect was applied to. Just like with event callbacks,
 we can turn it into a jQuery object by passing it to the `$()` function:
-`$(this)`.
+`$( this )`.
 
-    $('p.old').fadeOut(300, function() {
-      $(this).remove();
+    $( 'p.old' ).fadeOut( 300, function() {
+      $( this ).remove();
     });
 
 Note that if your selection doesn't contain any elements, then your callback
@@ -78,14 +78,14 @@ will never run! If you need your callback to run regardless of whether there
 are elements in your selection, you can create a [named function
 expression](http://kangax.github.com/nfe/) and use it for both cases:
 
-    var thingToRemove = $('p.old');
-    var thingToAnimate = $('#nonexistent');
+    var thingToRemove = $( 'p.old' );
+    var thingToAnimate = $( '#nonexistent' );
     var cb = function() {
       thingToRemove.remove();
     };
 
-    if (thingToAnimate.length) {
-      thingToAnimate.show('slow', cb);
+    if ( thingToAnimate.length ) {
+      thingToAnimate.show( 'slow', cb );
     } else {
       cb();
     }
@@ -106,11 +106,10 @@ The `.animate()` method takes up to three arguments:
 The `.animate()` method can animate to a specified final value, or it can
 increment an existing value.
 
-    $('.funtimes').animate(
-      {
-        left : '+=50', // increase by 50
-        opacity : 0.25,
-        fontSize : '12px'
+    $( '.funtimes' ).animate({
+        left: '+=50', // increase by 50
+        opacity: 0.25,
+        fontSize: '12px'
       },
       300,
       function() {
@@ -135,4 +134,3 @@ jQuery also provides methods for managing the effects queue, creating custom
 queues, and adding custom functions to these queues. These methods are beyond
 the scope of this guide, but [you can read about them
 here](http://api.jquery.com/category/effects/).
-
