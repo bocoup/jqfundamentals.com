@@ -13,8 +13,6 @@ menu:
     path: /chapter/effects
   - name: AJAX & Deferreds
     path: /chapter/ajax-deferreds
-  - name: Best Practices
-    path: /chatper/best-practices
 ---
 
 To get the most out of this site, you'll want to read the content *and* try the

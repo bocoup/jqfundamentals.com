@@ -2,9 +2,7 @@ title: AJAX & Deferreds
 previous:
   name: Effects
   path: /chapter/effects
-next:
-  name: Best Practices
-  path: /chatper/best-practices
+next: false
 links:
   - name: Ajax Documentation
     path: http://api.jquery.com/category/ajax/
