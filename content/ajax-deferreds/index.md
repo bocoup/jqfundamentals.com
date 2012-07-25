@@ -33,9 +33,9 @@ the request is complete, causing the function to return `undefined`.
       var data;
 
       $.ajax({
-        url : '/data/people.json',
-        dataType : 'json',
-        success : function(resp) {
+        url: '/data/people.json',
+        dataType: 'json',
+        success: function(resp) {
           data = resp.people;
         }
       });
@@ -43,34 +43,34 @@ the request is complete, causing the function to return `undefined`.
       return data;
     }
 
-    $('#target').html(getSomeData().people[0].name);
+    $( '#target' ).html( getSomeData().people[0].name );
 
 ### $.ajax
 
-jQuery's `$.ajax` method has a couple of different signatures. We can provide a
+jQuery's `$.ajax()` method has a couple of different signatures. We can provide a
 configuration object ...
 
     $.ajax({
-      url : '/data/people.json',
-      dataType : 'json',
-      success : function(resp) {
-        $('#target').html(resp.people[0].name);
+      url: '/data/people.json',
+      dataType: 'json',
+      success: function( resp ) {
+        $( '#target').html( resp.people[0].name );
       },
-      error : function(req, status, err) {
-        console.log('something went wrong', status, err);
+      error: function( req, status, err ) {
+        console.log( 'something went wrong', status, err );
       }
     });
 
 ... or we can provide a URL and a configuration object
 
-    $.ajax('/data/people.json', {
-      type : 'GET',
-      dataType : 'json',
-      success : function(resp) {
-        console.log(resp.people);
+    $.ajax( '/data/people.json', {
+      type: 'GET',
+      dataType: 'json',
+      success: function( resp ) {
+        console.log( resp.people );
       },
-      error : function(req, status, err) {
-        console.log('something went wrong', status, err);
+      error: function( req, status, err ) {
+        console.log( 'something went wrong', status, err );
       }
     });
 
@@ -86,12 +86,12 @@ handling -- jQuery provides several "convenience methods" that let us use an
 abbreviated syntax. Each of these methods takes a URL, an optional data object,
 and an optional callback for handling a successful request.
 
-    $.get('/data/people.html', function(html){
-      $('#target').html(html);
+    $.get( '/data/people.html', function( html ){
+      $( '#target' ).html( html );
     });
 
-    $.post('/data/save', { name : 'Rebecca' }, function(resp) {
-      console.log(JSON.parse(resp));
+    $.post( '/data/save', { name: 'Rebecca' }, function( resp ) {
+      console.log( JSON.parse( resp ) );
     });
 
 ### Sending Data & Working with Forms
@@ -103,18 +103,18 @@ the convenience methods.
 For a GET request, this data will be appended to the URL as a query string;
 for a POST request, it will be sent as form data.
 
-    $('#myForm').submit(function(event) {
+    $( 'form' ).submit(function( event ) {
       event.preventDefault();
 
-      var form = $(this);
+      var form = $( this );
 
       $.ajax({
-        type : 'POST',
-        url : '/data/save',
-        data : form.serialize(),
-        dataType : 'json',
-        success : function(resp) {
-          console.log(resp);
+        type: 'POST',
+        url: '/data/save',
+        data: form.serialize(),
+        dataType: 'json',
+        success: function( resp ) {
+          console.log( resp );
         }
       });
     });
@@ -128,14 +128,14 @@ inserting a script tag into the page that contains the requested data, "padded"
 with a function wrapper.
 
 Even though this isn't actually AJAX, jQuery lets you make a JSONP request with
-`$.ajax` by specifying `'jsonp'` as the `dataType` in the configuration object.
+`$.ajax()` by specifying `'jsonp'` as the `dataType` in the configuration object.
 
     $.ajax({
-      url : 'http://search.twitter.com/search.json',
-      data : { q : 'kittens' },
-      dataType : 'jsonp',
-      success : function(resp) {
-        $('#target').html('Results: ' + resp.results.length);
+      url: 'http://search.twitter.com/search.json',
+      data: { q : 'kittens' },
+      dataType: 'jsonp',
+      success: function( resp ) {
+        $( '#target' ).html( 'Results: ' + resp.results.length );
       }
     });
 
@@ -145,64 +145,67 @@ that as its default. However, you can override this callback name by specifying
 the `jsonp` property in the configuration object.
 
     $.ajax({
-      url : 'http://search.twitter.com/search.json',
-      data : { q : 'kittens' },
-      dataType : 'jsonp',
-      json : 'cb'
+      url: 'http://search.twitter.com/search.json',
+      data: { q: 'kittens' },
+      dataType: 'jsonp',
+      json: 'cb'
     });
 
-You can also use the `$.getJSON` convenience method to make a JSONP request; if
-the URL includes `callback=?` or similar, then jQuery will treat it as a JSONP
-request.
+You can also use the `$.getJSON()` convenience method to make a JSONP request;
+if the URL includes `callback=?` or similar, then jQuery will treat it as a
+JSONP request.
 
-    $.getJSON('http://search.twitter.com/search.json?q=kittens&callback=?',
-      function(resp) {
-        $('#target').html('Results: ' + resp.results.length);
+    $.getJSON( 'http://search.twitter.com/search.json?q=kittens&callback=?',
+      function( resp ) {
+        $( '#target' ).html( 'Results: ' + resp.results.length );
       }
     );
 
 ### jqXHR
 
-`$.ajax` (and related convenience methods) returns a jqXHR object, which has a
-host of powerful methods. We can make a request using `$.ajax`, and then
+`$.ajax()` (and related convenience methods) returns a jqXHR object, which has
+a host of powerful methods. We can make a request using `$.ajax()`, and then
 capture the returned jqXHR object in a variable.
 
     var req = $.ajax({
-      url : '/data/people.json',
-      dataType : 'json'
+      url: '/data/people.json',
+      dataType: 'json'
     });
 
 We can use this object to attach callbacks to the request, even after the
-request has completed. For example, we can use the `then()` method of the jqXHR
+request has completed. For example, we can use the `.then()` method of the jqXHR
 object to attach success and error callbacks; we can do this as many times as
 we'd like, it's a first-in, first-out queue.
 
-    var success = function(resp) {
-      $('#target').append('<p>people: ' + resp.people.length + '</p>');
-      console.log(resp.people);
+    var success = function( resp ) {
+      $( '#target' ).append(
+        '<p>people: ' + resp.people.length + '</p>'
+      );
+      console.log( resp.people );
     };
 
-    var err = function(req, status, err) {
-      $('#target').append('<p>something went wrong</p>');
+    var err = function( req, status, err ) {
+      $( '#target' ).append( '<p>something went wrong</p>' );
     };
 
-    req.then(success, err);
+    req.then( success, err );
     req.then(function() {
-      $('#target').append('<p>it worked</p>');
+      $( '#target' ).append( '<p>it worked</p>' );
     });
 
 If we want to attach a callback that runs on success or failure, we can use the
-`always()` method.
+`.always()` method of the request object.
 
     req.always(function() {
-      $('#target').append('<p>one way or another, it is done now</p>');
+      $( '#target' )
+        .append( '<p>one way or another, it is done now</p>' );
     });
 
 If we don't want to attach success and error callbacks at the same time, we can
-use the `done()` and `fail()` methods.
+use the `.done()` and `.fail()` methods of the request object.
 
-    req.done(success);
-    req.fail(err);
+    req.done( success );
+    req.fail( err );
 
 ## Deferreds
 
@@ -214,62 +217,62 @@ callbacks.
 
 ### $.Deferred
 
-You can create your own deferreds using `$.Deferred`. Here, we run a function
+You can create your own deferreds using `$.Deferred()`. Here, we run a function
 in a setTimeout, and "resolve" our deferred with the return value of that
 function. We return the deferred's "promise" -- an object to which we can
 attach callbacks, but which doesn't have the ability to modify the outcome of
 deferred itself. We "reject" the deferred if anything goes wrong with running
 the provided function.
 
-    function doSomethingLater(fn, time) {
+    function doSomethingLater( fn, time ) {
       var dfd = $.Deferred();
 
       setTimeout(function() {
-        dfd.resolve(fn());
+        dfd.resolve( fn() );
       }, time || 0);
 
       return dfd.promise();
     }
 
     var promise = doSomethingLater(function() { /* ... */ }, 100);
-    debugger;
 
 ### .then(), .done(), .fail(), .always()
 
 Just like with a jqXHR, we can attach success and error handlers to a promise.
 
-    function doSomethingLater(fn, time) {
+    function doSomethingLater( fn, time ) {
       var dfd = $.Deferred();
 
       setTimeout(function() {
-        dfd.resolve(fn());
+        dfd.resolve( fn() );
       }, time || 0);
 
       return dfd.promise();
     }
 
-    var success = function(resp) {
-      $('#target').html('it worked');
+    var success = function( resp ) {
+      $( '#target' ).html( 'it worked' );
     };
-    var err = function(req, status, err) {
-      $('#target').html('it failed');
+    var err = function( req, status, err ) {
+      $( '#target' ).html( 'it failed' );
     };
     var dfd = doSomethingLater(function() { /* ... */ }, 100);
 
-    dfd.then(success, err);
+    dfd.then( success, err );
 
 ### pipe()
 
-We can use the `pipe()` method to react to the resolution of an asynchronous
-operation by manipulating the value it returns and creating a new deferred.
+We can use the `.pipe()` method of a promise to react to the resolution of an
+asynchronous operation by manipulating the value it returns and creating a new
+deferred.
 
 In jQuery 1.8, the `.then()` method of a promise will behave like pipe.
 
-    function doSomethingLater(fn, time) {
+    function doSomethingLater( fn, time ) {
       var dfd = $.Deferred();
 
       setTimeout(function() {
-        dfd.resolve(fn());
+        dfd.resolve( fn() );
       }, time || 0);
 
       return dfd.promise();
@@ -288,13 +291,13 @@ might be asynchronous -- for example, if a function does something
 async the first time it runs, and then caches the value for future
 use. In this case, we can use `$.when()` to react to either case.
 
-    function maybeAsync(num) {
+    function maybeAsync( num ) {
       var dfd = $.Deferred();
 
       // return a deferred when num === 1
-      if (num === 1) {
+      if ( num === 1 ) {
         setTimeout(function() {
-          dfd.resolve(num);
+          dfd.resolve( num );
         }, 100);
         return dfd.promise();
       }
@@ -304,26 +307,26 @@ use. In this case, we can use `$.when()` to react to either case.
     }
 
     // this will resolve async
-    $.when(maybeAsync(1)).then(function(resp) {
-      $('#target').append('<p>' + resp + '</p>');
+    $.when( maybeAsync( 1 ) ).then(function( resp ) {
+      $( '#target' ).append( '<p>' + resp + '</p>' );
     });
 
     // this will return immediately
-    $.when(maybeAsync(0)).then(function(resp) {
-      $('#target').append('<p>' + resp + '</p>');
+    $.when( maybeAsync( 0 ) ).then(function( resp ) {
+      $( '#target' ).append( '<p>' + resp + '</p>' );
     });
 
-You can also pass `$.when` more than one argument, which lets you mix
-sync and async operations; you get their return values back as arguments
-to the callback.
+You can also pass `$.when()` more than one argument, which lets you mix sync
+and async operations; you get their return values back as arguments to the
+callback.
 
-    function maybeAsync(num) {
+    function maybeAsync( num ) {
       var dfd = $.Deferred();
 
       // return a deferred when num === 1
-      if (num === 1) {
+      if ( num === 1 ) {
         setTimeout(function() {
-          dfd.resolve(num);
+          dfd.resolve( num );
         }, 100);
         return dfd.promise();
       }
@@ -332,22 +335,23 @@ to the callback.
       return num;
     }
 
-    $.when(maybeAsync(0), maybeAsync(1))
-      .then(function(resp1, resp2) {
-        $('#target').append('<p>' + resp1 + '</p>');
-        $('#target').append('<p>' + resp2 + '</p>');
+    $.when( maybeAsync( 0 ), maybeAsync( 1 ) )
+      .then(function( resp1, resp2 ) {
+        var target = $( '#target' );
+        target.append( '<p>' + resp1 + '</p>' );
+        target.append( '<p>' + resp2 + '</p>' );
       });
 
-When a jqXHR is one of the arguments to `$.when`, we get an array of
+When a jqXHR is one of the arguments to `$.when()`, we get an array of
 arguments passed to our callback.
 
-    function maybeAsync(num) {
+    function maybeAsync( num ) {
       var dfd = $.Deferred();
 
       // return a deferred when num === 1
-      if (num === 1) {
+      if ( num === 1 ) {
         setTimeout(function() {
-          dfd.resolve(num);
+          dfd.resolve( num );
         }, 100);
         return dfd.promise();
       }
@@ -356,7 +360,7 @@ arguments passed to our callback.
       return num;
     }
 
-    $.when(maybeAsync(0), $.get('/data/people.json'))
-      .then(function(resp1, resp2) {
+    $.when( maybeAsync( 0 ), $.get( '/data/people.json' ) )
+      .then(function( resp1, resp2 ) {
         debugger;
       });
