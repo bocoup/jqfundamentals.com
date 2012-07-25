@@ -142,7 +142,7 @@ If you must use one of these names as the name of an object property, you
 should quote the property name:
 
     var myObject = {
-      'class' : 'tasty'
+      'class': 'tasty'
     };
 
 ### Variables
@@ -166,7 +166,7 @@ implicitly global!
 
     test();
 
-    console.log(window.a == 1); // true! ohnoes!
+    console.log( window.a == 1 ); // true! ohnoes!
 
 ### Operations on numbers and strings
 
