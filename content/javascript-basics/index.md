@@ -33,8 +33,8 @@ Here's a simple JavaScript program:
       document.body.appendChild(p);
     };
 
-    greet('Jory', 'Welcome to JavaScript');
-    greet('Rebecca', 'Thanks for joining us');
+    greet( 'Jory', 'Welcome to JavaScript' );
+    greet( 'Rebecca', 'Thanks for joining us' );
 
 You can try running this program by copying it to the editor at the top of the
 page and clicking the <i class="icon-play"></i> icon. You can also just click
@@ -61,7 +61,7 @@ some comments to explain what's going on.
 
       // finally, we insert the paragraph element that we created
       // into our document
-      document.body.appendChild(p);
+      document.body.appendChild( p );
     };
 
     // once we've defined the `greet` function, we can call it
@@ -106,16 +106,147 @@ concepts that people struggle with often. It's important to remember that:
 In addition to variable scope, there are many other gotchas in JavaScript.
 Let's take a look at a few of them.
 
-### Operations on numbers and strings
+### Naming things
 
-### Truthiness
+Valid names in JavaScript begin with a letter or certain symbols, followed by
+zero or more letters, digits, underscores, or symbols. Names may not begin with
+numbers, and may not include hyphens. The following are valid names:
+
+- `a`
+- `a1`
+- `foo_bar`
+- `fooBarBaz`
+- `$fooBar`
+- `_foo`
+- `__foo__`
+
+Names that begin with `_` are usually "private," but this is only a matter of
+convention, not a feature of the JavaScript language. In code that uses jQuery,
+names that begin with `$` usually refer to jQuery objects.
 
 ### Reserved words
 
+JavaScript reserves certain words for its own use; you should avoid using these
+words for the names of things.
+
+<pre>
+abstract boolean break byte case catch char class const continue debugger
+default delete do double else enum export extends false final finally float
+for function goto if implements import in instanceof int interface long
+native new null package private protected public return short static super
+switch synchronized this throw throws transient true try typeof var
+volatile void while with
+</pre>
+
+If you must use one of these names as the name of an object property, you
+should quote the property name:
+
+    var myObject = {
+      'class' : 'tasty'
+    };
+
+### Variables
+
+You can define one variable per statement:
+
+    var a = 1;
+    var b = 'two';
+
+You can also define multiple variables in a single statement:
+
+    var a = 1,
+        b = 'two';
+
+Beware that variables that are not declared with the `var` keyword are
+implicitly global!
+
+    function test() {
+      a = 1;
+    }
+
+    test();
+
+    console.log(window.a == 1); // true! ohnoes!
+
+### Operations on numbers and strings
+
+JavaScript represents all numbers as 64-bit floats. This means that operations
+on numbers can be unpredictable:
+
+    console.log( 0.0001 + 0.0002 ); // 0.00030000000000000003
+
+JavaScript is a loosely-typed language. If you try to do mathematical
+operations using values that are not numbers, *JavaScript will not throw
+errors*, and the result may not be what you'd expect.
+
+    console.log( 'a' + 2 );           // 'a2'
+    console.log( '4' + 3 );           // '43'
+    console.log( 'five' - '4' );      // NaN (not a number)
+    console.log( - '1' );             // -1
+    console.log( 1 + true );          // 2
+    console.log( 1 == true );         // true
+    console.log( 1 === true );        // false
+
+### Truthiness
+
+Because JavaScript is loosely typed, values that are not booleans can be used
+in logical expressions.
+
+    if ( 1 ) {
+      // this code will run!
+    }
+
+We talk about how a value will behave in a logical expression in terms of the
+value's "truthiness" or "falsiness." Most values in JavaScript are truthy --
+indeed, there are only five values in JavaScript that are falsy:
+
+- `undefined` (the default value of declared variables that are not assigned a
+  value)
+- `null`
+- `NaN` ("not a number")
+- `0` (the number zero)
+- `''` (an empty string)
+
+An easy way to test whether a value is false is using the `!` operator:
+
+    if ( !a ) {
+      // this code will run if a is false
+    }
+
+The value `NaN` is a special case; values that are `NaN` will evaluate to false
+in a simple logical expression ...
+
+    var notANumber = 'four' - 'five';
+    if ( !notANumber ) {
+      // this code will run
+    }
+
+... The value `NaN` itself is not equivalent to `false`:
+
+    var notANumber = 'four' - 'five';
+    if ( notANumber == false ) {
+      // this code will not run!
+    }
+
+It's important to remember that *all other values aside from the five values
+listed above* are truthy. This includes empty arrays, empty objects, all
+non-empty strings (including the string `'0'`), and all numbers other than `0`.
+
 ### Semicolons
 
+Great debates have raged about the necessity of semicolons when it comes to
+writing JavaScript. As a beginner, you are *strongly* encouraged to use
+semicolons to terminate all of your statements. The [rules for automatic
+semicolon insertion](http://bclary.com/2004/11/07/#a-7.9.1) can be difficult to
+understand and memorize, and neglecting to include a semicolon where one is
+required can result in unexpected behavior.
 
-## JavaScript data structures
+    // leaving semicolons out like this ...
+    a = b + c
+    ( d || e ).call()
+
+    // ... translates to this, which will probably break
+    a = b + c( d || e ).call();
 
 ## Further reading
 
@@ -125,6 +256,7 @@ particularly their [JavaScript
 Guide](https://developer.mozilla.org/en/JavaScript/Guide). Specifically, you'll
 do well to read the following articles:
 
-  - [JavaScript Overview](https://developer.mozilla.org/en/JavaScript/Guide/JavaScript_Overview)
-  - [Values, variables, and literals](https://developer.mozilla.org/en/JavaScript/Guide/Values%2C_Variables%2C_and_Literals)
-  - [Functions](https://developer.mozilla.org/en/JavaScript/Guide/Functions)
+- [JavaScript Overview](https://developer.mozilla.org/en/JavaScript/Guide/JavaScript_Overview)
+- [Values, variables, and literals](https://developer.mozilla.org/en/JavaScript/Guide/Values%2C_Variables%2C_and_Literals)
+- [Functions](https://developer.mozilla.org/en/JavaScript/Guide/Functions)
+- [Arrays](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/)
