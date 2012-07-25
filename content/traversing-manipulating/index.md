@@ -47,16 +47,16 @@ adding to or subtracting from the original selection.
 You can filter an existing selection to only include elements that match a
 certain criteria. For example, you can filter a selection in the following ways:
 
-    var listItems = $('li');
+    var listItems = $( 'li' );
 
     // filter the selection to only items with a class of 'special'
-    var special = listItems.filter('.special');
+    var special = listItems.filter( '.special' );
 
     // filter the selection to only items without a class of 'special'
-    var notSpecial = listItems.not('.special');
+    var notSpecial = listItems.not( '.special' );
 
     // filter the selection to only items that contain a span
-    var hasSpans = listItems.has('span');
+    var hasSpans = listItems.has( 'span' );
 
 Importantly, note that `.not()` is *not* the opposite of `.is()`. The `.is()`
 method returns a boolean, while the `.not()` method returns a new jQuery
@@ -71,7 +71,7 @@ list that contains the item. You can make a new selection relative to an
 existing selection easily:
 
     // get the first list item on the page
-    var listItem = $('li').first(); // also: .last()
+    var listItem = $( 'li' ).first(); // also: .last()
 
     // get the siblings of the list item
     var siblings = listItem.siblings();
@@ -86,34 +86,34 @@ existing selection easily:
     var listItems = list.children();
 
     // get ALL list items in the list, including nested ones
-    var allListItems = list.find('li');
+    var allListItems = list.find( 'li' );
 
     // find all ancestors of the list item that have a class of "module"
-    var modules = listItem.parents('.module');
+    var modules = listItem.parents( '.module' );
 
     // find the closest ancestor of the list item that has a class of "module"
-    var module = listItem.closest('.module');
+    var module = listItem.closest( '.module' );
 
 You can also add to an existing selection by using the `.add()` method.
 You can pass it a selector, an array of elements, a string of HTML, or a jQuery
 object.
 
-    var list = $('#my-unordered-list');
+    var list = $( '#my-unordered-list' );
 
     // do some stuff with the list, and then ...
 
-    var listAndListItems = list.add('#my-unordered-list li');
+    var listAndListItems = list.add( '#my-unordered-list li' );
 
 If you change a selection by using one of the traversal methods, you can
 restore your original selection using `.end()`, or add your original selection
 to the new selection using `.andSelf()`.
 
-    var list = $('#my-unordered-list');
+    var list = $( '#my-unordered-list' );
 
-    var listAndListItems = list.find('li').andSelf();
+    var listAndListItems = list.find( 'li' ).andSelf();
 
-    var justTheList = $('#my-unordered-list')
-      .find('li').addClass('awesome').end();
+    var justTheList = $( '#my-unordered-list' )
+      .find( 'li' ).addClass( 'awesome' ).end();
 
 <div class="alert alert-info"> **Note:** The `.end()` method makes it easy to
 write long chains without ever stopping to take a breath, and because of this,
@@ -148,8 +148,26 @@ class of `hidden`, with a corresponding CSS rule that causes elements with that
 class to have their `display` set to `none`. Using jQuery, we can add and
 remove classes to affect the display of elements.
 
-    $('li').addClass('hidden');
-    $('li').eq(1).removeClass('hidden');
+    $( 'li' ).addClass( 'hidden' );
+    $( 'li' ).eq( 1 ).removeClass( 'hidden' );
+
+If your use case requires adding and removing a class repeatedly, jQuery
+provides the `.toggleClass()` method. You can pass it two arguments: the class
+to toggle, and an optional flag indicating whether the class should be added or
+removed.
+
+The following code adds the class `hidden` if it is not present, and removes it
+if it is present.
+
+    $( 'li' ).eq( 1 ).toggleClass( 'hidden' );
+
+If you want to ensure that a call to `.toggleClass()` adds the class, you can
+take advantage of the optional second argument:
+
+    $( 'li' ).eq( 1 ).toggleClass( 'hidden', true );
+
+Similarly, you can pass `false` as the second argument to ensure the class is
+removed.
 
 #### Changing style
 
@@ -173,26 +191,90 @@ width of its parent element; it might be difficult or impossible to know the
 width of the parent element ahead of time in a flexible layout. In this case,
 we might resort to the `.css()` method for styling.
 
-    var list = $('#my-unordered-list');
-    var width = Math.floor(list.width() * 0.1);
+    var list = $( '#my-unordered-list' );
+    var width = Math.floor( list.width() * 0.1 );
 
-    list.find('li').each(function(index, element) {
+    list.find('li').each(function( index, element ) {
       var padding = width * index;
-      $(this).css('padding-left', padding + 'px');
+      $( this ).css( 'padding-left', padding + 'px' );
     });
 
 If you need to set multiple properties at once, you can pass an object to the
 `.css()` method rather than a property name and a value. Note that you will
 need to quote any property names that include a hyphen.
 
-    $('li').eq(1).css({
+    $( 'li' ).eq( 1 ).css({
       'font-size' : '20px',
       'padding-left' : '20px'
     });
 
-#### Changing the value of form elements
+#### Changing form elements
+
+jQuery provides the `.val()` method for altering the value of form elements
+such as `select` and `input` elements.
+
+For text `input` elements, you can set their content by passing a string to the
+`.val()` method:
+
+    $( 'input[type="text"]' ).val( 'new value' );
+
+For `select` elements, you can set the chosen option using `.val()` as well:
+
+    $( 'select' ).val( '2' );
+
+For checkbox `input` elements, you'll need to set the `checked` property on
+the element using the `.prop()` method.
+
+<div class="alert alert-info">The `.prop()` method was introduced in jQuery
+1.6; prior versions of jQuery used the `.attr()` method for this purpose. It
+continues to work in later versions of jQuery, but in the case of the `checked`
+property, it ultimately just calls the `.prop()` method. If you are using a
+version of jQuery later than 1.6, you should always use the `.prop()` method to
+set the `checked` property and other DOM element properties. See the
+[documentation](http://api.jquery.com/prop/) for a more detailed
+explanation.</div>
+
 
 #### Changing other attributes
+
+You can use jQuery's `.attr()` method to change other attributes of elements.
+For example, you can use it to set a new `title` attribute for a link:
+
+    $( 'a' ).attr( 'title', 'Click me!' );
+
+When setting an attribute, you can pass a function as the second argument. Just
+like other setter methods, this function receives two arguments: the index of
+the element on which it's operating, and the original value of the attribute.
+This function should return the new value for the attribute.
+
+    $( 'a' ).attr( 'href', function(index, value) {
+      return value + '?special=true';
+    });
+
+You can also remove attributes entirely using `.removeAttr()`.
+
+
+### Getting information from elements
+
+In the [jQuery basics](/chapter/jquery-basics) chapter, we discussed the notion
+of "getter" and "setter" methods. All of the methods that can be used to
+change elements can also be used to get information from elements. For example,
+the `.val()` method described above can be used as both a setter and a
+getter.
+
+    var input = $( 'input[type="text"]' );
+    input.val( 'new value' );
+    input.val(); // returns 'new value'
+
+Likewise, the `.css()` method can be used to retrieve the value of individual
+CSS properties by passing only a property name, not a value.
+
+    var listItemColor = $( 'li' ).css( 'color' );
+
+When manipulation methods are used as getters, *the method operates on only the
+first element in the selection*, with one notable exception: the `.text()`
+method. In the case of the `.text()` method, the text of *all* selected
+elements will be returned if no argument is passed to the method.
 
 ### Placing elements in the document
 
@@ -207,25 +289,25 @@ list to the end of the list. There are several ways to achieve this.
 You could append the item to the list by calling `.appendTo()` on the list
 item:
 
-    var listItem = $('#my-unordered-list li').first();
-    listItem.appendTo('#my-unordered-list');
+    var listItem = $( '#my-unordered-list li' ).first();
+    listItem.appendTo( '#my-unordered-list' );
 
 You could append the item to the list by calling `.append()` on the list:
 
-    var listItem = $('#my-unordered-list li').first();
-    $('#my-unordered-list').append(listItem);
+    var listItem = $( '#my-unordered-list li' ).first();
+    $( '#my-unordered-list' ).append( listItem );
 
 You could insert the list item after the last list item by calling
 `.insertAfter()` on the list item that you want to move:
 
-    var listItems = $('#my-unorderd-list li');
-    listItems.first().insertAfter(listItems.last());
+    var listItems = $( '#my-unorderd-list li' );
+    listItems.first().insertAfter( listItems.last() );
 
 You could also insert the list item after the last list item by calling
 `.after()` on the last list item:
 
-    var listItems = $('#my-unordered-list li');
-    listItems.last().after(listItems.first());
+    var listItems = $( '#my-unordered-list li' );
+    listItems.last().after( listItems.first() );
 
 There are many other methods for placing elements -- you can place them
 [around](http://api.jquery.com/category/manipulation/dom-insertion-around/),
@@ -253,9 +335,9 @@ copy is only in memory -- you will need to place it in the document yourself.
 You can manipulate the cloned element or elements before placing them into the
 document.
 
-    var clones = $('li').clone();
-    clones.html( function( index, oldHtml ) { return oldHtml + '!!!'; } );
-    $('#my-unordered-list').append(clones);
+    var clones = $( 'li' ).clone();
+    clones.html(function( index, oldHtml ) { return oldHtml + '!!!'; } );
+    $( '#my-unordered-list' ).append( clones );
 
 <div class="alert alert-info">**Note:** jQuery will not prevent you from
 cloning an element with an ID, but you should ensure that you change or remove
@@ -273,14 +355,14 @@ will also unbind any event handlers attached to the elements being removed. The
 re-add the removed elements, the removed elements will no longer have events
 bound to them.
 
-    $('#my-unordered-list li').click(function() {
-      alert $(this).text();
+    $( '#my-unordered-list li' ).click(function() {
+      alert $( this ).text();
     });
 
-    var removedListItem = $('#my-unordered-list li').first().remove();
+    var removedListItem = $( '#my-unordered-list li' ).first().remove();
 
-    removedListItem.appendTo('#my-unordered-list');
-    removedListItem.trigger('click'); // no alert!
+    removedListItem.appendTo( '#my-unordered-list' );
+    removedListItem.trigger( 'click' ); // no alert!
 
 The `.detach()` method is useful for temporarily removing elements from the
 document; for example, if you need to do complex manipulations that would cause
@@ -289,27 +371,34 @@ the affected elements from the document before you do the complex
 manipulations. Elements removed with `.detach()` will retain their event
 handlers; you can re-add them to the document with
 
-    $('#my-unordered-list li').click(function() {
-      alert $(this).text();
+    $( '#my-unordered-list li' ).click(function() {
+      alert $( this ).text();
     });
 
-    var detachedListItem = $('#my-unordered-list li').first().detach();
+    var detachedListItem = $( '#my-unordered-list li' ).first().detach();
 
-    detachedListItem.appendTo('#my-unordered-list');
-    detachedListItem.trigger('click'); // alert!
+    detachedListItem.appendTo( '#my-unordered-list' );
+    detachedListItem.trigger( 'click' ); // alert!
 
 Finally, the `.replaceWith()` method replaces an element or elements with the
 element or HTML passed as an argument to `.replaceWith()`. The replaced
 elements are returned, but just like with `.remove()`, all event handlers are
 unbound from the replaced elements.
 
-    $('#my-unordered-list li').click(function() {
-      alert $(this).text();
+    $( '#my-unordered-list li' ).click(function() {
+      alert $( this ).text();
     });
 
-    var replacedListItem = $('#my-unordered-list li').first()
-      .replaceWith('<li>new!</li>');
+    var replacedListItem = $( '#my-unordered-list li' ).first()
+      .replaceWith( '<li>new!</li>' );
 
-    replacedListItem.appendTo('#my-unordered-list');
+    replacedListItem.appendTo( '#my-unordered-list' );
 
-    replacedListItem.trigger('click'); // no alert!
+    replacedListItem.trigger( 'click' ); // no alert!
+
+## Conclusion
+
+In this section, we looked at various ways we can move through a document, move
+elements and place new elements in the document, and make changes to elements.
+In the next section, we'll look at how to listen for user interaction with our
+page.

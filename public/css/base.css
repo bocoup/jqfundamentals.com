@@ -98,6 +98,10 @@ footer {
   text-align: center;
 }
 
-h4 + .alert {
-  margin-top: 20px;
+.alert {
+  margin: 20px 0;
+}
+
+.alert a {
+  text-decoration: underline;
 }

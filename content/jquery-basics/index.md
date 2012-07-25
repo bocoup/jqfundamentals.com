@@ -140,14 +140,14 @@ access an `<input>` element's `value` property directly, you would want to work
 with the raw DOM element.
 
     var input = $( 'input' );
-    var rawInputElement = input[0]; // or input.get(0)
+    var rawInputElement = input[0]; // or input.get( 0 )
     var value = rawInputElement.value;
 
 Note that you *cannot* call jQuery methods on raw DOM elements. So, the
 following will not work:
 
     var input = $( 'input' );
-    var rawInputElement = input[0]; // or input.get(0)
+    var rawInputElement = input[0]; // or input.get( 0 )
     rawInputElement.remove(); // Object #<HTMLInputElement> has no method 'remove'
 
 If you need to work with a single element in a selection and you want to be
@@ -155,8 +155,8 @@ able to use jQuery methods on that element, then you can get a new jQuery
 object containing a single element by using `.eq()` and passing the index of
 the element you're after.
 
-    var listItems = $('li');
-    var secondListItem = listItems.eq(1);
+    var listItems = $( 'li' );
+    var secondListItem = listItems.eq( 1 );
     secondListItem.remove();
 
 ## Creating new elements
@@ -196,8 +196,8 @@ method. The most common way to use this method is to provide a selector as its
 sole argument. It returns `true` or `false` depending on whether the selection
 matches the selector:
 
-    $('li').eq(0).is('.special'); // false
-    $('li').eq(1).is('.special'); // true
+    $( 'li' ).eq( 0 ).is( '.special' ); // false
+    $( 'li' ).eq( 1 ).is( '.special' ); // true
 
 You can also pass the `.is()` method a jQuery object, a raw DOM element, or
 even a function if you need to do a more complex test. See [the
