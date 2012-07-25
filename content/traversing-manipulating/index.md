@@ -204,8 +204,8 @@ If you need to set multiple properties at once, you can pass an object to the
 need to quote any property names that include a hyphen.
 
     $( 'li' ).eq( 1 ).css({
-      'font-size' : '20px',
-      'padding-left' : '20px'
+      'font-size': '20px',
+      'padding-left': '20px'
     });
 
 #### Changing form elements

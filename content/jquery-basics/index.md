@@ -95,7 +95,7 @@ appropriate selector to `$()`.
 
 It's important to understand that any selection you make will only contain
 elements that existed in the page when you made the selection. That is, if you
-write `var anchors = $('a');` and then add another `<a>` element to your page
+write `var anchors = $( 'a' );` and then add another `<a>` element to your page
 later, then your `anchors` variable will not contain that new element.
 
 ### Other ways to create a jQuery object
@@ -166,16 +166,16 @@ snippet to `$()`, it will create a new element in memory -- that is, the
 element will be created, but it won't be placed on the page until you place it
 on the page.
 
-    $('<p>'); // creates a new <p> element with no content
-    $('<p>Hello!</p>'); // creates a new <p> element with content
-    $('<p class="greet">Hello!</p>'); // creates a new <p> with content and class
+    $( '<p>' ); // creates a new <p> element with no content
+    $( '<p>Hello!</p>' ); // creates a new <p> element with content
+    $( '<p class="greet">Hello!</p>' ); // creates a new <p> with content and class
 
 You can also create an element by passing an object with information about how
 to create the element:
 
-    $('<p>', {
-      html : 'Hello!',
-      'class' : 'greet'
+    $( '<p>', {
+      html: 'Hello!',
+      'class': 'greet'
     });
 
 Note that we must quote the `class` property, as `class` is a reserved word in
@@ -247,7 +247,7 @@ of the list item.
       // this: the current, raw DOM element
       // index: the current element's index in the selection
       // elem: same as this
-      $(this).prepend('<b>' + index + ': </p>');
+      $(this).prepend( '<b>' + index + ': </p>' );
     });
 
 We can also use `.each()` to create a per-element closure -- that is, to take
@@ -295,7 +295,7 @@ the simple chain above is probably worth refactoring for readability.
     var spans = listItems.find( 'span' );
 
     listItems
-      .html( 'It changed! ')
+      .html( 'It changed! ' )
       .click(function() {
         $( this ).addClass( 'clicked' );
       });
