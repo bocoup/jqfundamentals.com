@@ -1,4 +1,5 @@
 title: JavaScript Basics
+sandbox: /sandbox/javascript-basics
 previous:
   name: Home
   path: /

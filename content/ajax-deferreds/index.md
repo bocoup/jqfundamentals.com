@@ -1,4 +1,5 @@
 title: AJAX & Deferreds
+sandbox: /sandbox/ajax-deferreds
 previous:
   name: Effects
   path: /chapter/effects

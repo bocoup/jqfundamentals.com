@@ -4,9 +4,12 @@ $(function() {
   var editorBtn = $('#editor-btn');
   var currentExercise;
   var hasLocalStorage = 'localStorage' in window;
+  var sandbox = $('#main').attr('data-sandbox');
 
   $('#main pre > code').each(createEditorForCodeBlock);
-  showExercise('sandbox', 'sandbox');
+
+  showSandbox(sandbox);
+
   editorBtn.on('click', function() {
     toggleEditor();
   });
@@ -29,13 +32,10 @@ $(function() {
       buttons : mode === 'javascript' ? [ 'explore' ] : [],
       onExplore : mode === 'javascript' ? function() {
         var source = this.getValue();
-        showExercise('sandbox', 'sandbox').then(function(mainEditor) {
-          console.log('setting to', source);
-          mainEditor.setValue(source);
-          body.removeClass('sandbox-hidden');
-          editorBtn.text('Hide Editor');
-          storeEditorState(true);
-        });
+        showSandbox(sandbox, { content : source });
+        body.removeClass('sandbox-hidden');
+        editorBtn.text('Hide Editor');
+        storeEditorState(true);
       } : $.noop,
       readOnly : true
     });
@@ -60,10 +60,7 @@ $(function() {
     }
   }
 
-  function showExercise(chapter, exercise) {
-    currentExercise = exercise;
-
-    var dfd = $.Deferred();
+  function showSandbox(sandbox, opts) {
     var editor = $('#editor').empty();
     var results = $('#results').empty();
     var target = $('<div>', {
@@ -71,7 +68,7 @@ $(function() {
     }).appendTo(editor)[0];
 
     var iframe = $('<iframe>', {
-      src : '/exercises/' + chapter + '/' + exercise + '.html',
+      src : sandbox,
       width : '275',
       height: '250',
       frameBorder : '0'
@@ -82,26 +79,21 @@ $(function() {
     win.onload = function() {
       mainEditor = new CodeEditor(win, {
         target : target,
-        file : '/exercises/' + chapter + '/' + exercise + '.js',
+        content : opts && opts.content,
         buttons : [ 'execute', 'reset' ],
-        onLoad : function() {
-          dfd.resolve(mainEditor);
-        },
         onReset : function() {
-          showExercise(chapter, currentExercise);
+          showSandbox(sandbox);
         }
       });
-
 
       if (!hasLocalStorage) { return; }
 
       var editorVisible = +(window.localStorage.getItem('editorVisible'));
+
       if (editorVisible !== null && !editorVisible) {
         toggleEditor();
       }
     };
-
-    return dfd.promise();
   }
 
 });

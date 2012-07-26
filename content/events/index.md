@@ -1,4 +1,5 @@
 title: Events and Event Delegation
+sandbox: /sandbox/events
 previous:
   name: Traversing & Manipulating
   path: /chapter/traversing-manipulating

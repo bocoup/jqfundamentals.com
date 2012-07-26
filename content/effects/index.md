@@ -1,4 +1,5 @@
 title: Animating Your Pages with jQuery
+sandbox: /sandbox/effects
 previous:
   name: Events & Event Delegation
   path: /chapter/events
