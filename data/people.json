@@ -1,0 +1,22 @@
+{ "people" : [
+  {
+    "name" : "Ben",
+    "url" : "http://benalman.com/",
+    "bio" : "I create groovy websites, useful jQuery plugins, and play a mean funk bass. I'm also Director of Pluginization at @bocoup."
+  },
+  {
+    "name" : "Rebecca",
+    "url" : "http://rmurphey.com",
+    "bio" : "Senior JS dev at Bocoup"
+  },
+  {
+    "name" : "Jory",
+    "url" : "http://joryburson.com",
+    "bio" : "super-enthusiastic about open web education @bocoup. lover of media, art, and fake mustaches."
+  },
+  {
+    "name" : "Luke",
+    "bio" : "",
+    "url" : ""
+  }
+] }

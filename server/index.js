@@ -1,14 +1,29 @@
-var fs = require('fs');
-var Q = require('q');
-var yaml = require('js-yaml');
-var express = require('express');
-var md = require('marked');
+var fs =          require('fs');
+var Q =           require('q');
+var yaml =        require('js-yaml');
+var express =     require('express');
+var md =          require('marked');
+var Faker =       require('Faker');
+var _ =           require('underscore');
 
-var app = express.createServer();
-var contentDir = __dirname + '/../content';
+var app =         express.createServer(
+                    express.logger(),
+                    express.bodyParser()
+                  );
 
-app.use(app.router);
-app.use('/public', express['static'](__dirname + '/../public'));
+var contentDir =  __dirname + '/../content';
+var dataDir =     __dirname + '/../data';
+
+var fakeData =    [];
+
+for (var i = 0; i < 100; i++) {
+  fakeData.push(Faker.Helpers.userCard());
+}
+
+app.configure(function() {
+  app.use('/public', express['static'](__dirname + '/../public'));
+  app.use(app.router);
+});
 
 app.set('views', __dirname + '/../templates');
 app.set('view engine', 'jade');
@@ -40,6 +55,53 @@ app.get('/', function(req, res) {
 
 		res.render('home', config);
 	});
+});
+
+app.get("/data/search.json", function(req, res) {
+  var query = req.query.q;
+  var results = [];
+
+  if (query && query.trim()) {
+    results = _.filter(fakeData, function(item) {
+      var possibles = [ item.name, item.username, item.company.name ];
+      return _.any(possibles, function(p) {
+        return p.toLowerCase().match(query.toLowerCase());
+      });
+    });
+  }
+
+  res.end(JSON.stringify({ results : results }));
+});
+
+app.get('/data/search/sample.json', function(req, res) {
+  var sample = [];
+
+  for (var i = 0; i < 10; i++) {
+    sample.push(fakeData[i]);
+  }
+
+  res.end(JSON.stringify({ results : sample }));
+});
+
+app.post("/data/save", function(req, res) {
+  var data = req.body;
+
+  if (data) {
+    data.saved = true;
+  }
+
+  res.end(JSON.stringify(data || {}));
+});
+
+app.get('/data/:filename', function(req, res) {
+  var file = [ dataDir, req.params.filename ].join('/');
+  fs.readFile(file, function(err, data) {
+    if (err) {
+      res.end(JSON.stringify({}));
+    } else {
+      res.end(data);
+    }
+  });
 });
 
 app.get('/sandbox/:name', function(req, res) {
