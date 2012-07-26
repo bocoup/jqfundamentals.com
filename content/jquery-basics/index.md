@@ -110,12 +110,13 @@ objects in a few other ways:
     // create a jQuery object from a list of DOM element
     $( [ window, document ] );
 
-    // make a selection in the context of another selection or DOM element
+    // make a selection in the context of a DOM element
     var firstBodyChild = document.body.children[0];
     $( 'li', firstBodyChild );
 
-    var header = $( '#header' );
-    $( 'a', header );
+    // make a selection in the context of another selection
+    var paragraph = $( 'p' );
+    $( 'a', paragraph );
 
 ### Did my selection get anything?
 
@@ -140,16 +141,17 @@ access that element from the jQuery object. For example, if you wanted to
 access an `<input>` element's `value` property directly, you would want to work
 with the raw DOM element.
 
-    var input = $( 'input' );
-    var rawInputElement = input[0]; // or input.get( 0 )
-    var value = rawInputElement.value;
+    var listItems = $( 'li' );
+    var rawListItem = listItems[0]; // or listItems.get( 0 )
+    var html = rawListItem.innerHTML;
 
 Note that you *cannot* call jQuery methods on raw DOM elements. So, the
 following will not work:
 
-    var input = $( 'input' );
-    var rawInputElement = input[0]; // or input.get( 0 )
-    rawInputElement.remove(); // Object #<HTMLInputElement> has no method 'remove'
+    var listItems = $( 'li' );
+    var rawListItem = listItems[0];
+    var html = rawListItem.html();
+    // Object #<HTMLInputElement> has no method 'html'
 
 If you need to work with a single element in a selection and you want to be
 able to use jQuery methods on that element, then you can get a new jQuery
@@ -183,6 +185,10 @@ Note that we must quote the `class` property, as `class` is a reserved word in
 JavaScript, and failing to quote it will cause errors in some browsers. See
 [the jQuery documentation](http://api.jquery.com/jQuery/#jQuery2) for details
 on the various properties you can include in the object.
+
+We'll look at how to place created elements into the document in the next
+chapter, which covers [traversing and
+manipulating](/chapter/traversing-manipulating) the document.
 
 ## Working with selections
 
@@ -248,7 +254,7 @@ of the list item.
       // this: the current, raw DOM element
       // index: the current element's index in the selection
       // elem: same as this
-      $(this).prepend( '<b>' + index + ': </p>' );
+      $( this ).prepend( '<b>' + index + ': </p>' );
     });
 
 We can also use `.each()` to create a per-element closure -- that is, to take
@@ -278,7 +284,6 @@ can even make new selections based on previous selections, all without breaking
 the chain.
 
     $( 'li' )
-      .html( 'It changed!' )
       .click(function() {
         $( this ).addClass( 'clicked' );
       })
@@ -296,7 +301,6 @@ the simple chain above is probably worth refactoring for readability.
     var spans = listItems.find( 'span' );
 
     listItems
-      .html( 'It changed! ' )
       .click(function() {
         $( this ).addClass( 'clicked' );
       });

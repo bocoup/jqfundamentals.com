@@ -9,6 +9,8 @@ next:
 links:
   - name: 'MDN: JavaScript'
     path: https://developer.mozilla.org/en/JavaScript
+  - name: Chrome Developer Tools Overview
+    path: https://developers.google.com/chrome-developer-tools/docs/overview
   - name: 'Fixing these jQuery: A Guide to Debugging'
     path: http://fixingthesejquery.com
   - name: Chrome Developer Tools Cheat Sheet
