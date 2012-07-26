@@ -182,12 +182,24 @@ element.
       console.log( this ); // logs the list item that was clicked
     });
 
+    $( '<li>a new list item!</li>' ).appendTo( '#my-unordered-list' );
+
 Event delegation has two main benefits. First, it allows us to bind fewer event
 handlers than we'd have to bind if we were listening to clicks on individual
 elements, which can be a big performance gain. Second, it allows us to bind to
 parent elements -- such as an unordered list -- and know that our event
 handlers will fire as expected *even if the contents of that parent element
 change*.
+
+For example, this code adds a new list item after the event delegation is set
+up; clicking on the new item works just fine, without any additional event
+binding code.
+
+    $( '#my-unordered-list' ).on( 'click', 'li', function( event ) {
+      console.log( this ); // logs the list item that was clicked
+    });
+
+    $( '<li>a new list item!</li>' ).appendTo( '#my-unordered-list' );
 
 ## Conclusion
 
