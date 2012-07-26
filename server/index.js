@@ -13,6 +13,8 @@ var app =         express.createServer(
 
 var contentDir =  __dirname + '/../content';
 var dataDir =     __dirname + '/../data';
+var htmlCache =   {};
+var useCache =    false;
 
 var fakeData =    [];
 
@@ -25,6 +27,10 @@ app.configure(function() {
   app.use(app.router);
 });
 
+app.configure('production', function() {
+  useCache = true;
+});
+
 app.set('views', __dirname + '/../templates');
 app.set('view engine', 'jade');
 
@@ -33,8 +39,14 @@ app.set('view options', {
 	layout: false
 });
 
-function convertMarkdownToHtml(filename, cb) {
+function render(filename, template, res) {
 	var dfd = Q.defer();
+  var key = filename + '-' + template;
+
+  if (useCache && htmlCache[key]) {
+    res.end(htmlCache[key]);
+    return;
+  }
 
 	fs.readFile(filename, 'utf8', function(err, data) {
 		if (err) {
@@ -45,16 +57,22 @@ function convertMarkdownToHtml(filename, cb) {
 		}
 	});
 
+  dfd.promise.then(function(parts) {
+    var config = parts[0];
+    config.content = parts[1];
+
+    res.render(template, config, function(err, str) {
+      htmlCache[key] = str;
+      res.end(str);
+    });
+  });
+
 	return dfd.promise;
 }
 
 app.get('/', function(req, res) {
-	convertMarkdownToHtml([contentDir, 'index.md'].join('/')).then(function(results) {
-		var config = results[0];
-		config.content = results[1];
-
-		res.render('home', config);
-	});
+  var homeMarkdown = [ contentDir, 'index.md' ].join('/');
+  render( homeMarkdown, 'home', res );
 });
 
 app.get("/data/search.json", function(req, res) {
@@ -115,14 +133,8 @@ app.get('/sandbox/:name', function(req, res) {
 
 app.get('/chapter/:name', function(req, res) {
 	var chapterName = req.params.name;
-	var chapterMarkdown = [contentDir, chapterName, 'index.md'].join('/');
-
-	convertMarkdownToHtml(chapterMarkdown).then(function(results) {
-		var config = results[0];
-		config.content = results[1];
-
-		res.render('chapter/index', config);
-	});
+	var chapterMarkdown = [ contentDir, chapterName, 'index.md' ].join('/');
+  render( chapterMarkdown, 'chapter/index', res );
 });
 
 app.listen('4444');
