@@ -66,8 +66,6 @@ function render(filename, template, res) {
       res.end(str);
     });
   });
-
-	return dfd.promise;
 }
 
 app.get('/', function(req, res) {
