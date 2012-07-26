@@ -1,4 +1,5 @@
 title: Traversing & Manipulating
+sandbox: /sandbox/traversing-manipulating
 previous:
   name: jQuery Basics
   path: /chapter/jquery-basics
