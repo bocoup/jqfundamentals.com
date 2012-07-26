@@ -131,7 +131,7 @@ Even though this isn't actually AJAX, jQuery lets you make a JSONP request with
 
     $.ajax({
       url: 'http://search.twitter.com/search.json',
-      data: { q : 'kittens' },
+      data: { q: 'kittens' },
       dataType: 'jsonp',
       success: function( resp ) {
         $( '#target' ).html( 'Results: ' + resp.results.length );
