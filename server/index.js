@@ -70,7 +70,7 @@ app.get("/data/search.json", function(req, res) {
     });
   }
 
-  res.end(JSON.stringify({ results : results }));
+  res.json({ results : results });
 });
 
 app.get('/data/search/sample.json', function(req, res) {
@@ -80,7 +80,7 @@ app.get('/data/search/sample.json', function(req, res) {
     sample.push(fakeData[i]);
   }
 
-  res.end(JSON.stringify({ results : sample }));
+  res.json({ results : sample });
 });
 
 app.post("/data/save", function(req, res) {
@@ -90,16 +90,14 @@ app.post("/data/save", function(req, res) {
     data.saved = true;
   }
 
-  res.end(JSON.stringify(data || {}));
+  res.json(data || {});
 });
 
 app.get('/data/:filename', function(req, res) {
   var file = [ dataDir, req.params.filename ].join('/');
-  fs.readFile(file, function(err, data) {
+  res.sendfile(file, function(err) {
     if (err) {
-      res.end(JSON.stringify({}));
-    } else {
-      res.end(data);
+      res.json({});
     }
   });
 });
@@ -129,4 +127,3 @@ app.get('/chapter/:name', function(req, res) {
 
 app.listen('4444');
 console.log('jqfundamentals started on http://localhost:4444');
-
