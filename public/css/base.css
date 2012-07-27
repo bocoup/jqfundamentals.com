@@ -44,12 +44,12 @@ body {
   height: 250px;
 }
 
-.example {
+.editor-container {
   border: 1px solid #eee;
   margin: 20px 0;
 }
 
-.example .CodeMirror-scroll {
+.editor-container .CodeMirror-scroll {
   height: auto;
   overflow-y: hidden;
   overflow-x: auto;

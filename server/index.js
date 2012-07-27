@@ -1,22 +1,24 @@
-var fs =          require('fs');
-var Q =           require('q');
-var yaml =        require('js-yaml');
-var express =     require('express');
-var md =          require('marked');
-var Faker =       require('Faker');
-var _ =           require('underscore');
+var fs =            require('fs');
+var Q =             require('q');
+var yaml =          require('js-yaml');
+var express =       require('express');
+var md =            require('marked');
+var Faker =         require('Faker');
+var _ =             require('underscore');
 
-var app =         express.createServer(
-                    express.logger(),
-                    express.bodyParser()
-                  );
+var app =           express.createServer(
+                      express.logger(),
+                      express.bodyParser()
+                    );
 
-var contentDir =  __dirname + '/../content';
-var dataDir =     __dirname + '/../data';
-var htmlCache =   {};
-var useCache =    false;
+var contentDir =    __dirname + '/../content';
+var exerciseDir =   __dirname + '/../exercises';
 
-var fakeData =    [];
+var dataDir =       __dirname + '/../data';
+var htmlCache =     {};
+var useCache =      false;
+
+var fakeData =      [];
 
 for (var i = 0; i < 100; i++) {
   fakeData.push(Faker.Helpers.userCard());
@@ -119,8 +121,22 @@ app.get('/data/:filename', function(req, res) {
 });
 
 app.get('/sandbox/:name', function(req, res) {
-	var fileName = req.params.file;
 	var file = [ contentDir, req.params.name, 'sandbox', 'index.html' ].join('/');
+
+  fs.readFile(file, function(err, data) {
+    res.render('iframe', {
+      content: data
+    });
+  });
+});
+
+app.get('/exercises/:exercise', function(req, res) {
+  var exerciseMarkdown = [ exerciseDir, req.params.exercise, 'index.md' ].join('/');
+  render( exerciseMarkdown, 'exercise', res);
+});
+
+app.get('/exercises/:name/index.html', function(req, res) {
+  var file = [ exerciseDir, req.params.name, 'index.html' ].join('/');
 
   fs.readFile(file, function(err, data) {
     res.render('iframe', {

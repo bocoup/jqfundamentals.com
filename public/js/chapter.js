@@ -17,9 +17,11 @@ $(function() {
   function createEditorForCodeBlock() {
     var code = $(this);
     var pre = code.parent();
-    var example = $('<div>', {
-      'class' : 'example'
+
+    var container = $('<div>', {
+      'class' : 'editor-container'
     }).insertBefore(pre)[0];
+
     var content = $.trim(code.text());
     var mode = /^</.test(content) ?
       { name : 'xml', htmlMode : true } :
@@ -28,7 +30,7 @@ $(function() {
     new CodeEditor(window, {
       content : content,
       mode : mode,
-      target : example,
+      target : container,
       buttons : mode === 'javascript' ? [ 'explore' ] : [],
       onExplore : mode === 'javascript' ? function() {
         var source = this.getValue();
