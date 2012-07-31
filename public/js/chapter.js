@@ -34,7 +34,7 @@ $(function() {
       onExplore : mode === 'javascript' ? function() {
         var source = this.getValue();
         showSandbox(sandbox, { content : source });
-        body.removeClass('sandbox-hidden');
+        body.addClass('sandbox-visible');
         editorBtn.text('Hide Editor');
         storeEditorState(true);
       } : $.noop,
@@ -45,13 +45,13 @@ $(function() {
   }
 
   function toggleEditor() {
-    body.toggleClass('sandbox-hidden');
-    if (body.hasClass('sandbox-hidden')) {
-      storeEditorState(false);
-      editorBtn.text('Show Editor');
-    } else {
+    body.toggleClass('sandbox-visible');
+    if (body.hasClass('sandbox-visible')) {
       storeEditorState(true);
       editorBtn.text('Hide Editor');
+    } else {
+      storeEditorState(false);
+      editorBtn.text('Show Editor');
     }
   }
 
@@ -87,14 +87,14 @@ $(function() {
         }
       });
 
-      if (!hasLocalStorage) { return; }
-
-      var editorVisible = +(window.localStorage.getItem('editorVisible'));
-
-      if (editorVisible !== null && !editorVisible) {
-        toggleEditor();
-      }
     };
   }
 
+  if (!hasLocalStorage) { return; }
+
+  var editorVisible = +(window.localStorage.getItem('editorVisible'));
+
+  if (editorVisible !== null && editorVisible) {
+    toggleEditor();
+  }
 });

@@ -74,16 +74,20 @@ body {
   padding: 20px 0;
 }
 
-#main {
+.sandbox-visible #main {
   margin-top: 350px;
 }
 
-.sandbox-hidden #main {
+#main {
   margin-top: 0;
 }
 
-.sandbox-hidden #sandbox {
+#sandbox {
   display: none;
+}
+
+.sandbox-visible #sandbox {
+  display: block;
 }
 
 footer {

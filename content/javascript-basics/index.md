@@ -39,9 +39,11 @@ Here's a simple JavaScript program:
     greet( 'Jory', 'Welcome to JavaScript' );
     greet( 'Rebecca', 'Thanks for joining us' );
 
-You can try running this program by copying it to the editor at the top of the
-page and clicking the <i class="icon-play"></i> icon. You can also just click
-the <i class="icon-eye-open"></i> and it will copy it automatically.
+You can try running this program by clicking the <i class="icon-eye-open"></i>
+and it will copy the code to the built-in editor automatically. Once it's
+there, you can click the <i class="icon-play"></i> button to execute it; you
+can also make changes to it. Press the <i class="icon-repeat"></i> button to
+return to the original code.
 
 When you run this simple program, it adds a paragraph element to the HTML to
 the right of the editor. Let's look at the code sample again, this time with
