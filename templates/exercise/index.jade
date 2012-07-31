@@ -6,14 +6,13 @@ block css
 block fixed_header
   .container
     #sandbox.row
-      #editor
+      .span12
+        #editor
 
 block body
   #main(data-exercise="#{exercise}")
     .row
-      .span12
-        iframe(src="/exercises/#{exercise}/index.html", frameBorder="0",
-        width="960", height="400")
+      #exercise-html.span12
 
 block scripts
   script(src="/public/vendor/CodeMirror-2.25/lib/codemirror.js")

@@ -2,7 +2,6 @@ $(function() {
   var mainEditor;
   var body = $('body');
   var editorBtn = $('#editor-btn');
-  var currentExercise;
   var hasLocalStorage = 'localStorage' in window;
   var sandbox = $('#main').attr('data-sandbox');
 

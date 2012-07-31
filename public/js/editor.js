@@ -85,7 +85,7 @@ window.CodeEditor = function(targetWindow, opts) {
       return $.noop;
     }
     return function() {
-      opts.onReset();
+      opts.onReset(editor);
     };
   }
 
