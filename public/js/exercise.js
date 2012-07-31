@@ -1,5 +1,6 @@
 $(function() {
   var exercise = $('#main').attr('data-exercise');
+  $('body').addClass('sandbox-visible');
 
   var iframe = $('<iframe>', {
     src : '/exercises/' + exercise + '/index.html',
