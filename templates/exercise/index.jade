@@ -7,12 +7,16 @@ block fixed_header
   .container
     #sandbox.row
       .span12
+        h2 #{title}
         #editor
 
 block body
   #main(data-exercise="#{exercise}")
     .row
-      #exercise-html.span12
+      #exercise-html.span8
+      .span4
+        .well.instructions
+          !{content}
 
 block scripts
   script(src="/public/vendor/CodeMirror-2.25/lib/codemirror.js")

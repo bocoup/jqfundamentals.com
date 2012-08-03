@@ -130,19 +130,23 @@ app.get('/sandbox/:name', function(req, res) {
   });
 });
 
-app.get('/exercises/:exercise', function(req, res) {
-  var exerciseMarkdown = [ exerciseDir, req.params.exercise, 'index.md' ].join('/');
-  render( exerciseMarkdown, 'exercise', res);
-});
-
-app.get('/exercises/:name/index.html', function(req, res) {
-  var file = [ exerciseDir, req.params.name, 'index.html' ].join('/');
+app.get('/exercises/:exercise/index.html', function(req, res) {
+  var file = [ exerciseDir, req.params.exercise, 'index.html' ].join('/');
 
   fs.readFile(file, function(err, data) {
     res.render('iframe', {
       content: data
     });
   });
+});
+
+app.get('/exercises/:exercise/:step', function(req, res) {
+  var exerciseMarkdown = [
+    exerciseDir,
+    req.params.exercise,
+    req.params.step + '.md'
+  ].join('/');
+  render( exerciseMarkdown, 'exercise', res);
 });
 
 app.get('/chapter/:name', function(req, res) {
