@@ -271,6 +271,7 @@ information for each element in a selection.
           listItem.addClass( 'again' );
         } else {
           listItem.addClass( 'clicked' );
+          clicked = true;
         }
       });
     });

@@ -147,7 +147,7 @@ the `jsonp` property in the configuration object.
       url: 'http://search.twitter.com/search.json',
       data: { q: 'kittens' },
       dataType: 'jsonp',
-      json: 'cb'
+      jsonp: 'cb'
     });
 
 You can also use the `$.getJSON()` convenience method to make a JSONP request;
