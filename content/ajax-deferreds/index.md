@@ -173,8 +173,8 @@ capture the returned jqXHR object in a variable.
 
 We can use this object to attach callbacks to the request, even after the
 request has completed. For example, we can use the `.then()` method of the jqXHR
-object to attach success and error callbacks; we can do this as many times as
-we'd like, it's a first-in, first-out queue.
+object to attach success and error callbacks. We can do this as many times as
+we'd like; it's a first-in, first-out queue.
 
     var success = function( resp ) {
       $( '#target' ).append(
