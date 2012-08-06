@@ -27,7 +27,7 @@ animations. You may also want to consider setting `jQuery.fx.off` to true on
 low-resource devices; doing so will cause animation methods to immediately set
 elements to the desired state, rather than animating to that state.</div>
 
-## Built-in Effects
+## Built-in effects
 
 Frequently used effects are built into jQuery as methods that you can call on
 any jQuery object:

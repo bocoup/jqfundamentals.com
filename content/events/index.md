@@ -37,7 +37,7 @@ you'll see below. Here's what the `.on()` method looks like.
       console.log( 'clicked', $( this ).text() );
     });
 
-## Namespaced Events
+## Namespaced events
 
 One advantage that `.on()` offers is the ability to use "namespaced" events.
 When would you want to use namespaces? Consider a situation where you want to
@@ -63,7 +63,7 @@ Namespaces also work for triggering event handlers:
 
     $( 'li' ).trigger( 'click.mynamespace' );
 
-## Binding Multiple Events at Once
+## Binding multiple events at once
 
 Another benefit of using `.on()` is the ability to bind to multiple events at
 once. For example, you might want to run the same code when a user scrolls the

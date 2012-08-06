@@ -78,7 +78,7 @@ us tell jQuery what data we want to send, which HTTP method to use (GET, POST,
 etc.), what kind of data we expect to receive, and how to react when the
 request succeeds or fails.
 
-### Convenience Methods
+### Convenience methods
 
 If we're just making a simple request -- and if we don't care about error
 handling -- jQuery provides several "convenience methods" that let us use an
@@ -93,7 +93,7 @@ and an optional callback for handling a successful request.
       console.log( JSON.parse( resp ) );
     });
 
-### Sending Data & Working with Forms
+### Sending data & working with forms
 
 We can send data with our request by setting the `data` property on our
 configuration object, or by passing an object as the second argument to one of
