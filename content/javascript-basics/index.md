@@ -237,22 +237,6 @@ It's important to remember that *all other values aside from the five values
 listed above* are truthy. This includes empty arrays, empty objects, all
 non-empty strings (including the string `'0'`), and all numbers other than `0`.
 
-### Semicolons
-
-Great debates have raged about the necessity of semicolons when it comes to
-writing JavaScript. As a beginner, you are *strongly* encouraged to use
-semicolons to terminate all of your statements. The [rules for automatic
-semicolon insertion](http://bclary.com/2004/11/07/#a-7.9.1) can be difficult to
-understand and memorize, and neglecting to include a semicolon where one is
-required can result in unexpected behavior.
-
-    // leaving semicolons out like this ...
-    a = b + c
-    ( d || e ).call()
-
-    // ... translates to this, which will probably break
-    a = b + c( d || e ).call();
-
 ## Further reading
 
 We've only scratched the surface of JavaScript. The Mozilla Developer Network
