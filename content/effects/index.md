@@ -12,7 +12,7 @@ links:
 ---
 
 jQuery makes it trivial to add simple effects to your page. Effects can use the
-built-in settings, or provide a customized duration. You can also create custom
+built-in settings or provide a customized duration. You can also create custom
 animations of arbitrary CSS properties.
 
 See the [effects documentation](http://api.jquery.com/category/effects/) for
@@ -20,14 +20,14 @@ complete details on jQuery effects.
 
 <div class="alert alert-info">**An important note about animations:** In modern
 browsers, and especially on mobile devices, it is often much more efficient to
-achieve animations using CSS, rather than JavaScript. The details of doing this
-are beyond the scope of this guide, but if you are only targeting mobile, or
-browsers that support CSS animations, then you should not use jQuery for
-animations. You may also want to consider setting `jQuery.fx.off` to true on
-low-resource devices; doing so will cause animation methods to immediately set
-elements to the desired state, rather than animating to that state.</div>
+achieve animations using CSS rather than JavaScript. The details of doing this
+are beyond the scope of this guide, but if you are only targeting mobile
+devices or browsers that support CSS animations, then you should not use jQuery
+for animations. You may also want to consider setting `jQuery.fx.off` to true
+on low-resource devices; doing so will cause animation methods to immediately
+set elements to the desired state, rather than animating to that state.</div>
 
-## Built-in Effects
+## Built-in effects
 
 Frequently used effects are built into jQuery as methods that you can call on
 any jQuery object:

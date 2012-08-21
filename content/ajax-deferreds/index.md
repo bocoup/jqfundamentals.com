@@ -78,7 +78,7 @@ us tell jQuery what data we want to send, which HTTP method to use (GET, POST,
 etc.), what kind of data we expect to receive, and how to react when the
 request succeeds or fails.
 
-### Convenience Methods
+### Convenience methods
 
 If we're just making a simple request -- and if we don't care about error
 handling -- jQuery provides several "convenience methods" that let us use an
@@ -93,7 +93,7 @@ and an optional callback for handling a successful request.
       console.log( JSON.parse( resp ) );
     });
 
-### Sending Data & Working with Forms
+### Sending data & working with forms
 
 We can send data with our request by setting the `data` property on our
 configuration object, or by passing an object as the second argument to one of
@@ -147,7 +147,7 @@ the `jsonp` property in the configuration object.
       url: 'http://search.twitter.com/search.json',
       data: { q: 'kittens' },
       dataType: 'jsonp',
-      json: 'cb'
+      jsonp: 'cb'
     });
 
 You can also use the `$.getJSON()` convenience method to make a JSONP request;
@@ -173,8 +173,8 @@ capture the returned jqXHR object in a variable.
 
 We can use this object to attach callbacks to the request, even after the
 request has completed. For example, we can use the `.then()` method of the jqXHR
-object to attach success and error callbacks; we can do this as many times as
-we'd like, it's a first-in, first-out queue.
+object to attach success and error callbacks. We can do this as many times as
+we'd like; it's a first-in, first-out queue.
 
     var success = function( resp ) {
       $( '#target' ).append(

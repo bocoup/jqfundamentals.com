@@ -107,7 +107,7 @@ objects in a few other ways:
     // create a jQuery object from a DOM element
     $( document.body.children[0] );
 
-    // create a jQuery object from a list of DOM element
+    // create a jQuery object from a list of DOM elements
     $( [ window, document ] );
 
     // make a selection in the context of a DOM element
@@ -271,6 +271,7 @@ information for each element in a selection.
           listItem.addClass( 'again' );
         } else {
           listItem.addClass( 'clicked' );
+          clicked = true;
         }
       });
     });
