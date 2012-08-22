@@ -1,0 +1,480 @@
+Too Much Feedback from Mike
+===========================
+
+Hey Rebecca! I've finished reviewing your work so far, and it's looking good!
+My notes (included below) ended up being quite long, but please don't take this
+as critism; I wanted to be as thorough as I could. Even so, I may have more to
+add on future iterations, so if you would like another review, I'd be happy to
+oblige.
+
+I also want to acknowledge the subjective nature of these suggestions (I've
+made a pull request for the cut-and-dry stuff), so I have no expectations in
+regard to how you incorporate them.
+
+High-level
+==========
+
+This website draws a lot of its power from the narrative flow. The defining
+characteristic (i.e. how the site differs from any number of sites that collect
+jQuery "tips and tricks") is a focus and consistency that gradually builds on
+knowledge.
+
+You've done a great job communicating the narrative in the UI and the
+transition between pages, but I think that the site could be improved by making
+the content more cohesive on the whole. This includes:
+
+1) More self-referential links
+
+When leveraging previously-covered content, refer back to it. Remind the user
+that this entire site has been crafted to get them from point A to point B, and
+provide touchpoints from them to backtrack when they are struggling. This is
+especially useful for users who have been hot-linked to a specific page, so
+they can discover that the web site they are on is comprehensive (and not just
+full of disparate articles).
+
+2) More time introducing ideas that will be necessary later.
+
+You might approach this by working through your examples one-by-one and noting
+when new techniques/concepts are first used. (Lucky for you, this has been my
+perspective reading through the site for the first time, so many of my comments
+below call out these opportunities.) If these are fundamental to JS or jQuery,
+then find how they can be logically introduced via an ealier excersize. If they
+are non-critical (i.e. shortcuts or ASI), consider removing them to increase
+clarity for the more easily-intimidated newcomers.
+
+Topics that might be removed:
+- Shortcuts
+- ASI
+- Lesser-used arguments to jQuery methods
+- Information about legacy versions of jQuery
+
+Topics that might be added:
+- Extend section: "JavaScript Basics"
+  - Objects
+    - Object literal syntax
+    - Indexing (dot and bracket)
+  - Arrays
+  - Functions (by highlighting how they are values you can help ease newbies in
+    to the notion of callbacks in the `Effects` and `AJAX and Deferreds`
+    sections)
+- New section: "The Browser"
+  - CSS Selectors
+  - The console (what is it? how do I access mine in Chrome? in Firefox?)
+  - DOM (especially contrasted with in-memory, as this distinction is useful
+    for understanding `.detach()`, and element creation vs. selection)
+
+Along these lines, I see some tension in the site's goals. On the one hand, you
+want to create a thorough resource for anyone interested in learning. On the
+other hand, you don't want to innundate visitors with so much information that
+they don't make it to the end. Not sure the best way to mitigate these two
+goals, or if they're even in conflict from your perspective. What do you think?
+
+Site-wide Suggestions
+=============
+- Editor
+  - Can this be in-line (with sandbox show/hide)? In other words, could you
+    just directly edit/run/reset the examples themselves?
+  - Reset button correctly resets the sandbox but clears the code
+- Consistency in how you demonstrate expected values
+  - Inline comment
+  - console.log
+  - Assigning to named variables
+- Call out to other trainings
+  - Understanding JavaScript.
+    - At the end of the JavaScript Fundamentals page, you might consider adding
+      an ad for Ben's course... Something along the lines of:
+        "This is just the basics to help you through the rest of the site. If
+        you are interested in getting a handle on the ins-and-outs of
+        JavaScript, checkout Understanding JavaScript!"
+      I admit that this feels a little gross/sales-y to me, but it also seems
+      in line with the goals of the site.
+
+Specific Suggestions
+====================
+
+JavaScript Basics
+-----------------
+- First example too complicated?
+  - Avoid DOM? May need a custom console.log
+  - Introduce functions separately
+    - I like the idea of only using anonymous functions, though! It's a clever
+      way to introduce the concept early and get newcomers used to thinking of
+      functions as first-class values
+- Introduce comments
+  - What are they?
+  - Why do we use them? How do we use them, technically (single-line and
+    multi-line syntax)
+- "If you intend a variable to be global, you should set it as a property of
+  the built-in window object."
+  - This advice will be meaningless to someone who is learning from this
+    material because objects and properties have not yet been covered.
+  - Make this statement more explicitly a recommendation.
+    - "...global, we recommend setting is as..."
+    - Optionally, include info about why this is recommended.
+- Variable scope example
+  - Might be a bit jarring for a demonstration to throw an error (depending on
+    how the chosen browser responds). You could log `typeof off` instead to
+    get the idea across.
+  - Doesn't necessarily clear the confusion about similarly-named variables in
+    different scopes. Consider continuing the example with an extension:
+
+    var foo = 'qux';
+    var myFunction = function() {
+      var foo = 'bar';
+    };
+
+    console.log(foo);
+    myFunction();
+    console.log(foo);
+
+- Naming things
+  - The concept of variables hasn't been discussed at this point, which may be
+    useful. By describing "variable names" instead of "names", you can also be
+    more technically correct, as attribute names do not follow the rules you've
+    described (which is not to say that attribute names would be useful here,
+    but something about a discussion around "names" in JavaScript feels weird
+    to me)
+  - "Names that begin with _ are usually "private,"" -> I'd suggest starting
+    this paragraph off with something like, this:
+      "Besides these rules, you can name your variables however you like! All
+      these names are valid:
+        - a
+        - a1
+        - ...etc...
+      There are some conventions people use when naming their variables to help
+      make their code more clear, but these are optional:
+        - Names that begin with `_` are usually 'private' (more on this later)
+        - Names that begin with `$` usually refer to jQuery objects"
+- Variables
+  - "You can also define multiple variables in a single statement:" ->
+    Explicitly call out what the difference is, even just with:
+      "...by separating them with commas"
+  - "Beware that variables that are not declared with the var keyword are
+    implicitly global!" -> The example will likely be confusing because
+    while you've prompted the user to expect `a` to be defined outside of the
+    function, `window.a` will likely seem to have no relation.
+      - While you've already recommended explicitly declaring globals on the
+        window object, I don't think it will be clear that this is where
+        globals implicitly go.
+      - There has also been no discussion to date of the dereferencing
+        operator, which is necessary to working with `window`
+- Truthiness
+  - I'd agree with the idea of using control flow to demonstrate truthiness,
+    but constructs like "if" have not been introduced yet
+- Semicolons
+  - While this is a hot topic, I'm not sure if introducing the topic to a new
+    user will be worth the possible confusion ("Wait, I don't HAVE to use
+    semicolons...?"). In the same way that you've side-stepped named functions
+    (and hoisting) by only using anonymous functions, you might consider
+    implicitly recommending strict use of semicolons by example alone.
+
+jQuery Basics
+-------------
+- What's $, anyway?
+  - Include a callback to the rules on variable names in JavaScript
+- $(document).ready()
+  - "With jQuery, we accomplish this by wrapping our code in
+    `$(document).ready()`" -> This jargon works well for the initiated, but for
+    beginners, "wrap" won't have much meaning. Maybe something more explicit,
+    ie:
+      "With jQuery, we accomplish this by putting our code in a function, and
+      passing that function to `$(document).ready()`"
+    or:
+      "With jQuery, we accomplish this by putting our code in a function, and
+      by invoking `$(document).ready()` with that function."
+    ...depending on how pedantic you want to get.
+- Get Some Elements
+  - "// make a selection in the context of another selection" -> Might be too
+    technical. How about
+      "// make a selection from just part of the page"
+  - "an object is always truthy" -> add callback to "JavaScript Basics"
+  - "Did my selection get anything?" -> To kind of hold their hand through the
+    truthy thing, consider adding a conditional between the two:
+      if ( $( '#nonexistent' ).length > 0 ) {
+        // Correct! This code will only run if...
+      }
+  - "Getting single elements from a selection" -> The examples here assume
+    familiarity with arrays (dereferencing, subscripting), and also that the
+    reader understands that the jQuery object is array-like. Consider adding
+    some info to JavaScript Basics
+- Creating New Elements
+  - "Note that we must quote the `class` property`..."
+    - Prefer "wrap the `class` property in quotations marks"
+    - Objects have not yet been discussed, so the property is a foreign concept
+    - Also, since object literals have not yet been discussed, the syntax will
+      be foreign
+    - Include a callback to the topic of reserved words in JavaScript Basics
+- Working with selections
+  - "Explicit iteration"
+    - I would avoid using/referencing `this` in the example, as the feature is
+      so contentious and has not been covered to this point.  (Alternatively,
+      you could include an explanation in the "JavaScript Basics" section, but
+      I think this is contrary to your goal and the reader's goal.
+    - "We can also use .each() to create a per-element closure..."
+      - Closures have not been explicitly described yet. Since this is not a
+        jQuery-specific tip, it might be okay to omit it completely and just
+        demonstrate declaring a variable in the first.
+      - Also, this example uses events, which have not yet been described.
+
+Traversing & Manipulation
+-------------------------
+  - A diagram would probably be helpful.. even just ASCII
+    <ul>
+        <li>
+            <span>
+                <i>Foo</i>
+            </span>
+        </li>
+        <li>Bar</li>
+    </ul>
+
+    or maybe a block diagram:
+
+    +---------------------------
+    | ul (parent of li's)
+    | +----------------------
+    | | li (child of ul, sibling of other li, parent of span)
+    | | +--------------------------
+    | | | i (child of span)
+
+Traversal
+- "...lets us 'traverse' a page's DOM." -> I would recommend either defining
+  "DOM" or avoiding the term (i.e. "..lets us modified specific parts of the
+  page.")
+- Consider a paragraph on selectors (even just a basic, "# for ID's, . for
+  class names, no prefix on tag names)... Although even this will likely
+  require some discussion of what tags, classes and IDs are. Or does your
+  target audience already know some HTML? If so, it might be useful to state
+  this on the landing page.
+- Finding elements relative to a selection.
+    - There's a lot of terminology related to trees that has not been defined:
+        sibling, parent, child, ancestors. A definition would be helpful,
+        especially if accompanied by a diagram.
+  - `.end` and `.andSelf`
+    - I think this example will be more clear if you show the same use-case
+      with and without these methods.
+    - "stopping to take a breath" is a good metaphor, though I think using it
+      will be more effective if you first describe the situation in more
+      concrete terms:
+        "The `.end()` method makes it easy to make a lot of changes in a single
+        statement. This practice does little for code clarity, though; it's a
+        little like telling a story without stopping to take a breath. Because of
+        this, please use it sparingly..."
+Manipulation
+- "Adding an removing classes." -> What is the point of the optional "switch"
+    boolean passed to `.toggleClass()` when you have `.addClass()` and
+  `.removeClass()`? This is more of a question for jQuery itself, but unless
+  there is a good reason, it seems like a feature that isn't worth covering.
+- "Changing style" -> Here as well, I wonder about the necessity of using
+  `this` when the second argument to the `.each()` handler will serve just as
+  well.
+- "Changing form elements"
+  - Rename to "Changing form values"
+  - Give an example of using `.prop()` method
+- "Copying elements" -> Very nice to see the note about element ID's!
+- "Removing elements"
+    - "...if you need to do complex manipulations that would cause frequent
+      reflows or repaints..." -> This detail seems way too technical for your
+      audience. It may be enough to simply say, "if you are going to make a lot
+      of changes, it will be more efficient to detach the element first, then
+      make the changes, and finally re-attach the element."
+
+Events and Event Delegation
+---------------------------
+- "jQuery lets you listen for events that occur on an element". -> This assumes
+  the reader knows what "events" are and what it means to "listen" for them.
+  Consider a more simplified introduction that focuses on the more practical
+  application, such as, "jQuery lets you respond to user interactions. This
+  means you can write code that runs when a user clicks on one part of the
+  page, or moves her mouse over another..." Events can do much more than this,
+  but it might make sense to focus on the most common use case (as long as you
+  don't imply that the event system isn't limited to this)
+- How about laying out all the native DOM events that can be passed to `.on()`/
+  `.off()` along with their shorthand equivalent (and maybe even links to
+  jQuery API and MDN docs where applicable, too!). This will be a good
+  reference, and allow you to use these events in your later examples without
+  causing any confusion
+  - click, keydown, keypress, keyup, mouseover, mouseout, mouseenter,
+    mouseleave, mousemove, scroll, resize, blur, focus...
+- "Namespaced Events"
+  - You might want to introduce the concept of "unbinding" in the previous
+    section, so that this section can focus on namespacing (which is relevant
+    to both binding and unbinding).
+  - I recommend binding two events in the first sample code, and showing how
+    `.off()` will unbind them both. Then, in the next example, you could
+    namespace just one of the bindings, and demonstrate how only that one will
+    be unbound with `.off('click.mynamespace')`
+  - Talk about what "triggering" is... "You can also force events to happen
+    without user interaction by 'triggering' them with the `.trigger()`
+    method..."
+- "The event object" Again, working with objects hasn't been discussed at this
+  point
+- "Event bubbling" -> A diagram is really helpful to describe this behavior
+- "Event delegation" -> The diagram can help for this, too. It would be good to
+  provide an extended version of the event bubbling diagram to build on that
+  concept.
+
+Effects
+-------
+Built-in effects
+- This example could use some more detail--specifically, demonstrating how
+  to use the newly-created speeds
+
+    // Re-set a pre-defined speed
+    jQuery.fx.speeds.fast = 50;
+    // Create a new pre-defined speed
+    jQuery.fx.speeds.turtle = 3000;
+
+    // Since we've re-set the 'fast' speed, this will no animate over the
+    // course of 50 milliseconds
+    $( '.hidden' ).hide( 'fast' );
+
+    // After they are created, we can use custom speeds just as we use the
+    // built-in speeds
+    $( '.other-hidden' ).show( 'turtle' );
+
+- Reading through the linked article, I'm not sure that "named function
+  expression" is actually the correct term for the solution described. I'm not
+  100% on this, but check out this section specifically:
+  http://kangax.github.com/nfe/#named-expr
+    It looks as though "named function expressions" are labeled as such because
+  they contain an identifier between the `function` keyword and the opening
+  parenthesis. If you agree, then you should be able to exclude the terminology
+  without fear of over-simplifying.
+- The name "callback" describes what the function is but not its intention.
+  This can make the example a little less approachable (I feel that it's like
+  naming a variable "variable"). Also, it's not technically a callback when the
+  selection is empty. For this, it might be better to name the callback
+  "whenAnimationComplete" or "removeThing", and then refer to it as a callback
+  in an in-line comment:
+
+    var oldElements = $( 'p.old' );
+    var thingToAnimate = $( '#nonexistent' );
+
+    // This function will be a "callback" to the "show" method when there are
+    // elements to show. Otherwise, we will simply call it immediately
+    var removeOldElements = function() {
+      oldElements.remove();
+    };
+
+    if ( thingToAnimate.length ) {
+
+      // When passed as a callback to "show", the function will not be invoked
+      // until the animation is complete
+      thingToAnimate.show( 'slow', removeOldElements );
+
+    } else {
+      removeOldElements();
+    }
+
+Custom effects with .animate()
+- "[...] of any CSS property (with the notable exception of animating color,
+  for which there is a plugin)." -> There are many other exceptions, so maybe
+  change to "of many CSS properies. (Notably, you cannot animate color without
+  a plugin like this one.)"
+- "a callback function" -> Like before, I think a more explicit description of
+  the callback mechanism would be useful at this point. For instance: "a
+  callback function which will be invoked when the animation is complete".
+- "you will need to use a "camel cased" version".
+  - Using "camel case" as a verb may add slightly more confusion for the
+    newcomer.
+  - Depending on if/how you introduce object literals, you may be able to add a
+    link back to that discussion in "JavaScript Basics". Doing so may let you
+    point out why both `{ fontSize: '12px' }` and `{ 'font-size': '12px' }`
+    work (though this may also be too much information)
+
+AJAX and Deferreds
+------------------
+AJAX
+- If I can put on my copy editor hat here, the use of em dash in the intro
+  paragraph gets a little repetitive
+- "A is for asynchronous"
+  - Nice title :)
+  - You use a named function here for the first time. I'm not sure if this is
+    intentional, but I would recommend sticking with an anonymous function
+    since it is equivalent in this case
+- $.ajax
+  - I'd recommend placing this section before "A is for asynchronous"
+  - This may be the most complicated object literal so far (since it is being
+    passed directly to a method and it contains functions as values). For this,
+    I think it might be useful to be super verbose, naming each part as you
+    create it:
+
+      // Create the "callback" functions that will be invoked when...
+      // ...the AJAX request is successful
+      var updatePage = function( resp ) {
+        $( '#target').html( resp.people[0].name );
+      };
+      // ...the AJAX request fails
+      var printError = function( req, status, err ) {
+        console.log( 'something went wrong', status, err );
+      };
+
+      // Create an object to describe the AJAX request
+      var ajaxOptions = {
+        url: '/data/people.json',
+        dataType: 'json',
+        success: updatePage,
+        error: printError
+      };
+
+      // Initiate the request!
+      $.ajax(ajaxOptions);
+
+    ...from here, you might recommend:
+
+      "Before long, you will likely get tired of writing so verbosely. When
+      this happens, you can save some time by defining all the AJAX options
+      'in-line':
+
+      [ original example here]
+
+      This version has the same effect as the previous version, but it is
+      easier to write and maintain."
+
+  - "but the configuration object lets us tell jQuery what data [...]" ->
+     Presented this way, it almost sounds as if the list is comprehensive.
+     Maybe link specifically to
+     http://api.jquery.com/jQuery.ajax/#jQuery-ajax-settings
+     to point out all the configuration parameters
+- "Sending Data & Working with Forms"
+  - Link back to chapter on events
+  - Describe what `.serialize()` method is doing
+  - Rename `form` variable to `$form`?
+- "JSONP"
+  - This is the first reference to XHR. Consider placing this section after
+    the "jqXHR" section, and describing the acronym in that section.
+  - The statement "Cross-domain XHRs won't work" doesn't really have enough
+    context to be useful to a beginner. While you could spend some time talking
+    about CORS, this case probably calls for a higher-level description of the
+    problem JSONP intends to solve.
+  - Include a note that the callback function must be defined in the global
+    scope
+- jqXHR
+  - This is the first time the reader has seen "then", so even though the
+    callback names are obvious ("success" and "err"), it may be worthwhile to
+    add an inline comment describing usage:
+      // The .then() method takes two functions as its arguments. The first
+      // will be called only when the request completes successfully, and the
+      // second will be called only when the request fails
+  - Personally, I really don't like `.then()`, as I think it tries to do too
+    much. The name really doesn't mean much to me, and the fact that the first
+    argument is the success handler and the second argument the error handler
+    is not really communicated at all. This makes me want to see the examples
+    use `.done()` and `.fail()` exclusively, but I wonder how you feel about
+    `.then()`...?
+Deferreds
+- "$.Deferred" -> In the function you pass to `doSomethingLater()`, maybe add a
+  simple body describing what is going to happen, i.e.
+    var callLater = function() {
+      console.log("This function will be called in 100ms");
+    };
+
+    doSomethingLater(callLater, 100);
+- "pipe()" -> Maybe do something a little bit more meaningful to the response
+  in the pipe. Like
+    dfd
+      .pipe(function(resp) { return resp.toUpperCase(); })
+      .done(function(upperCaseResp) { $( '#target' ).html(upperCaseResp); });
+- "Reacting to maybe-asynchronous operations" -> The handler for `.then()` in
+  the final example just states `debugger;`.
