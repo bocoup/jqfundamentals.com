@@ -265,7 +265,7 @@ We can use the `.pipe()` method of a promise to react to the resolution of an
 asynchronous operation by manipulating the value it returns and creating a new
 deferred.
 
-In jQuery 1.8, the `.then()` method of a promise will behave like pipe.
+As of jQuery 1.8, the `.then()` method of a promise behaves like pipe.
 
     function doSomethingLater( fn, time ) {
       var dfd = $.Deferred();

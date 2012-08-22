@@ -232,7 +232,7 @@ page. To do this, we'd use the `.html()` method, which will change the HTML of
 
     $( 'li' ).html( 'New HTML' );
 
-As of jQuery 1.4, you can also pass a function to jQuery's setter methods. This
+You can also pass a function to jQuery's setter methods. This
 function's return value is used as the new value, and it receives two
 arguments: the index of the element in the selection, and the old value of the
 thing you're trying to change. This is useful when you need information about
