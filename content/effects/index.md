@@ -58,8 +58,19 @@ this: you can specify a time in milliseconds ...
 The predefined speeds are specified in the `jQuery.fx.speeds` object; you can
 modify this object to override the defaults, or extend it with new names:
 
-    jQuery.fx.speeds.blazing = 50;
+    // re-set an existing predefined speed
+    jQuery.fx.speeds.fast = 50;
+
+    // create a new pre-defined speed
     jQuery.fx.speeds.turtle = 3000;
+
+    // Since we've re-set the 'fast' speed, this will now animate over the
+    // course of 50 milliseconds
+    $( '.hidden' ).hide( 'fast' );
+
+    // After they are created, we can use custom speeds just as we use the
+    // built-in speeds
+    $( '.other-hidden' ).show( 'turtle' );
 
 Often, you'll want to do something once an animation is done — if you try to do
 it before the animation completes, it may affect the quality of the animation,
@@ -76,33 +87,38 @@ we can turn it into a jQuery object by passing it to the `$()` function:
 
 Note that if your selection doesn't contain any elements, then your callback
 will never run! If you need your callback to run regardless of whether there
-are elements in your selection, you can create a [named function
-expression](http://kangax.github.com/nfe/) and use it for both cases:
+are elements in your selection, you can create a function and use it for both cases:
 
-    var thingToRemove = $( 'p.old' );
+    var oldElements = $( 'p.old' );
     var thingToAnimate = $( '#nonexistent' );
-    var cb = function() {
-      thingToRemove.remove();
+
+    // This function will be a "callback" to the "show" method when there are
+    // elements to show. Otherwise, we will simply call it immediately
+    var removeOldElements = function() {
+      oldElements.remove();
     };
 
     if ( thingToAnimate.length ) {
-      thingToAnimate.show( 'slow', cb );
+
+      // When passed as a callback to "show", the function will be invoked
+      // when the animation is complete
+      thingToAnimate.show( 'slow', removeOldElements );
+
     } else {
-      cb();
+      removeOldElements();
     }
 
 ## Custom effects with .animate()
 
 If the built-in animations don't suit your needs, you can use `.animate()` to
-create custom animations of any CSS property (with the notable exception of
-animating color, for which there is a
-[plugin](https://github.com/jquery/jquery-color/)).
+create custom animations of many CSS properties. (Notably, you cannot animate the color property, but there is a
+[plugin](https://github.com/jquery/jquery-color/) that makes it possible).
 
 The `.animate()` method takes up to three arguments:
 
 - an object defining the properties to be animated
 - the duration of the animation, in milliseconds
-- a callback function
+- a callback function that will be called when the animation is complete
 
 The `.animate()` method can animate to a specified final value, or it can
 increment an existing value.
@@ -114,14 +130,11 @@ increment an existing value.
       },
       300,
       function() {
-        // callback to execute when the animation is done
+        // executes when the animation is done
       }
     );
 
-Note that if you want to animate a CSS property whose name includes a hyphen,
-you will need to use a "[camel cased](http://en.wikipedia.org/wiki/CamelCase)"
-version of the property name. For example, the `font-size` property must be
-referred to as `fontSize`.
+<div class="alert alert-info">Note that if you want to animate a CSS property whose name includes a hyphen, you will need to use a "[camel case](http://en.wikipedia.org/wiki/CamelCase)" version of the property name if you do not quote the property name. For example, the `font-size` property must be referred to as `fontSize`.</div>
 
 ## Managing animations
 
