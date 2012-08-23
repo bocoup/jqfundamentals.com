@@ -21,27 +21,28 @@ fairly straightforward and intuitive.
 
 In this chapter, we'll take a look at some (but not all) of those traversal and
 manipulation methods. Before we do, though, there are a few important
-vocabulary terms that you should know:
+vocabulary terms that you should know. Let's consider a bit of HTML:
 
-- **child**: An element that is an *immediate* descendant of another element.
-  For example, in the markup `<li><span><i>foo</i></span></li>`, the `span` is
-  a child of the `li`, while the `i` is just a descendant of the `li`. An
-  element can have zero or more children.
-- **parent**: An element that is the *immediate* ancestor of another element.
-  For example, in the markup `<li><span><i>foo</i></span></li>`, the `span` is
-  the parent of the `i`, while the `li` is an ancestor of the `i`. An element
-  has exactly one parent.
-- **siblings**: Elements that share the same parent element. For example, in
-  the markup `<ul><li>foo</li><li>bar</li></ul>`, the two `li` elements are
-  siblings.
+    <ul>
+        <li>
+            <span>
+                <i>Foo</i>
+            </span>
+        </li>
+        <li>Bar</li>
+    </ul>
+
+- The first list item is a **child** of the unordered list.
+- The unordered list is the **parent** of both list items.
+- The span is a **descendant** of the unordered list.
+- The unordered list is an **ancestor** of everything inside of it.
+- The two list items are **siblings**.
+
+
 
 ## Traversal
 
-jQuery lets us "traverse" a page's DOM. First, we make an initial selection,
-and then move through the DOM relative to that selection. As we move through
-the DOM, we're altering our original selection; in some cases, we're replacing
-the original selection with the new selection, while in other cases, we're
-adding to or subtracting from the original selection.
+jQuery lets us "traverse" -- or move through -- the HTML elements that make up our page. First, we make an initial selection, and then move through the DOM relative to that selection. As we move through the DOM, we're altering our original selection; in some cases, we're replacing the original selection with the new selection, while in other cases, we're adding to or subtracting from the original selection.
 
 ### Filtering selections
 
@@ -105,24 +106,52 @@ object.
 
     var listAndListItems = list.add( '#my-unordered-list li' );
 
-If you change a selection by using one of the traversal methods, you can
-restore your original selection using `.end()`, or add your original selection
-to the new selection using `.andSelf()`.
+### Getting back to your original selection
+
+When you use one of the traversal methods to find some elements relative to an initial selection, jQuery stores a reference to your initial selection in case you want to get back to it. For example, consider a case where you select an unordered list, make some changes to its list items, and then want to work with the unordered list again. You can use the jQuery `.end()` method to get back to your original selection:
+
+    $( '#my-unordered-list' )
+      .find('li')
+
+      // now we're working with the list items
+      .addClass('special')
+
+    .end()
+
+    // now we're back to working with the list
+    .addClass('super-special');
+
+The `.end()` method makes it easy to make a lot of changes in a single statement. This practice does little for code clarity, though; it's a little like telling a story without stopping to take a breath. Because of this, you should use it sparingly. More often than not, it will lead to code that's difficult to read, maintain, and debug.
+
+A better solution might look like this:
 
     var list = $( '#my-unordered-list' );
+    var listItems = list.find('li');
 
-    var listAndListItems = list.find( 'li' ).andSelf();
+    listItems.addClass( 'special' );
+    list.addClass( 'super-special' );
 
-    var justTheList = $( '#my-unordered-list' )
-      .find( 'li' ).addClass( 'awesome' ).end();
+jQuery also provides the `.addBack()` method if you want to add your original selection to your current selection. For example:
 
-<div class="alert alert-info"> **Note:** The `.end()` method makes it easy to
-write long chains without ever stopping to take a breath, and because of this,
-it should be used sparingly. It is often better to store multiple selections in
-variables, rather than to try to write a long chain that makes use of `.end()`
-to get back to some original selection.  While `.end()` can be useful, if you
-find yourself using it often, it's likely you should reconsider your approach.
-</div>
+    $( 'li.special' )
+
+      .siblings()
+
+        // now we're working with the siblings of the original selection
+        .removeClass( 'important' )
+
+      .addBack()
+
+      // now we're working with the original li's AND their siblings
+      .addClass( 'urgent' );
+
+Confused? Just like the `.end()` method can result in code that's difficult to work with, the `.addBack()` method -- while sometimes useful -- can easily lead to complex code. A better solution would use the `.add()` method to combine two original selections instead:
+
+    var specialListItems = $( 'li.special' );
+    var otherListItems = specialListItems.siblings();
+
+    otherListItems.removeClass( 'important' );
+    specialListItems.add( otherListItems ).addClass( 'urgent' );
 
 There are several traversal methods we haven't covered here; you can read about
 all of the traversal methods in the [traversing
@@ -152,23 +181,9 @@ remove classes to affect the display of elements.
     $( 'li' ).addClass( 'hidden' );
     $( 'li' ).eq( 1 ).removeClass( 'hidden' );
 
-If your use case requires adding and removing a class repeatedly, jQuery
-provides the `.toggleClass()` method. You can pass it two arguments: the class
-to toggle, and an optional flag indicating whether the class should be added or
-removed.
-
-The following code adds the class `hidden` if it is not present, and removes it
-if it is present.
+If your use case requires adding and removing a class repeatedly, jQuery provides the `.toggleClass()` method. The following code adds the class `hidden` if it is not present, and removes it if it is present.
 
     $( 'li' ).eq( 1 ).toggleClass( 'hidden' );
-
-If you want to ensure that a call to `.toggleClass()` adds the class, you can
-take advantage of the optional second argument:
-
-    $( 'li' ).eq( 1 ).toggleClass( 'hidden', true );
-
-Similarly, you can pass `false` as the second argument to ensure the class is
-removed.
 
 #### Changing style
 
@@ -195,9 +210,9 @@ we might resort to the `.css()` method for styling.
     var list = $( '#my-unordered-list' );
     var width = Math.floor( list.width() * 0.1 );
 
-    list.find('li').each(function( index, element ) {
+    list.find('li').each(function( index, elem ) {
       var padding = width * index;
-      $( this ).css( 'padding-left', padding + 'px' );
+      $( elem ).css( 'padding-left', padding + 'px' );
     });
 
 If you need to set multiple properties at once, you can pass an object to the
@@ -209,7 +224,7 @@ need to quote any property names that include a hyphen.
       'padding-left': '20px'
     });
 
-#### Changing form elements
+#### Changing form values
 
 jQuery provides the `.val()` method for altering the value of form elements
 such as `select` and `input` elements.
@@ -225,6 +240,8 @@ For `select` elements, you can set the chosen option using `.val()` as well:
 
 For checkbox `input` elements, you'll need to set the `checked` property on
 the element using the `.prop()` method.
+
+    $( 'input[type="checkbox"]' ).prop( 'checked', 'checked' );
 
 <div class="alert alert-info">The `.prop()` method was introduced in jQuery
 1.6; prior versions of jQuery used the `.attr()` method for this purpose. It
@@ -365,18 +382,15 @@ bound to them.
     removedListItem.appendTo( '#my-unordered-list' );
     removedListItem.trigger( 'click' ); // no alert!
 
-The `.detach()` method is useful for temporarily removing elements from the
-document; for example, if you need to do complex manipulations that would cause
-frequent reflows or repaints, you could use `.detach()` to temporarily remove
-the affected elements from the document before you do the complex
-manipulations. Elements removed with `.detach()` will retain their event
-handlers; you can re-add them to the document with
+The `.detach()` method is useful for temporarily removing elements from the document; for example, if you are going to make a lot of changes to your page's structure using jQuery, it will be more efficient to use `.detach()` to remove the affected elements, make your changes, and then re-attach the element using one of the insertion methods. Elements removed with `.detach()` will retain their event handlers; you can re-add them to the document with
 
     $( '#my-unordered-list li' ).click(function() {
       alert $( this ).text();
     });
 
     var detachedListItem = $( '#my-unordered-list li' ).first().detach();
+
+    // do something complicated with the list item
 
     detachedListItem.appendTo( '#my-unordered-list' );
     detachedListItem.trigger( 'click' ); // alert!
