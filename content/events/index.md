@@ -11,57 +11,137 @@ links:
     path: http://api.jquery.com/category/events/
 ---
 
-jQuery lets you listen for events that occur on an element. For example, this
-code would listen for a user to click on any `li` element in the page:
+jQuery makes it easy to respond to user interaction with a web page. This means that you can write code that runs when a user clicks on a certain part of the page, or when she moves her mouse over a form element. For example, this
+code listens for a user to click on any `li` element in the page:
 
     $( 'li' ).click(function( event ) {
       console.log( 'clicked', $( this ).text() );
     });
 
-Once you've "bound" an event handler to an element, you can trigger that event
-handler using jQuery as well. Importantly, this only triggers event handlers
-that were bound with JavaScript -- it doesn't trigger the default behavior of
-the event. For example, if you trigger the click event of an `a` element, it
-will not automatically navigate to the `href` of that element (though you could
-write code that would make it do so).
+The code above selects all list items on the page, then binds a handler function to the click event of each list item using jQuery's `.click()` method.
 
-    $( 'li' ).click();
+Methods such as `.click()`, `.blur()`, `.change()`, and others are "shorthand"
+methods for event binding. jQuery provides a number of these shorthand methods, each of which corresponds to a native DOM event:
 
-Methods like `.click()`, `.blur()`, `.change()`, and others are "shorthand"
-methods for event binding. Under the hood, they all make use of jQuery's `on()`
-method (or the `.bind()` method prior to version 1.7). You can use the `.on()`
-method in your own code; indeed, doing so gives you a lot more flexibility, as
-you'll see below. Here's what the `.on()` method looks like.
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Native Event Name</th>
+      <th>Shorthand Method</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>click</td>
+      <td>`.click()`</td>
+    </tr>
+    <tr>
+      <td>keydown</td>
+      <td>`.keydown()`</td>
+    </tr>
+    <tr>
+      <td>keypress</td>
+      <td>`.keypress()`</td>
+    </tr>
+    <tr>
+      <td>keyup</td>
+      <td>`.keyup()`</td>
+    </tr>
+    <tr>
+      <td>mouseover</td>
+      <td>`.mouseover()`</td>
+    </tr>
+    <tr>
+      <td>mouseout</td>
+      <td>`.mouseout()`</td>
+    </tr>
+    <tr>
+      <td>mouseenter</td>
+      <td>`.mouseenter()`</td>
+    </tr>
+    <tr>
+      <td>mouseleave</td>
+      <td>`.mouseleave()`</td>
+    </tr>
+    <tr>
+      <td>scroll</td>
+      <td>`.scroll()`</td>
+    </tr>
+    <tr>
+      <td>focus</td>
+      <td>`.focus()`</td>
+    </tr>
+    <tr>
+      <td>blur</td>
+      <td>`.blur()`</td>
+    </tr>
+    <tr>
+      <td>resize</td>
+      <td>`.resize()`</td>
+    </tr>
+  </tbody>
+</table>
+
+
+Under the hood, all of the shorthand methods make use of jQuery's `.on()` method. You can use the `.on()` method in your own code; indeed, doing so gives you a lot more flexibility. When you use the `.on()` method, you pass the native event name as the first argument, and then the handler function as the second argument:
 
     $( 'li' ).on( 'click', function( event ) {
       console.log( 'clicked', $( this ).text() );
     });
 
-## Namespaced events
 
-One advantage that `.on()` offers is the ability to use "namespaced" events.
-When would you want to use namespaces? Consider a situation where you want to
-*unbind* a click event handler. You could do it this way:
+
+Once you've "bound" an event handler to an element, you can trigger that event
+handler using jQuery as well.
+
+    $( 'li' ).trigger( 'click' );
+
+If the event you want to trigger has a shorthand method (see the table above), you can also trigger the event by simply calling the shorthand method:
+
+    $( 'li' ).click();
+
+<div class="alert alert-info">
+  When you `.trigger()` an event, you only trigger event handlers that were bound with JavaScript -- you don't trigger the default behavior of the event. For example, if you trigger the click event of an `a` element, it will not automatically navigate to the `href` of that element (though you could write code that would make it do so).
+</div>
+
+Once you have bound an event, you can unbind the event using jQuery's `.off()` method. This will remove any event handlers that were bound to the specified event:
 
     $( 'li' ).off( 'click' );
 
-However, this will unbind *all* click handlers on all `li` elements, which may
-have unintended consequences. If you originally bound your event handler using
-a namespaced event, you could target that event handler specifically:
+## Namespaced events
 
-    $( 'li' ).on( 'click.mynamespace', function( event ) {
-      console.log( 'clicked', $( this ).text() );
+One advantage that `.on()` offers is the ability to use "namespaced" events.
+When would you want to use namespaces? Consider a situation where you bind some events, and then want to *unbind* some of the handlers. As we just saw, you could do it this way:
+
+    $( 'li' ).on( 'click', function() {
+      console.log( 'a list item was clicked' );
     });
 
-    // do some things
+    $( 'li' ).on( 'click', function() {
+      registerClick();
+      doSomethingElse();
+    });
 
-    $( 'li' ).off( 'click.mynamespace' );
+    $( 'li' ).off( 'click' );
 
-This code leaves other click handlers for `li` elements untouched.
+However, this will unbind *all* click handlers on all `li` elements, which isn't what we want. If you bind an event handler using a *namespaced event*, you can target that event handler specifically:
 
-Namespaces also work for triggering event handlers:
+    $( 'li' ).on( 'click.logging', function() {
+      console.log( 'a list item was clicked' );
+    });
 
-    $( 'li' ).trigger( 'click.mynamespace' );
+    $( 'li' ).on( 'click.analytics', function() {
+      registerClick();
+      doSomethingElse();
+    });
+
+    $( 'li' ).off( 'click.logging' );
+
+This code leaves our analytics-related click untouched, while unbinding our logging-related click.
+
+We can also use namespaces to trigger only certain events:
+
+    $( 'li' ).trigger( 'click.logging' );
 
 ## Binding multiple events at once
 
@@ -71,9 +151,24 @@ window or when a user resizes the window. The `.on()` method lets you pass both
 events -- in a space-separated string -- followed by the function that you want
 to handle both events:
 
-    $( window ).on( 'resize.foo scroll.bar', function( event ) {
+    $( 'input[type="text"]' ).on('focus blur', function() {
+      console.log( 'The user focused or blurred the input' );
+    });
+
+    $( window ).on( 'resize.foo scroll.bar', function() {
       console.log( 'The window has been resized or scrolled!' );
     });
+
+## Passing named functions as event handlers
+
+In all of our examples up until now, we've been passing anonymous functions as event handlers. However, you can create a function ahead of time and store it in a variable, then pass that variable as the event handler. This is useful if you want to use the same handler for different events or events on different elements.
+
+    var handleClick = function() {
+      console.log( 'something was clicked' );
+    };
+
+    $( 'li' ).on( 'click', handleClick );
+    $( 'h1' ).on( 'click', handleClick );
 
 ## The event object
 
