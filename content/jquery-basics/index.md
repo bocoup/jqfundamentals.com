@@ -21,6 +21,10 @@ page.  We'll get to those in a bit. First, let's look at some jQuery basics,
 and at how we can use jQuery to perform its core functionality: getting some
 elements and doing something with them.
 
+<div class="alert alert-info">
+This guide assumes that you understand [HTML](https://developer.mozilla.org/en-US/docs/HTML/Introduction) and [CSS Selectors](http://www.w3.org/TR/CSS2/selector.html). If you are not familiar with how you can use CSS selectors to target elements, you should spend some time getting up to speed before trying to work through this guide.
+</div>
+
 ## What&rsquo;s $, anyway?
 
 The jQuery library provides the `jQuery` function, which lets you select
@@ -54,6 +58,7 @@ brevity. Note that if your page contains more than one JavaScript library, then
 experience this, you should consider using
 [jQuery.noConflict](http://api.jquery.com/jQuery.noConflict/) before loading
 the other libraries.**
+
 
 ## $(document).ready()
 
@@ -259,6 +264,12 @@ of the list item.
       // elem: the current, raw DOM element (same as this)
       $( elem ).prepend( '<b>' + index + ': </p>' );
     });
+
+<div class="alert alert-info">
+You'll notice that, inside the function that we pass to `.each()`, we have access to the current raw DOM element in two ways: as `this` and as `elem`. As discussed in the [JavaScript Basics section](/chatper/javascript-basics), `this` is a special keyword in JavaScript, referring to the object that is the current context of the function.
+
+In jQuery, `this` almost always refers to the raw DOM element on which the function is currently operating. So, in the case of `.each()`, it refers to the current element in the set of elements we're iterating over.
+</div>
 
 ### Chaining
 
