@@ -260,25 +260,6 @@ of the list item.
       $( elem ).prepend( '<b>' + index + ': </p>' );
     });
 
-We can also use `.each()` to create a per-element closure -- that is, to take
-advantage of the fact that variables are only accessible inside the function
-where they are declared. This can be useful when we need to keep track of state
-information for each element in a selection.
-
-    $( 'li' ).each(function( index, elem ) {
-      var clicked = false;
-      var listItem = $( this );
-
-      listItem.click(function( event ) {
-        if (clicked) {
-          listItem.addClass( 'again' );
-        } else {
-          listItem.addClass( 'clicked' );
-          clicked = true;
-        }
-      });
-    });
-
 ### Chaining
 
 One of the most lucrative parts of jQuery is the ability to "chain" methods
