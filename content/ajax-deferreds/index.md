@@ -16,19 +16,78 @@ links:
 ## AJAX
 
 AJAX -- "asynchronous JavaScript and XML" -- is a means of loading data from a
-server without requiring a page reload. These days, most "AJAX" doesn't use XML
-at all -- it usually uses HTML or JSON instead.  jQuery provides the `$.ajax`
-method -- and several convenience methods -- to make it easier to work with
-asynchronous requests for data across browsers.
+server without requiring a page reload. It uses a browser's built-in XMLHttpRequest (XHR) functionality to make a request to the server and then handle the data that the server returns.
+
+jQuery provides the `$.ajax` method -- and several convenience methods -- to make it easier to work with XHRs across browsers.
+
+### $.ajax
+
+We can use the jQuery `$.ajax()` method in a couple of different ways: we can pass it a configuration object as its sole argument, or we can pass it a URL and an optional configuration object. Let's take a look at the first approach:
+
+    // Create the "callback" functions that will be invoked when...
+
+    // ... the AJAX request is successful
+    var updatePage = function( resp ) {
+      $( '#target').html( resp.people[0].name );
+    };
+
+    // ... the AJAX request fails
+    var printError = function( req, status, err ) {
+      console.log( 'something went wrong', status, err );
+    };
+
+    // Create an object to describe the AJAX request
+    var ajaxOptions = {
+      url: '/data/people.json',
+      dataType: 'json',
+      success: updatePage,
+      error: printError
+    };
+
+    // Initiate the request!
+    $.ajax(ajaxOptions);
+
+Of course, you can be less verbose by just passing an object literal to the `$.ajax()` method, and using anonymous functions for the `success` and `error` callbacks. This version is easier to write, and likely easier to maintain:
+
+    $.ajax({
+      url: '/data/people.json',
+      dataType: 'json',
+      success: function( resp ) {
+        $( '#target').html( resp.people[0].name );
+      },
+      error: function( req, status, err ) {
+        console.log( 'something went wrong', status, err );
+      }
+    });
+
+As mentioned earlier, you can also call the `$.ajax()` method by passing it a URL and an optional configuration object. This can be useful if you want to use the default configuration for `$.ajax()`, or if you want to use the same configuration for several URLs.
+
+    $.ajax( '/data/people.json', {
+      type: 'GET',
+      dataType: 'json',
+      success: function( resp ) {
+        console.log( resp.people );
+      },
+      error: function( req, status, err ) {
+        console.log( 'something went wrong', status, err );
+      }
+    });
+
+In this version, only the URL is required, but the configuration object lets
+us tell jQuery what data we want to send, which HTTP method to use (GET, POST,
+etc.), what kind of data we expect to receive, how to react when the
+request succeeds or fails, and much more.
+
+[See the `$.ajax()` documentation](http://api.jquery.com/jQuery.ajax/#jQuery-ajax-settings) for a complete list of configuration options.
 
 ### A is for asynchronous
 
 AJAX requests run *asynchronously* -- that means that the `$.ajax` method
 returns before the request is finished, and therefore before the `success`
 callback runs. That means that this function's `return` statement runs before
-the request is complete, causing the function to return `undefined`.
+the request is complete. This means the `getSomeData` function below will return `data` before it is defined, causing the code to throw an error.
 
-    function getSomeData() {
+    var getSomeData = function() {
       var data;
 
       $.ajax({
@@ -44,39 +103,37 @@ the request is complete, causing the function to return `undefined`.
 
     $( '#target' ).html( getSomeData().people[0].name );
 
-### $.ajax
+### X is for JSON
 
-jQuery's `$.ajax()` method has a couple of different signatures. We can provide a
-configuration object ...
+The term AJAX was [coined in 2005](http://www.adaptivepath.com/ideas/ajax-new-approach-web-applications) to describe a method for retrieving data from a server without requiring a page refresh. Back then, data sent by a server tended to be formatted as [XML](http://en.wikipedia.org/wiki/XML), but these days, most modern applications use [JSON](http://www.json.org/) as the format for data from the server.
 
-    $.ajax({
-      url: '/data/people.json',
-      dataType: 'json',
-      success: function( resp ) {
-        $( '#target').html( resp.people[0].name );
+JSON is a string representation of data; it looks a whole lot like a normal JavaScript object, but it can only be used to represent a subset of the data that a normal JavaScript object can represent. For example, JSON cannot represent function or date objects. Here's an example of a JSON string; note how all property names are quoted:
+
+    { "people" : [
+      {
+        "name" : "Ben",
+        "url" : "http://benalman.com/",
+        "bio" : "I create groovy websites, useful jQuery plugins, and play a mean funk bass. I'm also Director of Pluginization at @bocoup."
       },
-      error: function( req, status, err ) {
-        console.log( 'something went wrong', status, err );
-      }
-    });
-
-... or we can provide a URL and a configuration object
-
-    $.ajax( '/data/people.json', {
-      type: 'GET',
-      dataType: 'json',
-      success: function( resp ) {
-        console.log( resp.people );
+      {
+        "name" : "Rebecca",
+        "url" : "http://rmurphey.com",
+        "bio" : "Senior JS dev at Bocoup"
       },
-      error: function( req, status, err ) {
-        console.log( 'something went wrong', status, err );
+      {
+        "name" : "Jory",
+        "url" : "http://joryburson.com",
+        "bio" : "super-enthusiastic about open web education @bocoup. lover of media, art, and fake mustaches."
       }
-    });
+    ] }
 
-Strictly speaking, only the URL is required, but the configuration object lets
-us tell jQuery what data we want to send, which HTTP method to use (GET, POST,
-etc.), what kind of data we expect to receive, and how to react when the
-request succeeds or fails.
+It's important to remember that *JSON is a string representation of an object* -- the string must be parsed into an actual JavaScript object before working with it. When you're working with a JSON response to an XHR, jQuery takes care of this task for you, but it's crucial to understand the difference between the JSON representation of an object, and the object itself.
+
+<div class="alert alert-info">
+  If you need to create a JSON string from a JavaScript object, or if you need to parse a JSON string outside of jQuery, modern browsers provide the `JSON.stringify()` and `JSON.parse()` methods. This functionality can be added to older browsers using the [json2.js](https://github.com/douglascrockford/JSON-js) library. jQuery also provides the `jQuery.parseJSON` method, which provides the same functionality as `JSON.parse()` across all browsers. However, jQuery does not provide a method that corresponds to `JSON.stringify()`.
+</div>
+
+
 
 ### Convenience methods
 
@@ -100,7 +157,7 @@ configuration object, or by passing an object as the second argument to one of
 the convenience methods.
 
 For a GET request, this data will be appended to the URL as a query string;
-for a POST request, it will be sent as form data.
+for a POST request, it will be sent as form data. jQuery provides the helpful `.serialize()` method for taking form input and converting it to a query string format (`field1name=field1value&field2name=field2value...`):
 
     $( 'form' ).submit(function( event ) {
       event.preventDefault();
@@ -118,16 +175,56 @@ for a POST request, it will be sent as form data.
       });
     });
 
+### jqXHR
+
+`$.ajax()` (and related convenience methods) returns a jqXHR object -- a *jQuery XML HTTP Request* -- which has a host of powerful methods. We can make a request using `$.ajax()`, and then capture the returned jqXHR object in a variable.
+
+    var req = $.ajax({
+      url: '/data/people.json',
+      dataType: 'json'
+    });
+
+We can use this object to attach callbacks to the request, even after the request has completed. For example, we can use the `.then()` method of the jqXHR object to attach success and error callbacks. The `.then()` method takes one or two functions as its arguments. The first function will be be called if the request succeeds; the second will be called if the request fails.
+
+    var success = function( resp ) {
+      $( '#target' ).append(
+        '<p>people: ' + resp.people.length + '</p>'
+      );
+      console.log( resp.people );
+    };
+
+    var err = function( req, status, err ) {
+      $( '#target' ).append( '<p>something went wrong</p>' );
+    };
+
+    req.then( success, err );
+    req.then(function() {
+      $( '#target' ).append( '<p>it worked</p>' );
+    });
+
+We can call `.then()` on a request as many times as we'd like; it's a first-in, first-out queue.
+
+If we don't want to attach success and error callbacks at the same time, we can
+use the `.done()` and `.fail()` methods of the request object.
+
+    req.done( success );
+    req.fail( err );
+
+If we want to attach a callback that runs on success or failure, we can use the
+`.always()` method of the request object.
+
+    req.always(function() {
+      $( '#target' )
+        .append( '<p>one way or another, it is done now</p>' );
+    });
+
 ### JSONP
 
-Cross-domain XHRs won't work, but certain third-party APIs provide a JSONP --
-"JSON with Padding" -- response that allows you to use their data even though
-it is hosted on another server. JSONP isn't AJAX -- it actually works by
-inserting a script tag into the page that contains the requested data, "padded"
-with a function wrapper.
+Many JavaScript developers are alarmed when they first try to use `$.ajax` to fetch data from another domain and their request fails. For example, you may try fetching data from a third-party API, and discover that your request consistently fails.
 
-Even though this isn't actually AJAX, jQuery lets you make a JSONP request with
-`$.ajax()` by specifying `'jsonp'` as the `dataType` in the configuration object.
+As it turns out, for security reasons, XHRs to other domains are blocked by the browser. However, certain third-party APIs provide a response formatted as JSONP -- "JSON with Padding" -- which allows you to use their data even though it is hosted on another server.
+
+JSONP isn't exactly AJAX -- rather than using the browser's XHR functionality, it actually works by inserting a script tag into the page that contains the requested data, "padded" with a function wrapper. Nevertheless, jQuery lets you make a JSONP request with `$.ajax()` by specifying `'jsonp'` as the `dataType` in the configuration object.
 
     $.ajax({
       url: 'http://search.twitter.com/search.json',
@@ -160,51 +257,7 @@ JSONP request.
       }
     );
 
-### jqXHR
-
-`$.ajax()` (and related convenience methods) returns a jqXHR object, which has
-a host of powerful methods. We can make a request using `$.ajax()`, and then
-capture the returned jqXHR object in a variable.
-
-    var req = $.ajax({
-      url: '/data/people.json',
-      dataType: 'json'
-    });
-
-We can use this object to attach callbacks to the request, even after the
-request has completed. For example, we can use the `.then()` method of the jqXHR
-object to attach success and error callbacks. We can do this as many times as
-we'd like; it's a first-in, first-out queue.
-
-    var success = function( resp ) {
-      $( '#target' ).append(
-        '<p>people: ' + resp.people.length + '</p>'
-      );
-      console.log( resp.people );
-    };
-
-    var err = function( req, status, err ) {
-      $( '#target' ).append( '<p>something went wrong</p>' );
-    };
-
-    req.then( success, err );
-    req.then(function() {
-      $( '#target' ).append( '<p>it worked</p>' );
-    });
-
-If we want to attach a callback that runs on success or failure, we can use the
-`.always()` method of the request object.
-
-    req.always(function() {
-      $( '#target' )
-        .append( '<p>one way or another, it is done now</p>' );
-    });
-
-If we don't want to attach success and error callbacks at the same time, we can
-use the `.done()` and `.fail()` methods of the request object.
-
-    req.done( success );
-    req.fail( err );
+[CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) -- cross-origin resource sharing -- is another option for enabling cross-origin requests. However, it is not supported on older browsers, and it requires server-side configuration and manipulation of the XHR headers in order to work.
 
 ## Deferreds
 
@@ -233,7 +286,9 @@ the provided function.
       return dfd.promise();
     }
 
-    var promise = doSomethingLater(function() { /* ... */ }, 100);
+    var promise = doSomethingLater(function() {
+      console.log( 'This function will be called in 100ms' );
+    }, 100);
 
 ### .then(), .done(), .fail(), .always()
 
@@ -252,9 +307,11 @@ Just like with a jqXHR, we can attach success and error handlers to a promise.
     var success = function( resp ) {
       $( '#target' ).html( 'it worked' );
     };
+
     var err = function( req, status, err ) {
       $( '#target' ).html( 'it failed' );
     };
+
     var dfd = doSomethingLater(function() { /* ... */ }, 100);
 
     dfd.then( success, err );
@@ -265,7 +322,7 @@ We can use the `.pipe()` method of a promise to react to the resolution of an
 asynchronous operation by manipulating the value it returns and creating a new
 deferred.
 
-As of jQuery 1.8, the `.then()` method of a promise behaves like pipe.
+As of jQuery 1.8, the `.then()` method of a promise behaves like `.pipe()`.
 
     function doSomethingLater( fn, time ) {
       var dfd = $.Deferred();
@@ -281,7 +338,9 @@ As of jQuery 1.8, the `.then()` method of a promise behaves like pipe.
 
     dfd
       .pipe(function(resp) { return resp + ' ' + resp; })
-      .done(function(newResp) { $('#target').html(newResp); });
+      .done(function(upperCaseResp) {
+        $( '#target' ).html( upperCaseResp );
+      });
 
 ### Reacting to maybe-asynchronous operations
 
@@ -361,5 +420,5 @@ arguments passed to our callback.
 
     $.when( maybeAsync( 0 ), $.get( '/data/people.json' ) )
       .then(function( resp1, resp2 ) {
-        debugger;
+        console.log( "Both operations are done", resp1, resp2 );
       });
