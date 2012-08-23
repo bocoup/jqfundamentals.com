@@ -59,7 +59,7 @@ the other libraries.**
 
 Before you can safely use jQuery to do anything to your page, you need to
 ensure that the page is in a state where it's ready to be manipulated. With
-jQuery, we accomplish this by wrapping our code in `$(document).ready()`.
+jQuery, we accomplish this by putting our code in a function, and then passing that function to `$(document).ready()`. As you can see here, the function we pass can just be an anonymous function.
 
     $( document ).ready(function() {
       console.log( 'ready!' );
@@ -114,7 +114,7 @@ objects in a few other ways:
     var firstBodyChild = document.body.children[0];
     $( 'li', firstBodyChild );
 
-    // make a selection in the context of another selection
+    // make a selection within a previous selection
     var paragraph = $( 'p' );
     $( 'a', paragraph );
 
@@ -129,9 +129,15 @@ determine whether anything was found.
       // Wrong! This code will always run!
     }
 
-    if ( $( '#nonexistent' ).length ) {
+    if ( $( '#nonexistent' ).length > 0 ) {
       // Correct! This code will only run if there's an element in your page
       // with an ID of 'nonexistent'
+    }
+
+We can shorten our check even further if we remember that `0` is a falsy value:
+
+    if ( $( '#nonexistent' ).length ) {
+      // This code will only run if there's a matching element
     }
 
 ### Getting single elements from a selection
@@ -181,10 +187,7 @@ to create the element:
       'class': 'greet'
     });
 
-Note that we must quote the `class` property, as `class` is a reserved word in
-JavaScript, and failing to quote it will cause errors in some browsers. See
-[the jQuery documentation](http://api.jquery.com/jQuery/#jQuery2) for details
-on the various properties you can include in the object.
+Note that we must wrap the `class` property in quotation marks, as `class` is a reserved word in JavaScript, and failing to quote it will cause errors in some browsers. See [the jQuery documentation](http://api.jquery.com/jQuery/#jQuery2) for details on the various properties you can include in the object.
 
 We'll look at how to place created elements into the document in the next
 chapter, which covers [traversing and
@@ -253,8 +256,8 @@ of the list item.
     $( 'li' ).each(function( index, elem ) {
       // this: the current, raw DOM element
       // index: the current element's index in the selection
-      // elem: same as this
-      $( this ).prepend( '<b>' + index + ': </p>' );
+      // elem: the current, raw DOM element (same as this)
+      $( elem ).prepend( '<b>' + index + ': </p>' );
     });
 
 We can also use `.each()` to create a per-element closure -- that is, to take
