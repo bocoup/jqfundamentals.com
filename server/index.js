@@ -76,6 +76,10 @@ app.get('/', function(req, res) {
   render( homeMarkdown, 'home', res );
 });
 
+app.get('/favicon.ico', function(req, res) {
+  fs.createReadStream(__dirname + "/../public/img/favicon.ico").pipe(res);
+});
+
 app.get("/data/search.json", function(req, res) {
   var query = req.query.q;
   var results = [];
