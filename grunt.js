@@ -12,22 +12,7 @@ module.exports = function(grunt) {
         ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
     },
     lint: {
-      files: ['grunt.js', 'lib/**/*.js', 'test/**/*.js']
-    },
-    qunit: {
-      files: ['test/**/*.html']
-    },
-    concat: {
-      dist: {
-        src: ['<banner:meta.banner>', '<file_strip_banner:lib/<%= pkg.name %>.js>'],
-        dest: 'dist/<%= pkg.name %>.js'
-      }
-    },
-    min: {
-      dist: {
-        src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-        dest: 'dist/<%= pkg.name %>.min.js'
-      }
+      files: ['grunt.js', 'public/js/**/*.js' ]
     },
     watch: {
       files: '<config:lint.files>',
@@ -47,12 +32,30 @@ module.exports = function(grunt) {
         eqnull: true,
         browser: true
       },
-      globals: {}
+      globals: {
+        CodeMirror : true,
+        define : true,
+        require : true
+      }
     },
-    uglify: {}
+    uglify: {},
+    requirejs: {
+      dir : 'build',
+      baseUrl : 'public',
+
+      modules : [
+        { name : 'js/chapter' }
+      ],
+
+      paths : {
+        jquery : 'vendor/jquery',
+        widgets : 'js/widgets'
+      }
+    }
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint qunit concat min');
+  grunt.registerTask('default', 'lint');
+  grunt.loadNpmTasks('grunt-requirejs');
 
 };

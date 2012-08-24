@@ -9,6 +9,7 @@
   "author": "Rebecca Murphey",
   "license": "Copyright 2012 Bocoup. All rights reserved.",
   "dependencies" : {
+    "grunt-requirejs" : "*",
     "connect" : "~2.3.6",
     "express" : "~2.5.11",
     "jade" : "~0.26.3",
