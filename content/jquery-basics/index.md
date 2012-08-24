@@ -53,12 +53,14 @@ example, you can refer to the `$.support` property for information on what the
 current browser environment supports, and you use the `$.ajax` method to make
 an AJAX request.
 
-**For the rest of this guide, we'll use `$` instead of `jQuery` for the sake of
+<div class="alert">
+For the rest of this guide, we'll use `$` instead of `jQuery` for the sake of
 brevity. Note that if your page contains more than one JavaScript library, then
 `$` may be used by another library, which can cause jQuery not to work. If you
 experience this, you should consider using
 [jQuery.noConflict](http://api.jquery.com/jQuery.noConflict/) before loading
-the other libraries.**
+the other libraries.
+</div>
 
 
 ## $(document).ready()
@@ -84,9 +86,11 @@ alias for `$(document).ready()` if you pass it a function:
       console.log( 'ready!' );
     });
 
-**For the rest of this guide, we'll assume that the code we're looking at is
+<div class="alert">
+  For the rest of this guide, we'll assume that the code we're looking at is
 enclosed in `$(document).ready(function() { ... });`, and we'll leave that part
-out for brevity.**
+out for brevity.
+</div>
 
 ## Get some elements
 
