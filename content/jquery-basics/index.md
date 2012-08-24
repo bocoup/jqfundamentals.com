@@ -37,13 +37,14 @@ seeing something like this:
 
     var listItems = $( 'li' );
 
-The `$` there is just a shorter, more convenient name for the `jQuery`
+As discussed in the [JavaScript Basics](/chapter/javascript-basics#naming-things) section, valid names in JavaScript can be pretty much anything, as long as they don't begin with a number and don't include a hyphen. So, the `$` in the code above is just a shorter, more convenient name for the `jQuery`
 function; indeed, in the [jQuery source
 code](https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js), you'll
 find this near the end:
 
     // Expose jQuery to the global object
     window.jQuery = window.$ = jQuery;
+
 
 When you call the `$()` function and pass a selector to it, you create a new
 jQuery object. Of course, in JavaScript, functions are objects too, so that
@@ -127,7 +128,7 @@ objects in a few other ways:
 
 Sometimes, you'll only want to do something when your selection matches some
 elements. Because the `$()` function *always* returns a jQuery object, and an
-object is always truthy, you'll need to test the contents of your selection to
+object is always [truthy](/chapter/javascript-basics#logic-and-truthiness), you'll need to test the contents of your selection to
 determine whether anything was found.
 
     if ( $( '#nonexistent' ) ) {
@@ -192,7 +193,7 @@ to create the element:
       'class': 'greet'
     });
 
-Note that we must wrap the `class` property in quotation marks, as `class` is a reserved word in JavaScript, and failing to quote it will cause errors in some browsers. See [the jQuery documentation](http://api.jquery.com/jQuery/#jQuery2) for details on the various properties you can include in the object.
+Note that we must wrap the `class` property in quotation marks, as `class` is a [reserved word](/chapter/javascript-basics#reserved-words) in JavaScript, and failing to quote it will cause errors in some browsers. See [the jQuery documentation](http://api.jquery.com/jQuery/#jQuery2) for details on the various properties you can include in the object.
 
 We'll look at how to place created elements into the document in the next
 chapter, which covers [traversing and
@@ -252,6 +253,7 @@ an element's current state in order to properly set the new state.
 
 ### Explicit iteration
 
+<a name="explicit-iteration"></a>
 Sometimes, the task you're trying to accomplish won't fit neatly into one of
 jQuery's existing methods, and you'll need to explicitly iterate over a
 selection. The `.each()` method lets you do this. In the following code, we use
