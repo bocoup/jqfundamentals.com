@@ -31,6 +31,7 @@ app.configure(function() {
 
 app.configure('production', function() {
   useCache = true;
+  app.use('/public', express['static'](__dirname + '/../build'));
 });
 
 app.set('views', __dirname + '/../templates');
