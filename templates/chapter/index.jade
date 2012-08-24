@@ -4,6 +4,27 @@ block css
   link(rel="stylesheet", href="/public/vendor/CodeMirror-2.25/lib/codemirror.css")
 
 block header_buttons
+  ul.nav
+    li
+      a(href="/") Home
+    li.dropdown
+      a.dropdown-toggle(data-toggle="dropdown") Contents &raquo;
+      ul.dropdown-menu
+        li
+          a(href="/chapter/javascript-basics") JavaScript Basics
+        li
+          a(href="/chapter/jquery-basics") jQuery Basics
+        li
+          a(href="/chapter/traversing-manipulating") Traversing &amp; Manipulating
+        li
+          a(href="/chapter/events") Events &amp; Event Delegation
+        li
+          a(href="/chapter/effects") Effects
+        li
+          a(href="/chapter/ajax-deferreds") AJAX &amp; Deferreds
+    li
+      a(href="mailto:jqf@bocoup.com") Feedback
+
   .pull-right
     button#editor-btn.btn.btn-primary Show Editor
 
@@ -49,3 +70,4 @@ block scripts
   script(src="http://code.jquery.com/jquery-1.8rc1.js")
   script(src="/public/js/editor.js")
   script(src="/public/js/chapter.js")
+  script(src="/public/vendor/bootstrap/js/bootstrap.min.js")
