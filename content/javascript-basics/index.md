@@ -32,7 +32,7 @@ Here's a simple JavaScript program that adds a message to the page:
     // and assign the function to the `greet` variable
     var greet = function( person, message ) {
       var greeting = 'Hello, ' + person + '!';
-      print( greeting + ' ' + message );
+      log( greeting + ' ' + message );
     };
 
     // use the function to greet Jory, passing in her
@@ -43,7 +43,9 @@ Here's a simple JavaScript program that adds a message to the page:
     // name and a different message
     greet( 'Rebecca', 'Thanks for joining us' );
 
-<div class="alert">In the above example, we use a function called <code>print</code>. This is a helper function that is defined by the JavaScript that powers this site -- it is not a built-in JavaScript function.</div>
+<div class="alert">
+  In the above example, we use a function called `log`. This is a helper function that is defined by the JavaScript that powers this site -- it is not a built-in JavaScript function. You can use `log` in the built-in editor for this site, but you'll need to use `console.log` in your normal code, and then view the output in your browser's console.
+</div>
 
 You can try running this program by clicking the <i class="icon-eye-open"></i>
 and it will copy the code to the built-in editor automatically. Once it's
@@ -95,7 +97,7 @@ You can also define multiple variables in a single statement, by separating them
 
 Once you have assigned a value to a variable, you can use that variable whenever you want to get access to the value you stored.
 
-    print( myName ); // prints 'Rebecca'
+    log( myName ); // logs 'Rebecca'
 
 Variables are a key ingredient in adhering to the *Don't Repeat Yourself* philosophy. If you need to use a value more than once, you probably want to store it in a variable.
 
@@ -119,7 +121,7 @@ This is a valid bit of JavaScript, but as written, there's no way for us to *cal
 
 What we've done here is take a **function expression** and assign it to a variable. Now that we've done this, we can call our function by using the name of the variable:
 
-    print( addTwoNumbers(1, 1) ); // prints 2
+    log( addTwoNumbers(1, 1) ); // logs 2
 
 We could also use a **function declaration** to give our function a name:
 
@@ -148,7 +150,7 @@ the following code a try:
     };
 
     myFunction();
-    print( typeof foo ); // prints undefined!
+    log( typeof foo ); // logs undefined!
 
 In the example above, if we'd tried to actually use `foo` outside of the function -- rather than just checking its type -- our browser would have thrown an error.
 
@@ -159,9 +161,9 @@ The next example shows how we can have two variables with the same name, as long
       var foo = 'bar';
     };
 
-    print( foo ); // prints 'qux'
+    log( foo ); // logs 'qux'
     myFunction();
-    print( foo ); // still prints 'qux'
+    log( foo ); // still logs 'qux'
 
 Variable scope is one of the fundamental concepts of JavaScript, and one of the
 concepts that people struggle with often. It's important to remember that:
@@ -180,7 +182,7 @@ implicitly global! In the following example, the variable `a` is available outsi
 
     test();
 
-    print( a ); // prints 1
+    log( a ); // logs 1
 
 
 ### Objects
@@ -211,8 +213,8 @@ We've stored our object in a variable named `person`, which makes it easy to acc
       lastName : 'Sender'
     };
 
-    print( 'First name: ' + person.firstName );     // dot notation
-    print( 'Last name: ' + person[ 'lastName' ] );  // bracket notation
+    log( 'First name: ' + person.firstName );     // dot notation
+    log( 'Last name: ' + person[ 'lastName' ] );  // bracket notation
 
 You'll notice that with bracket notation, we used a quoted string for the property name we were after; with dot notation, we just used the literal property name, without quotes. Bracket notation is a useful approach if, say, the name of the property you're after is stored in a variable:
 
@@ -223,7 +225,7 @@ You'll notice that with bracket notation, we used a quoted string for the proper
 
     var prop = 'lastName';
 
-    print( 'Last name: ' + person[ prop ] );
+    log( 'Last name: ' + person[ prop ] );
 
 Once we've created an object, we can modify its properties.
 
@@ -235,8 +237,8 @@ Once we've created an object, we can modify its properties.
     person.firstName = 'Ben';
     person.lastName = 'Alman';
 
-    print( 'First name: ' + person.firstName );
-    print( 'Last name: ' + person.lastName );
+    log( 'First name: ' + person.firstName );
+    log( 'Last name: ' + person.lastName );
 
 This aspect of JavaScript -- which will change in a future version of the language -- is both blessing and curse. It means that objects are incredibly flexible, but it also means that there's no "privacy." Any code can easily overwrite the value of a property of any object to which it has access -- another reason why it's important to keep variables out of the global scope unless it's OK for other code to modify them.
 
@@ -248,7 +250,7 @@ This aspect of JavaScript -- which will change in a future version of the langua
       firstName : 'Boaz',
       lastName : 'Sender',
       greet : function(name) {
-        print( 'Hi, ' + name );
+        log( 'Hi, ' + name );
       }
     };
 
@@ -272,7 +274,7 @@ Let's look at how we could use `this` in our method.
       firstName : 'Boaz',
       lastName : 'Sender',
       greet : function() {
-        print( 'Hi, ' + this.firstName );
+        log( 'Hi, ' + this.firstName );
       }
     };
 
@@ -284,13 +286,13 @@ Not so confusing so far, right? The confusion arises because *the meaning of `th
       firstName : 'Boaz',
       lastName : 'Sender',
       greet : function() {
-        print( 'Hi, ' + this.firstName );
+        log( 'Hi, ' + this.firstName );
       }
     };
 
     var sayIt = person.greet; // store the method in a variable
 
-    sayIt(); // prints 'Hi, undefined' -- uh-oh
+    sayIt(); // logs 'Hi, undefined' -- uh-oh
 
 When we store the `.greet()` method in a variable `sayIt` and then call `sayIt()`, the context object changes to the global `window` object, *not the `person` object*. Since the `window` object doesn't have a property `firstName`, we get `undefined` when we try to access it.
 
@@ -300,12 +302,12 @@ What's a developer to do? First, be aware that storing object methods in variabl
       firstName : 'Boaz',
       lastName : 'Sender',
       greet : function() {
-        print( 'Hi, ' + this.firstName );
+        log( 'Hi, ' + this.firstName );
       }
     };
 
     var sayIt = person.greet;
-    sayIt.call( person ); // prints 'Hi, Boaz' -- hooray!
+    sayIt.call( person ); // logs 'Hi, Boaz' -- hooray!
 
 <div class="alert alert-info">
   What's the difference between `.call()` and `.apply()`? They both let us change the meaning of `this` inside of a function, but in the case of `.call()`, we pass arguments to the function as a list, and in the case of `.apply()` we pass arguments to the function as an array. For more details, see the MDN documentation on [`.call()`](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/call) and [`.apply()`](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/apply).
@@ -341,13 +343,13 @@ We can access a value in an array by its index. The first item in an array has a
 
     var myArray = [ 'a', 'b', 'c' ];
     var item = myArray[ 1 ]; // access the item at index 1
-    print( item ); // prints 'b'
+    log( item ); // logs 'b'
 
 We can determine how many items are in an array by accessing an array's `length` property:
 
     var myArray = [ 'a', 'b', 'c' ];
     var len = myArray.length;
-    print( len ); // prints 3
+    log( len ); // logs 3
 
 Since we know how to get the length of an array, and we know that an array's first item is at index `0`, we can iterate over the items in an array using a `for` loop:
 
@@ -359,7 +361,7 @@ Since we know how to get the length of an array, and we know that an array's fir
     // and we increment it by 1 (using i++) until i is no longer
     // less than the length of the array
     for (i = 0; i < len; i++) {
-      print( 'item at index ' + i + ' is ' + myArray[ i ] );
+      log( 'item at index ' + i + ' is ' + myArray[ i ] );
     }
 
 There is a whole lot more that you can do with arrays; for a complete reference, see the [Mozilla Developer Network's Array documentation](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/).
@@ -420,19 +422,19 @@ should quote the property name:
 JavaScript represents all numbers as 64-bit floats. This means that operations
 on numbers can be unpredictable:
 
-    print( 0.0001 + 0.0002 ); // 0.00030000000000000003
+    log( 0.0001 + 0.0002 ); // 0.00030000000000000003
 
 JavaScript is a loosely-typed language. If you try to do mathematical
 operations using values that are not numbers, *JavaScript will not throw
 errors*, and the result may not be what you'd expect.
 
-    print( 'a' + 2 );           // 'a2'
-    print( '4' + 3 );           // '43'
-    print( 'five' - '4' );      // NaN (not a number)
-    print( - '1' );             // -1
-    print( 1 + true );          // 2
-    print( 1 == true );         // true
-    print( 1 === true );        // false
+    log( 'a' + 2 );           // 'a2'
+    log( '4' + 3 );           // '43'
+    log( 'five' - '4' );      // NaN (not a number)
+    log( - '1' );             // -1
+    log( 1 + true );          // 2
+    log( 1 == true );         // true
+    log( 1 === true );        // false
 
 ### Logic and Truthiness
 
