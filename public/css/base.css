@@ -70,12 +70,19 @@ body {
 
 #sandbox {
   position: fixed;
-  background-color: #fff;
   padding: 20px 0;
 }
 
 .sandbox-visible #main {
-  margin-top: 350px;
+  margin-top: 380px;
+}
+
+.sandbox-visible .navbar-inner {
+  border-bottom: 350px solid #eaeaea;
+}
+
+#results, #editor {
+  background-color: #fff;
 }
 
 #main {
@@ -87,6 +94,7 @@ body {
 }
 
 .sandbox-visible #sandbox {
+  margin-top: -340px;
   display: block;
 }
 

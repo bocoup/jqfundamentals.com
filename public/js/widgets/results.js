@@ -13,7 +13,7 @@ define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
       var iframe = $('<iframe>', {
         src : src,
         width : 275,
-        height : 250,
+        height : 255,
         frameBorder : 0
       }).appendTo(el);
 
