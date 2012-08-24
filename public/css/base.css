@@ -77,6 +77,13 @@ body {
   margin-top: 380px;
 }
 
+.navbar-inner {
+  border-bottom: 0;
+  -webkit-transition: border-bottom 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
 .sandbox-visible .navbar-inner {
   border-bottom: 350px solid #eaeaea;
 }
@@ -90,12 +97,14 @@ body {
 }
 
 #sandbox {
-  display: none;
+  margin-top: -1000px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .sandbox-visible #sandbox {
   margin-top: -340px;
-  display: block;
 }
 
 footer {
