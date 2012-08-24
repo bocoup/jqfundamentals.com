@@ -78,10 +78,10 @@ body {
 }
 
 .navbar-inner {
-  border-bottom: 0;
+  border-bottom: 0px;
   -webkit-transition: border-bottom 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  -moz-transition: border-bottom 0.2s ease;
+  transition: border-bottom 0.2s ease;
 }
 
 .sandbox-visible .navbar-inner {
@@ -105,6 +105,9 @@ body {
 
 .sandbox-visible #sandbox {
   margin-top: -340px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 footer {
