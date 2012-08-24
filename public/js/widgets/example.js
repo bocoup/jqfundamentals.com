@@ -1,7 +1,8 @@
-define([ 'jquery' ], function($) {
+define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
   var Example = function(el) {
     var code = $(el);
     var pre = code.parent();
+    var self = this;
 
     var container = $('<div>', {
       'class' : 'editor-container'
@@ -21,6 +22,8 @@ define([ 'jquery' ], function($) {
       readOnly : true
     });
 
+    pre.remove();
+
     var buttonArea = $('<div>', {
       'class' : 'editor-buttons'
     }).prependTo(container);
@@ -31,9 +34,11 @@ define([ 'jquery' ], function($) {
     }).appendTo(buttonArea);
 
     exploreButton.click(function() {
-      console.log(editor.getValue());
+      self.trigger('explore', editor.getValue());
     });
   };
+
+  Example.prototype = _evented;
 
   return Example;
 });

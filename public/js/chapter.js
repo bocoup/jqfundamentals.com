@@ -2,11 +2,35 @@ define([
   'jquery',
   'widgets/editor',
   'widgets/example',
-  'widgets/sandbox'
-], function($, Editor, Example, Sandbox) {
+  'widgets/results'
+], function($, Editor, Example, Results) {
+  var chapter = $('#main').attr('data-chapter');
+  var body = $('body').addClass('sandbox-visible');
+
+  var editor = new Editor( $('#editor')[0] );
+  var results = new Results( $('#results')[0] );
+
+  editor.on('execute', function(code) {
+    // TODO: execute code in results area
+  });
+
+  editor.on('reset', function() {
+    // TODO: reset results area
+  });
 
   $('#main pre > code').each(function(idx, el) {
-    new Example(el);
+    var example = new Example(el);
+    example.on('explore', function(content) {
+      // TODO: send contents to editor
+    });
+  });
+
+  $('#editor-btn').click(function() {
+    body.toggleClass('sandbox-visible');
+    window.localStorage.setItem(
+      'editorVisible',
+      +body.hasClass('sandbox-visible')
+    );
   });
 
 });
@@ -15,65 +39,7 @@ define([
 $(function() {
   var mainEditor;
   var body = $('body');
-  var editorBtn = $('#editor-btn');
   var hasLocalStorage = 'localStorage' in window;
-  var sandbox = $('#main').attr('data-sandbox');
-
-  $('#main pre > code').each(createEditorForCodeBlock);
-
-  showSandbox(sandbox);
-
-  editorBtn.on('click', function() {
-    toggleEditor();
-  });
-
-  function createEditorForCodeBlock() {
-    var code = $(this);
-    var pre = code.parent();
-
-    var container = $('<div>', {
-      'class' : 'editor-container'
-    }).insertBefore(pre)[0];
-
-    var content = $.trim(code.text());
-    var mode = /^</.test(content) ?
-      { name : 'xml', htmlMode : true } :
-      'javascript';
-
-    new CodeEditor(window, {
-      content : content,
-      mode : mode,
-      target : container,
-      buttons : mode === 'javascript' ? [ 'explore' ] : [],
-      onExplore : mode === 'javascript' ? function() {
-        var source = this.getValue();
-        showSandbox(sandbox, { content : source });
-        body.addClass('sandbox-visible');
-        editorBtn.text('Hide Editor');
-        storeEditorState(true);
-      } : $.noop,
-      readOnly : true
-    });
-
-    pre.remove();
-  }
-
-  function toggleEditor() {
-    body.toggleClass('sandbox-visible');
-    if (body.hasClass('sandbox-visible')) {
-      storeEditorState(true);
-      editorBtn.text('Hide Editor');
-    } else {
-      storeEditorState(false);
-      editorBtn.text('Show Editor');
-    }
-  }
-
-  function storeEditorState(state) {
-    if (hasLocalStorage) {
-      window.localStorage.setItem('editorVisible', +state);
-    }
-  }
 
   function showSandbox(sandbox, opts) {
     var editor = $('#editor').empty();
@@ -104,12 +70,5 @@ $(function() {
     };
   }
 
-  if (!hasLocalStorage) { return; }
-
-  var editorVisible = +(window.localStorage.getItem('editorVisible'));
-
-  if (editorVisible !== null && editorVisible) {
-    toggleEditor();
-  }
 });
  */
