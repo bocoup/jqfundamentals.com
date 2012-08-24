@@ -1,21 +1,24 @@
 define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
   var Results = function(el, src) {
-    this._createIframe(el, src);
+    this.el = el;
+    this.src = src;
+
+    this._createIframe();
   };
 
   Results.prototype = $.extend({
-    _createIframe : function(el, src) {
+    _createIframe : function() {
       var self = this;
       this.ready = false;
 
-      $(el).empty();
+      $(this.el).empty();
 
       var iframe = $('<iframe>', {
-        src : src,
+        src : this.src,
         width : 275,
         height : 255,
         frameBorder : 0
-      }).appendTo(el);
+      }).appendTo(this.el);
 
       this.contentWindow = iframe[0].contentWindow;
 
@@ -38,7 +41,7 @@ define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
     },
 
     reset : function() {
-
+      this._createIframe();
     }
   }, _evented);
 

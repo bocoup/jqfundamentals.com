@@ -11,13 +11,17 @@ require([
 
   var editor = new Editor( $('#editor')[0] );
   var results = new Results( $('#results')[0], chapter );
+  $('#sandbox').on('scroll', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  });
 
   editor.on('execute', function(code) {
     results.executeCode(code);
   });
 
   editor.on('reset', function() {
-    // TODO: reset results area
+    results.reset();
   });
 
   $('#main pre > code').each(function(idx, el) {
