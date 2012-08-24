@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="vendor/mocha.css">
+
+    <script src="vendor/chai.js"></script>
+    <script>
+    window.assert = chai.assert;
+    </script>
+
+    <!-- mocha is a library for testing javascript; it supports TDD, BDD, and QUnit-style test styles, and allows you to use its assertion library or another one such as expect.js -->
+    <script src="vendor/mocha.js"></script>
+
+    <script>
+    mocha.setup('tdd');
+    </script>
+
+    <!-- if you don't want to use requirejs, that's OK; you can just remove this line and include your test files via normal script tags. make sure you also add a call to `mocha.run()` at the end of <body> -->
+    <script src="../public/vendor/require.js"></script>
+    <script>
+    require.config({
+      baseUrl : '../public',
+      deps : [ 'test/runner' ],
+      shim : {
+        'vendor/codemirror' : {
+          deps : [ 'vendor/CodeMirror-2.25/lib/codemirror'],
+          exports : 'CodeMirror'
+        }
+      },
+      paths : {
+        test : '../test',
+        jquery : 'vendor/jquery',
+        widgets : 'js/widgets',
+        bootstrap : 'vendor/bootstrap/js/bootstrap.min'
+      }
+    });
+    </script>
+  </head>
+
+  <body>
+    <div id="mocha"></div>
+    <div id="test"></div>
+  </body>
+</html>

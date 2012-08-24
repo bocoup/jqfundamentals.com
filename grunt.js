@@ -59,11 +59,15 @@ module.exports = function(grunt) {
         widgets : 'js/widgets',
         bootstrap : 'vendor/bootstrap/js/bootstrap.min'
       }
+    },
+    mocha : {
+      index : [ 'test/index.html' ]
     }
   });
 
   // Default task.
   grunt.registerTask('default', 'lint');
   grunt.loadNpmTasks('grunt-requirejs');
+  grunt.loadNpmTasks('grunt-mocha');
 
 };
