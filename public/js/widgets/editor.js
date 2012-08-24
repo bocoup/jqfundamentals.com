@@ -6,7 +6,7 @@ define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
       'class' : 'editor'
     }).appendTo(el)[0];
 
-    var editor = CodeMirror(destination, {
+    var editor = this.editor = CodeMirror(destination, {
       value : ' ',
       mode : 'javascript',
       lineNumbers : true,
@@ -18,26 +18,30 @@ define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
       'class' : 'editor-buttons'
     }).prependTo(destination);
 
-    var executeAllButton = $('<i>', {
+    $('<i>', {
       'class' : 'icon-play',
       'title' : 'Execute Code'
-    }).appendTo(buttonArea);
+    })
+    .appendTo(buttonArea)
+    .click(function() { self.trigger('execute', editor.getValue()); });
 
-    executeAllButton.click(function() {
-      self.trigger('execute', editor.getValue());
-    });
-
-    var resetButton = $('<i>', {
+    $('<i>', {
       'class' : 'icon-repeat',
       'title' : 'Reset to original'
-    }).appendTo(buttonArea);
-
-    resetButton.click(function() {
-      self.trigger('reset');
-    });
+    })
+    .appendTo(buttonArea)
+    .click(function() { self.trigger('reset'); });
   };
 
-  Editor.prototype = _evented;
+  Editor.prototype = $.extend({
+    setValue : function(content) {
+      this.editor.setValue(content);
+    },
+
+    getValue : function(content) {
+      return this.editor.getValue(content);
+    }
+  }, _evented);
 
   return Editor;
 });
