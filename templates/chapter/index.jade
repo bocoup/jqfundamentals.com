@@ -63,20 +63,5 @@ block body
         include ../bocoup_ad
 
 
-block scripts
-  script(src="/public/vendor/CodeMirror-2.25/lib/codemirror.js")
-  script(src="/public/vendor/CodeMirror-2.25/mode/javascript/javascript.js")
-  script(src="/public/vendor/CodeMirror-2.25/mode/xml/xml.js")
-
-  script(src="/public/vendor/require.js")
-  script
-    require.config({
-      baseUrl : '../public',
-      deps : [ 'js/chapter' ],
-      paths : {
-        jquery : 'vendor/jquery',
-        widgets : 'js/widgets',
-        bootstrap : 'vendor/bootstrap/js/bootstrap.min'
-      }
-    });
+  | <script src="/public/vendor/require.js" data-main="/public/config"></script>
 

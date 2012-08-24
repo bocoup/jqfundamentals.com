@@ -1,4 +1,8 @@
-define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
+define([
+  'jquery',
+  'widgets/_evented',
+  'vendor/codemirror'
+], function($, _evented, CodeMirror) {
   var Editor = function(el) {
     var self = this;
 

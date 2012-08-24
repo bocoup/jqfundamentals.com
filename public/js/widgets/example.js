@@ -1,4 +1,8 @@
-define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
+define([
+  'jquery',
+  'widgets/_evented',
+  'vendor/codemirror'
+], function($, _evented, CodeMirror) {
   var Example = function(el) {
     var code = $(el);
     var pre = code.parent();
