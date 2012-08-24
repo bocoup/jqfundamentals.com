@@ -1,9 +1,9 @@
 require([
-  'bootstrap',
   'jquery',
   'widgets/editor',
   'widgets/example',
-  'widgets/results'
+  'widgets/results',
+  'bootstrap'
 ], function($, Editor, Example, Results) {
 
   var cls = 'sandbox-visible';
