@@ -6,7 +6,8 @@ define([
 ], function($, Editor, Example, Results) {
 
   var chapter = $('#main').attr('data-chapter');
-  var body = $('body').addClass('sandbox-visible');
+  var body = $('body');
+  var editorBtn = $('#editor-btn');
 
   var editor = new Editor( $('#editor')[0] );
   var results = new Results( $('#results')[0], chapter );
@@ -23,16 +24,14 @@ define([
     var example = new Example(el);
     example.on('explore', function(content) {
       editor.setValue(content);
+      body.addClass('sandbox-visible');
     });
   });
 
-  $('#editor-btn').click(function() {
-    body.toggleClass('sandbox-visible');
-
-    window.localStorage.setItem(
-      'editorVisible',
-      +body.hasClass('sandbox-visible')
-    );
+  editorBtn.click(function() {
+    var cls = 'sandbox-visible';
+    body.toggleClass(cls);
+    editorBtn.html( body.hasClass(cls) ? 'Hide Editor' : 'Show Editor' )
   });
 
 });

@@ -38,7 +38,7 @@ define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
     });
   };
 
-  Example.prototype = _evented;
+  Example.prototype = $.extend({}, _evented);
 
   return Example;
 });
