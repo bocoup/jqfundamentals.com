@@ -1,3 +1,17 @@
+define([
+  'jquery',
+  'widgets/editor',
+  'widgets/example',
+  'widgets/sandbox'
+], function($, Editor, Example, Sandbox) {
+
+  $('#main pre > code').each(function(idx, el) {
+    new Example(el);
+  });
+
+});
+
+/*
 $(function() {
   var mainEditor;
   var body = $('body');
@@ -98,3 +112,4 @@ $(function() {
     toggleEditor();
   }
 });
+ */

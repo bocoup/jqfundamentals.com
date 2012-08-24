@@ -67,7 +67,15 @@ block scripts
   script(src="/public/vendor/CodeMirror-2.25/lib/codemirror.js")
   script(src="/public/vendor/CodeMirror-2.25/mode/javascript/javascript.js")
   script(src="/public/vendor/CodeMirror-2.25/mode/xml/xml.js")
-  script(src="http://code.jquery.com/jquery-1.8rc1.js")
-  script(src="/public/js/editor.js")
-  script(src="/public/js/chapter.js")
-  script(src="/public/vendor/bootstrap/js/bootstrap.min.js")
+
+  script(src="/public/vendor/require.js")
+  script
+    require.config({
+      baseUrl : '../public',
+      deps : [ 'js/chapter' ],
+      paths : {
+        jquery : 'vendor/jquery',
+        widgets : 'js/widgets'
+      }
+    });
+
