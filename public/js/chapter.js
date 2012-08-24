@@ -5,6 +5,8 @@ require([
   'widgets/results'
 ], function($, Editor, Example, Results) {
 
+  var cls = 'sandbox-visible';
+
   var chapter = $('#main').attr('data-chapter');
   var body = $('body');
   var editorBtn = $('#editor-btn');
@@ -28,12 +30,12 @@ require([
     var example = new Example(el);
     example.on('explore', function(content) {
       editor.setValue(content);
-      body.addClass('sandbox-visible');
+      body.addClass(cls);
+      editorBtn.html('Hide Editor');
     });
   });
 
   editorBtn.click(function() {
-    var cls = 'sandbox-visible';
     body.toggleClass(cls);
     editorBtn.html( body.hasClass(cls) ? 'Hide Editor' : 'Show Editor' );
   });
