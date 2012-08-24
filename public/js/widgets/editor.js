@@ -6,7 +6,7 @@ define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
       'class' : 'editor'
     }).appendTo(el)[0];
 
-    var editor = this.editor = CodeMirror(destination, {
+    var editor = this.editor = new CodeMirror(destination, {
       value : ' ',
       mode : 'javascript',
       lineNumbers : true,

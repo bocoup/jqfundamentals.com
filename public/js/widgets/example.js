@@ -14,7 +14,7 @@ define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
                 { name : 'xml', htmlMode : true } :
                 'javascript';
 
-    var editor = this.editor = CodeMirror(container, {
+    var editor = this.editor = new CodeMirror(container, {
       value : content,
       mode : mode,
       lineNumbers : true,

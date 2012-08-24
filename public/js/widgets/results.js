@@ -21,7 +21,7 @@ define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
 
       this.contentWindow.onload = function() {
         self._ready.call(self);
-      }
+      };
     },
 
     _ready : function() {

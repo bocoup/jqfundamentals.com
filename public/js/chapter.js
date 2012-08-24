@@ -31,7 +31,7 @@ require([
   editorBtn.click(function() {
     var cls = 'sandbox-visible';
     body.toggleClass(cls);
-    editorBtn.html( body.hasClass(cls) ? 'Hide Editor' : 'Show Editor' )
+    editorBtn.html( body.hasClass(cls) ? 'Hide Editor' : 'Show Editor' );
   });
 
 });
