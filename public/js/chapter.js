@@ -1,4 +1,5 @@
 require([
+  'bootstrap',
   'jquery',
   'widgets/editor',
   'widgets/example',
