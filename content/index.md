@@ -17,7 +17,7 @@ menu:
 
 To get the most out of this site, you'll want to read the content *and* try the
 various examples and exercises. Each chapter will spend a bit of time covering
-a concept, and then you’ll have the chance to work on an exercise related to
+a concept, and then you'll have the chance to work on an exercise related to
 the concept. Some of the exercises may seem trivial; others may be downright
 daunting. In either case, there is no grade; the goal is simply to get you
 comfortable working your way through problems you’ll commonly be called upon to
