@@ -8,7 +8,7 @@ block header_buttons
     li
       a(href="/") Home
     li.dropdown
-      a.dropdown-toggle(data-toggle="dropdown") Contents &raquo;
+      a.dropdown-toggle(data-toggle="dropdown", href="#") Contents &raquo;
       ul.dropdown-menu
         li
           a(href="/chapter/javascript-basics") JavaScript Basics
@@ -63,5 +63,5 @@ block body
         include ../bocoup_ad
 
 
-  | <script src="/public/vendor/require.js" data-main="/public/config"></script>
+  script(src="/public/vendor/require.js", data-main="/public/config")
 
