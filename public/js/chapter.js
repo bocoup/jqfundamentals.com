@@ -3,6 +3,7 @@ require([
   'widgets/editor',
   'widgets/example',
   'widgets/results',
+
   'bootstrap'
 ], function($, Editor, Example, Results) {
 

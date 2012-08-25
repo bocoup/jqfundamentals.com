@@ -51,13 +51,16 @@ module.exports = function(grunt) {
         'vendor/codemirror' : {
           deps : [ 'vendor/CodeMirror-2.25/lib/codemirror'],
           exports : 'CodeMirror'
+        },
+        'vendor/bootstrap/js/bootstrap' : {
+          deps : [ 'jquery' ]
         }
       },
 
       paths : {
-        jquery : 'vendor/jquery',
-        widgets : 'js/widgets',
-        bootstrap : 'vendor/bootstrap/js/bootstrap.min'
+        'bootstrap' : 'vendor/bootstrap/js/bootstrap',
+        'jquery' : 'vendor/jquery',
+        'widgets' : 'js/widgets'
       }
     },
     mocha : {
