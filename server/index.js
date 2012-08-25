@@ -5,6 +5,7 @@ var express =       require('express');
 var md =            require('marked');
 var Faker =         require('Faker');
 var _ =             require('underscore');
+var gz =            require('gzippo');
 
 var app =           express.createServer(
                       express.logger(),
@@ -24,14 +25,16 @@ for (var i = 0; i < 100; i++) {
   fakeData.push(Faker.Helpers.userCard());
 }
 
-app.configure(function() {
-  app.use('/public', express['static'](__dirname + '/../public'));
-  app.use(app.router);
-});
+console.log('NODE ENV', process.env.NODE_ENV);
 
 app.configure('production', function() {
   useCache = true;
-  app.use('/public', express['static'](__dirname + '/../build'));
+  app.use('/public', gz.staticGzip(__dirname + '/../build'));
+});
+
+app.configure(function() {
+  app.use('/public', gz.staticGzip(__dirname + '/../public'));
+  app.use(app.router);
 });
 
 app.set('views', __dirname + '/../templates');
