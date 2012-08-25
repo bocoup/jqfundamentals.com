@@ -5,7 +5,6 @@ var express =       require('express');
 var md =            require('marked');
 var Faker =         require('Faker');
 var _ =             require('underscore');
-var gz =            require('gzippo');
 
 var app =           express.createServer(
                       express.logger(),
@@ -17,23 +16,29 @@ var exerciseDir =   __dirname + '/../exercises';
 
 var dataDir =       __dirname + '/../data';
 var htmlCache =     {};
-var useCache =      false;
 
 var fakeData =      [];
+var prod =          process.env.NODE_ENV === 'production';
 
 for (var i = 0; i < 100; i++) {
   fakeData.push(Faker.Helpers.userCard());
 }
 
-app.configure('production', function() {
-  useCache = true;
-  app.use('/public', gz.staticGzip(__dirname + '/../build'));
-});
+app.use( express.compress() );
+app.use( express.staticCache() );
+app.use( app.router );
 
-app.configure(function() {
-  app.use('/public', gz.staticGzip(__dirname + '/../public'));
-  app.use(app.router);
-});
+app.use( express.favicon(
+  __dirname + '/../public/img/favicon.ico',
+  { maxAge: 8640000000 }
+) );
+
+app.use(
+  '/public',
+  express.static(
+    __dirname + ( prod ? '/../build' : '/../public' )
+  )
+);
 
 app.set('views', __dirname + '/../templates');
 app.set('view engine', 'jade');
@@ -47,7 +52,7 @@ function render(filename, template, res) {
 	var dfd = Q.defer();
   var key = filename + '-' + template;
 
-  if (useCache && htmlCache[key]) {
+  if (prod && htmlCache[key]) {
     res.end(htmlCache[key]);
     return;
   }
@@ -57,7 +62,7 @@ function render(filename, template, res) {
 			dfd.reject(err);
 		} else {
 			var parts = data.split('---\n');
-			dfd.resolve([yaml.load(parts[0]), md(parts[1])]);
+			dfd.resolve( [ yaml.load(parts[0]), md(parts[1]) ] );
 		}
 	});
 
@@ -75,10 +80,6 @@ function render(filename, template, res) {
 app.get('/', function(req, res) {
   var homeMarkdown = [ contentDir, 'index.md' ].join('/');
   render( homeMarkdown, 'home', res );
-});
-
-app.get('/favicon.ico', function(req, res) {
-  fs.createReadStream(__dirname + "/../public/img/favicon.ico").pipe(res);
 });
 
 app.get("/data/search.json", function(req, res) {
@@ -136,6 +137,7 @@ app.get('/sandbox/:name', function(req, res) {
   });
 });
 
+/*
 app.get('/exercises/:exercise/index.html', function(req, res) {
   var file = [ exerciseDir, req.params.exercise, 'index.html' ].join('/');
 
@@ -154,6 +156,7 @@ app.get('/exercises/:exercise/:step', function(req, res) {
   ].join('/');
   render( exerciseMarkdown, 'exercise', res);
 });
+ */
 
 app.get('/chapter/:name', function(req, res) {
 	var chapterName = req.params.name;
