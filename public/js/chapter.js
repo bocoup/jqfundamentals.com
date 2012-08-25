@@ -1,3 +1,5 @@
+/*! jQuery Fundamentals is Copyright 2012 Bocoup LLC */
+
 require([
   'jquery',
   'widgets/editor',
