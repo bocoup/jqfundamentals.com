@@ -25,8 +25,6 @@ for (var i = 0; i < 100; i++) {
   fakeData.push(Faker.Helpers.userCard());
 }
 
-console.log('NODE ENV', process.env.NODE_ENV);
-
 app.configure('production', function() {
   useCache = true;
   app.use('/public', gz.staticGzip(__dirname + '/../build'));
