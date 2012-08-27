@@ -18,7 +18,7 @@ var dataDir =       __dirname + '/../data';
 var htmlCache =     {};
 
 var fakeData =      [];
-var prod =          true; // process.env.NODE_ENV === 'production';
+var prod =          process.env.NODE_ENV === 'production';
 
 for (var i = 0; i < 100; i++) {
   fakeData.push(Faker.Helpers.userCard());
