@@ -71,6 +71,11 @@ body {
 #sandbox {
   position: fixed;
   padding: 20px 0;
+    margin-top: -1000px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  z-index: -1;
 }
 
 .sandbox-visible #main {
@@ -84,10 +89,6 @@ body {
   transition: border-bottom 0.2s ease;
 }
 
-.sandbox-visible .navbar-inner {
-  border-bottom: 350px solid #eaeaea;
-}
-
 #results, #editor {
   background-color: #fff;
 }
@@ -96,18 +97,21 @@ body {
   margin-top: 80px;
 }
 
-#sandbox {
-  margin-top: -1000px;
+.sandbox-visible #sandbox {
+  margin-top: 20px;
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 
-.sandbox-visible #sandbox {
-  margin-top: -340px;
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+.sandbox-visible #sandbox:before {
+  position: absolute;
+  z-index: -2;
+  width: 2024px;
+  height: 365px;
+  background: #eaeaea;
+  left: -58px;
+  top: -20px;
 }
 
 footer {
