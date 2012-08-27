@@ -71,11 +71,11 @@ body {
 #sandbox {
   position: fixed;
   padding: 20px 0;
-    margin-top: -1000px;
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   transition: all 0.2s ease;
   z-index: -1;
+  margin-top: -400px;
 }
 
 .sandbox-visible #main {
@@ -93,10 +93,6 @@ body {
   background-color: #fff;
 }
 
-#main {
-  margin-top: 80px;
-}
-
 .sandbox-visible #sandbox {
   margin-top: 20px;
   -webkit-transition: all 0.2s ease;
@@ -104,7 +100,7 @@ body {
   transition: all 0.2s ease;
 }
 
-.sandbox-visible #sandbox:before {
+#sandbox:before {
   position: absolute;
   z-index: -2;
   width: 2024px;
