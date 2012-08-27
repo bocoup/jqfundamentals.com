@@ -104,13 +104,6 @@ body {
   transition: all 0.2s ease;
 }
 
-.hidden #sandbox {
-  margin-top: 0;
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  transition: all 0.2s ease;
-}
-
 .sandbox-visible #sandbox:before {
   position: absolute;
   z-index: -2;
