@@ -43,15 +43,6 @@ block body
         h1= title
 
     .row
-      .span8
-        | !{content}
-        ul.pager
-          if previous
-            li.previous
-              a(href="#{previous.path}") &larr;&nbsp;Previous:&nbsp;#{previous.name}
-          if next
-            li.next
-              a(href="#{next.path}") Next:&nbsp;#{next.name}&nbsp;&rarr;
       .span4
         #links.well
           ul.nav.nav-list
@@ -62,6 +53,15 @@ block body
 
         include ../bocoup_ad
 
+      .span8
+        | !{content}
+        ul.pager
+          if previous
+            li.previous
+              a(href="#{previous.path}") &larr;&nbsp;Previous:&nbsp;#{previous.name}
+          if next
+            li.next
+              a(href="#{next.path}") Next:&nbsp;#{next.name}&nbsp;&rarr;
 
   script(src="/public/vendor/require.js", data-main="/public/config")
 

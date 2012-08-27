@@ -1,9 +1,7 @@
 extends ../layout
 
 block body
-  .hero-unit
-    h1= title
-    p !{blurb}
+
   .row
     .span4
       ul.nav.nav-tabs.nav-stacked
@@ -14,4 +12,6 @@ block body
       include ../bocoup_ad
 
     .span8
+      .page-header.home-page-header
+        h1= title
       !{content}

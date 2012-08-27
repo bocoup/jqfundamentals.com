@@ -129,3 +129,12 @@ footer {
 .alert a {
   text-decoration: underline;
 }
+
+.home-page-header {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.home-page-header h1 {
+  margin-top: 0;
+}
