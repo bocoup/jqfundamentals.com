@@ -1,3 +1,5 @@
+define([ 'jquery' ], function($) {
+
 /* ============================================================
  * bootstrap-dropdown.js v2.1.0
  * http://twitter.github.com/bootstrap/javascript.html#dropdowns
@@ -18,7 +20,6 @@
  * ============================================================ */
 
 
-!function ($) {
 
   "use strict"; // jshint ;_;
 
@@ -147,4 +148,5 @@
       .on('keydown.dropdown.data-api touchstart.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
   })
 
-}(window.jQuery);
+
+});

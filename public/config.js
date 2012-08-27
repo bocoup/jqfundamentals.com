@@ -5,9 +5,6 @@ require.config({
     'vendor/codemirror' : {
       deps : [ 'vendor/CodeMirror-2.25/lib/codemirror'],
       exports : 'CodeMirror'
-    },
-    'vendor/bootstrap/js/bootstrap' : {
-      deps : [ 'jquery' ]
     }
   },
   paths : {
