@@ -10,6 +10,7 @@ require.config({
   paths : {
     'bootstrap' : 'vendor/bootstrap/js/bootstrap',
     'jquery' : 'vendor/jquery',
-    'widgets' : 'js/widgets'
+    'widgets' : 'js/widgets',
+    'controllers' : 'js/controllers'
   }
 });
