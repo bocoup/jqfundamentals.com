@@ -25,7 +25,6 @@ for (var i = 0; i < 100; i++) {
 }
 
 app.use( express.compress() );
-app.use( express.staticCache() );
 app.use( app.router );
 
 app.use( express.favicon(
