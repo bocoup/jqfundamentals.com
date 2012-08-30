@@ -6,7 +6,7 @@ var md =            require('marked');
 var Faker =         require('Faker');
 var _ =             require('underscore');
 
-var app =           express.createServer(
+var app =           express(
                       express.logger(),
                       express.bodyParser()
                     );
