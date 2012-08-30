@@ -57,7 +57,7 @@ It's OK if you don't understand everything that's going on in this program; in t
 
 ## A comment about comments
 
-Comments can be a useful tool for explaining what's happening in a piece of code. Some people like to heavily comment their code, while others prefer to include comments only to explain things that may not be immediately obvious.
+Comments can be a useful tool for explaining what's happening in a piece of code. The contents of a comment will have no effect whatsoever on how your code runs. Some people like to heavily comment their code, while others prefer to include comments only to explain things that may not be immediately obvious.
 
 JavaScript allows for single-line and multi-line comments. A single-line comment begins with `//`; a multi-line comment begins with `/*` and ends with `*/`.
 
@@ -79,7 +79,7 @@ You'll also sometimes see multi-line comments used for inline comments:
 
 ### Variables
 
-Variables are the way that we store values so we can use them later. Variables can contain any value -- strings, numbers, arrays, objects, even functions. We declare a variable using a `var` statement:
+Variables are the way that we store values so we can use them later. Variables can contain any value -- text, numbers, data (such as "arrays" and "objects"), even code (in the form of "functions"). We declare a variable using a `var` statement:
 
     var myName = 'Rebecca';
 
@@ -135,12 +135,7 @@ Bottom line: naming functions using the function declaration approach can have u
 
 #### Functions and variable scope
 
-Variables that are declared inside a function with a `var` statement are only
-available inside of the function; this is generally desirable, and all
-variables should be declared with a `var` statement unless they are intended
-to be "global" -- that is, available anywhere in your code. This usually isn't
-what you want, unless you want it to be possible for other code to change the
-value of the variable.
+Variables that are declared inside a function with a `var` statement are only available inside of the function; this is generally desirable, and all variables should be declared with a `var` statement unless they are intended to be **global** -- that is, available anywhere in your code. This usually isn't what you want, unless you want it to be possible for other code to change the value of the variable.
 
 What does it mean that a variable is only accessible inside of a function? Give
 the following code a try:
@@ -152,7 +147,7 @@ the following code a try:
     myFunction();
     log( typeof foo ); // logs undefined!
 
-In the example above, if we'd tried to actually use `foo` outside of the function -- rather than just checking its type -- our browser would have thrown an error.
+In the example above, if we'd tried to actually use `foo` outside of the function -- rather than just checking its type -- our browser would have reported an error, and any code after the line where we used `foo` would not run.
 
 The next example shows how we can have two variables with the same name, as long as each variable exists in a separate scope. In this example, we declare the variable `foo` and assign it the value `'qux'`; then, inside a function, we declare another variable named `foo`, and assign it the value `'bar'`. Notice how, outside of the function, the variable `foo` does not change, even when we create the variable `foo` inside the function.
 
@@ -164,6 +159,8 @@ The next example shows how we can have two variables with the same name, as long
     log( foo ); // logs 'qux'
     myFunction();
     log( foo ); // still logs 'qux'
+
+Despite the fact that both variables have the same name, JavaScript considers the two variables as completely separate entities. This is just one of many reasons that it's important to give your variables meaningful names.
 
 Variable scope is one of the fundamental concepts of JavaScript, and one of the
 concepts that people struggle with often. It's important to remember that:
@@ -189,20 +186,20 @@ implicitly global! In the following example, the variable `a` is available outsi
 
 As it turns out, most everything we work with in JavaScript is an object -- in fact, there are only five kinds of values that are *not* objects:
 
-- strings
+- strings (text)
 - booleans (true/false)
 - numbers
 - `undefined`
 - `null`
 
-These values are called "primitives," but even some of these values can be treated as though they were objects -- more on that in a minute. But what's an object? Let's look at an example of a simple object:
+These values are called **primitives**, but even some of these values can be treated as though they were objects -- more on that in a minute. But what's an object? Let's look at an example of a simple object:
 
     var person = {
       firstName : 'Boaz',
       lastName : 'Sender'
     };
 
-The object we've created here has two *properties*: `firstName` and `lastName`. We've created it using the "object literal syntax" -- that is, by putting a set of key-value pairs in `{ }`. Note that, for each pair, there is a colon between the key and the value, and there is a comma between each pair. Note also that there is *not* a comma after the last key-value pair -- if you accidentally include a comma after the last pair, you will get errors in older browsers.
+The object we've created here has two **properties**: `firstName` and `lastName`. We've created it using the "object literal syntax" -- that is, by putting a set of key-value pairs in `{ }`. Note that, for each pair, there is a colon between the key and the value, and there is a comma between each pair. Note also that there is *not* a comma after the last key-value pair -- if you accidentally include a comma after the last pair, you will get errors in older browsers.
 
 #### Accessing properties
 
@@ -240,11 +237,11 @@ Once we've created an object, we can modify its properties.
     log( 'First name: ' + person.firstName );
     log( 'Last name: ' + person.lastName );
 
-This aspect of JavaScript -- which will change in a future version of the language -- is both blessing and curse. It means that objects are incredibly flexible, but it also means that there's no "privacy." Any code can easily overwrite the value of a property of any object to which it has access -- another reason why it's important to keep variables out of the global scope unless it's OK for other code to modify them.
+This aspect of JavaScript is both blessing and curse. It means that objects are incredibly flexible, but it also means that there's no "privacy." Any code can easily overwrite the value of a property of any object to which it has access -- another reason why it's important to keep variables out of the global scope unless it's OK for other code to modify them.
 
 #### Object methods
 
-*Methods* of an object are just properties whose values are functions. Let's add a `.greet()` method to our `person` object:
+**Methods** of an object are just properties whose values are functions. Let's add a `.greet()` method to our `person` object:
 
     var person = {
       firstName : 'Boaz',
@@ -265,7 +262,7 @@ Inside of a method -- indeed, inside of any function -- there is a special keywo
 When we call `person.greet()`, the context object is `person` itself. This means that we can use `this` to access a property of the `person` object from directly within the `.greet()` method.
 
 <div class="alert alert-info">
-The meaning of `this` can be incredibly perplexing to new JavaScript developers, and you should take comfort in knowing that jQuery largely makes it so that you don't need to understand it for a while. However, no discussion of objects and methods is complete without talking about `this` at least a little.
+The meaning of `this` can be incredibly perplexing to new JavaScript developers, and you should take comfort in knowing that jQuery largely makes it so that you don't need to understand it for a while. However, no discussion of objects and methods is complete without talking about `this` at least a little. In short, if this section is confusing, feel free to skip to <a href="#objects-in-jquery">Objects in jQuery</a>, and come back to it when you're ready.
 </div>
 
 Let's look at how we could use `this` in our method.
@@ -296,7 +293,7 @@ Not so confusing so far, right? The confusion arises because *the meaning of `th
 
 When we store the `.greet()` method in a variable `sayIt` and then call `sayIt()`, the context object changes to the global `window` object, *not the `person` object*. Since the `window` object doesn't have a property `firstName`, we get `undefined` when we try to access it.
 
-What's a developer to do? First, be aware that storing object methods in variables can have unintended consequences for the meaning of `this`. Second, be aware that you can force the meaning of `this` to be what you want it to be, using the `.call()` method on the function itself.
+What's a developer to do? First, be aware that storing object methods in variables can have unintended consequences for the meaning of `this`. Second, be aware that you can force the meaning of `this` to be what you want it to be, using the `.call()` or `.apply()` method on the function itself.
 
     var person = {
       firstName : 'Boaz',
@@ -307,12 +304,42 @@ What's a developer to do? First, be aware that storing object methods in variabl
     };
 
     var sayIt = person.greet;
-    sayIt.call( person ); // logs 'Hi, Boaz' -- hooray!
+
+    sayIt.call( person );
+
+Both `.call()` and the very similar `.apply()` method also let us pass arguments to the function we're invoking. Imagine if our greet method took some arguments; we could pass those arguments using `.call()` like this:
+
+    var person = {
+      firstName : 'Boaz',
+      lastName : 'Sender',
+      greet : function(greeting, punctuation) {
+        log( greeting + ', ' + this.firstName + punctuation );
+      }
+    };
+
+    var sayIt = person.greet;
+
+    sayIt.call( person, 'Hello', '!!1!!1' );
+
+We could do the same thing using `.apply()`, but we'd pass the arguments within a single array instead of as separate arguments:
+
+    var person = {
+      firstName : 'Boaz',
+      lastName : 'Sender',
+      greet : function(greeting, punctuation) {
+        log( greeting + ', ' + this.firstName + punctuation );
+      }
+    };
+
+    var sayIt = person.greet;
+
+    sayIt.apply( person, [ 'Hello', '!!1!!1' ] );
 
 <div class="alert alert-info">
-  What's the difference between `.call()` and `.apply()`? They both let us change the meaning of `this` inside of a function, but in the case of `.call()`, we pass arguments to the function as a list, and in the case of `.apply()` we pass arguments to the function as an array. For more details, see the MDN documentation on [`.call()`](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/call) and [`.apply()`](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/apply).
+For more details about `.call()` and `.apply()`, see the MDN documentation on [`.call()`](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/call) and [`.apply()`](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/apply).
 </div>
 
+<a name="objects-in-jquery"></a>
 #### Objects in jQuery
 
 We've barely scratched the surface of objects, but you now know the basics you'll need to know to work with objects as you learn jQuery. In basic jQuery, you'll mainly use objects to provide configuration options. For example, you can provide an object to change several CSS properties on an element at once:
@@ -337,19 +364,30 @@ The preferred way to create an array is to use the *array literal notation*:
 
     var myArray = [ 'a', 'b', 'c' ];
 
+<div class="alert alert-info">
 You will sometimes see code that creates an array using the `new Array('a', 'b', 'c')` construct. This is generally frowned upon among JavaScript developers; it provides no advantages over the literal construct, and has some disadvantages, such as the fact that `new Array(3)` will create an array with three undefined elements, rather than the array `[ 3 ]`.
+</div>
 
-We can access a value in an array by its index. The first item in an array has an index of `0`, the second has an index of `1`, etc. We access an item by index using bracket notation:
+You can access properties of arrays (sometimes called **elements**) with the same bracket notation we used for objects. Each element is automatically given a name based on its position in the array. Be careful, though: the numbers start at zero! Lets look at an example array with three elements:
 
-    var myArray = [ 'a', 'b', 'c' ];
-    var item = myArray[ 1 ]; // access the item at index 1
-    log( item ); // logs 'b'
+          var myArray = [ 'a', 'b', 'c' ];
+          var firstItem = myArray[ "0" ]; // access the first item
+
+When retrieving array elements, it's usually much more convenient to use numbers to specify the **index** of the element you're after:
+
+          var myArray = [ 'a', 'b', 'c' ];
+          var firstItem = myArray[ 0 ];
+
+          var secondItem = myArray[ 1 ]; // access the item at index 1
+          log( secondItem ); // logs 'b'
 
 We can determine how many items are in an array by accessing an array's `length` property:
 
     var myArray = [ 'a', 'b', 'c' ];
     var len = myArray.length;
     log( len ); // logs 3
+
+#### `for` Loops: Iterating over Arrays
 
 Since we know how to get the length of an array, and we know that an array's first item is at index `0`, we can iterate over the items in an array using a `for` loop:
 
@@ -360,7 +398,7 @@ Since we know how to get the length of an array, and we know that an array's fir
     // we'll use the variable i as our index; it starts at 0,
     // and we increment it by 1 (using i++) until i is no longer
     // less than the length of the array
-    for (i = 0; i < len; i++) {
+    for (i = 0; i < len; i = i + 1) {
       log( 'item at index ' + i + ' is ' + myArray[ i ] );
     }
 
@@ -419,10 +457,11 @@ should quote the property name:
 
 ### Operations on numbers and strings
 
-JavaScript represents all numbers as 64-bit floats. This means that operations
-on numbers can be unpredictable:
+Working with numbers in JavaScript can be a bit unpredictable, due to the way JavaScript represents numbers internally. For example, addition using decimals can have results that are close but not quite accurate:
 
     log( 0.0001 + 0.0002 ); // 0.00030000000000000003
+
+This won't come up often when working with jQuery, but it's an important issue to be aware of, especially if you're working with decimal numbers like currency. If you're doing mathematical operations that require precision, you should convert values to integers before working with them, and convert them back when you're done.
 
 JavaScript is a loosely-typed language. If you try to do mathematical
 operations using values that are not numbers, *JavaScript will not throw
@@ -442,13 +481,14 @@ errors*, and the result may not be what you'd expect.
 
 JavaScript provides `if` and `else`, as well as the *ternary operator*, to allow us to do certain things only when certain conditions are met. JavaScript determines whether a condition is met by evaluating a value or an expression for its "truthiness." Because JavaScript is a dynamically typed language, we can use any value or combination of values; however, the rules by which JavaScript determines whether a given value or expression is `true` or `false` can be confusing.
 
-Here's an example of a simple `if` statement in JavaScript. It evaluates the truthiness of the number `1`; because `1` is truthy, the code inside the block -- delineated by `{` and `}` -- will run.
+Here's an example of a simple `if` statement in JavaScript. It evaluates the truthiness of the number `1`; because `1` is **truthy**, the code inside the block -- delineated by `{` and `}` -- will run.
 
     if ( 1 ) {
       // this code will run!
+      log( '1 is truthy' );
     }
 
-As it turns out, ost values in JavaScript are truthy -- in fact, there are only five values in JavaScript that are falsy:
+As it turns out, most values in JavaScript are truthy -- in fact, there are only five values in JavaScript that are **falsy**:
 
 - `undefined` (the default value of declared variables that are not assigned a
   value)
@@ -459,8 +499,11 @@ As it turns out, ost values in JavaScript are truthy -- in fact, there are only 
 
 When we want to test whether a value is "falsy," we can use the `!` operator:
 
+    var a = '';
+
     if ( !a ) {
       // this code will run if a is false
+      log( 'a was falsy' );
     }
 
 The value `NaN` is a special case. Values that are `NaN` will evaluate to false
@@ -469,6 +512,7 @@ in a simple conditional expression:
     var notANumber = 'four' - 'five';
     if ( !notANumber ) {
       // this code will run
+      log( '!notANumber was truthy' );
     }
 
 However, if we compare the value `NaN` to `false`, we get back a falsy value:
@@ -476,13 +520,37 @@ However, if we compare the value `NaN` to `false`, we get back a falsy value:
     var notANumber = 'four' - 'five';
     if ( notANumber == false ) {
       // this code will not run!
+      log( 'notANumber was falsy' );
     } else {
       // this code will run
+      log( 'notANumber was truthy' );
     }
 
 It's important to remember that *all other values aside from the five values
 listed above* are truthy. This includes empty arrays, empty objects, all
 non-empty strings (including the string `'0'`), and all numbers other than `0`.
+
+<div class="alert">
+  It is possible to write single-line `if` and `else` statements without using curly braces. This practice is discouraged, as it can make code difficult to read and maintain. It is mentioned here simply because you may encounter it in others' code.
+</div>
+
+#### The Ternary Operator
+
+Often, you'll want to set a variable's value differently depending on whether a certain condition is true or false. Of course, you could achieve this with an `if` and `else` statemenet:
+
+    var propertyName;
+
+    if (dim === 'width') {
+      propertyName = 'clientWidth';
+    } else {
+      propertyName = 'clientHeight';
+    }
+
+However, the ternary operator provides a much more succinct way of conditionally setting the value of a variable:
+
+    var propertyName = ( dim === 'width' ) ? 'clientWidth' : 'clientHeight';
+
+The statement before the `?` is evaluated for its truthiness. If it is truthy, the first value (`'clientWidth'`) is used as the value of the `propertyName` variable; otherwise, the second value (`'clientHeight'`) is used.
 
 ## Further reading
 
