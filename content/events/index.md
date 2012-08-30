@@ -89,8 +89,6 @@ Under the hood, all of the shorthand methods make use of jQuery's `.on()` method
       console.log( 'clicked', $( this ).text() );
     });
 
-
-
 Once you've "bound" an event handler to an element, you can trigger that event
 handler using jQuery as well.
 
@@ -113,6 +111,7 @@ Once you have bound an event, you can unbind the event using jQuery's `.off()` m
 One advantage that `.on()` offers is the ability to use "namespaced" events.
 When would you want to use namespaces? Consider a situation where you bind some events, and then want to *unbind* some of the handlers. As we just saw, you could do it this way:
 
+    ```<span class="caution">caution</span> antipattern
     $( 'li' ).on( 'click', function() {
       console.log( 'a list item was clicked' );
     });

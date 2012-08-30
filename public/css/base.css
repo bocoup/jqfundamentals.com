@@ -35,6 +35,20 @@ body {
   cursor: pointer;
 }
 
+.editor-info {
+  height: 0;
+  position: relative;
+  top: 6px;
+  left: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 80%;
+}
+
+.editor-info .caution {
+  color: red;
+}
+
 .CodeMirror {
   font-family: Monaco, Menlo,"Andale Mono","lucida console","Courier New",monospace !important;
   font-size: 90%;
@@ -135,3 +149,4 @@ footer {
 .home-page-header h1 {
   margin-top: 0;
 }
+

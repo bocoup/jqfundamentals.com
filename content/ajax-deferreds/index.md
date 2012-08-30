@@ -87,6 +87,7 @@ returns before the request is finished, and therefore before the `success`
 callback runs. That means that this function's `return` statement runs before
 the request is complete. This means the `getSomeData` function below will return `data` before it is defined, causing the code to throw an error.
 
+    ```<span class="caution">caution</span> broken code
     var getSomeData = function() {
       var data;
 
@@ -132,8 +133,6 @@ It's important to remember that *JSON is a string representation of an object* -
 <div class="alert alert-info">
   If you need to create a JSON string from a JavaScript object, or if you need to parse a JSON string outside of jQuery, modern browsers provide the `JSON.stringify()` and `JSON.parse()` methods. This functionality can be added to older browsers using the [json2.js](https://github.com/douglascrockford/JSON-js) library. jQuery also provides the `jQuery.parseJSON` method, which provides the same functionality as `JSON.parse()` across all browsers. However, jQuery does not provide a method that corresponds to `JSON.stringify()`.
 </div>
-
-
 
 ### Convenience methods
 

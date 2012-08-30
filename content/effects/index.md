@@ -18,14 +18,16 @@ animations of arbitrary CSS properties.
 See the [effects documentation](http://api.jquery.com/category/effects/) for
 complete details on jQuery effects.
 
-<div class="alert alert-info">**An important note about animations:** In modern
+<div class="alert alert-info">
+  **An important note about animations:** In modern
 browsers, and especially on mobile devices, it is often much more efficient to
 achieve animations using CSS rather than JavaScript. The details of doing this
 are beyond the scope of this guide, but if you are only targeting mobile
 devices or browsers that support CSS animations, then you should not use jQuery
 for animations. You may also want to consider setting `jQuery.fx.off` to true
 on low-resource devices; doing so will cause animation methods to immediately
-set elements to the desired state, rather than animating to that state.</div>
+set elements to the desired state, rather than animating to that state.
+</div>
 
 ## Built-in effects
 

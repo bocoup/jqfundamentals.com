@@ -135,6 +135,7 @@ elements. Because the `$()` function *always* returns a jQuery object, and an
 object is always [truthy](/chapter/javascript-basics#logic-and-truthiness), you'll need to test the contents of your selection to
 determine whether anything was found.
 
+    ```<span class="caution">caution</span> broken code
     if ( $( '#nonexistent' ) ) {
       // Wrong! This code will always run!
     }
@@ -164,6 +165,7 @@ with the raw DOM element.
 Note that you *cannot* call jQuery methods on raw DOM elements. So, the
 following will not work:
 
+    ```<span class="caution">caution</span> broken code
     var listItems = $( 'li' );
     var rawListItem = listItems[0];
     var html = rawListItem.html();

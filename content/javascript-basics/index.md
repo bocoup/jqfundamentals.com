@@ -140,6 +140,7 @@ Variables that are declared inside a function with a `var` statement are only av
 What does it mean that a variable is only accessible inside of a function? Give
 the following code a try:
 
+    ```<span class="caution">caution</span> broken code
     var myFunction = function() {
       var foo = 'bar';
     };
@@ -173,6 +174,7 @@ concepts that people struggle with often. It's important to remember that:
 Beware that variables that are not declared with the `var` keyword are
 implicitly global! In the following example, the variable `a` is available outside the function because it wasn't declared with the `var` keyword -- this is generally undesirable.
 
+    ```<span class="caution">caution</span> unsafe code
     function test() {
       a = 1;
     }
@@ -279,6 +281,7 @@ Let's look at how we could use `this` in our method.
 
 Not so confusing so far, right? The confusion arises because *the meaning of `this` can change* -- as mentioned above, it depends on the context in which the function was called! Consider the following code:
 
+    ```<span class="caution">caution</span> broken code
     var person = {
       firstName : 'Boaz',
       lastName : 'Sender',
@@ -370,16 +373,17 @@ You will sometimes see code that creates an array using the `new Array('a', 'b',
 
 You can access properties of arrays (sometimes called **elements**) with the same bracket notation we used for objects. Each element is automatically given a name based on its position in the array. Be careful, though: the numbers start at zero! Lets look at an example array with three elements:
 
-          var myArray = [ 'a', 'b', 'c' ];
-          var firstItem = myArray[ "0" ]; // access the first item
+    ```<span class="caution">caution</span> antipattern
+    var myArray = [ 'a', 'b', 'c' ];
+    var firstItem = myArray[ "0" ]; // access the first item
 
 When retrieving array elements, it's usually much more convenient to use numbers to specify the **index** of the element you're after:
 
-          var myArray = [ 'a', 'b', 'c' ];
-          var firstItem = myArray[ 0 ];
+    var myArray = [ 'a', 'b', 'c' ];
+    var firstItem = myArray[ 0 ];
 
-          var secondItem = myArray[ 1 ]; // access the item at index 1
-          log( secondItem ); // logs 'b'
+    var secondItem = myArray[ 1 ]; // access the item at index 1
+    log( secondItem ); // logs 'b'
 
 We can determine how many items are in an array by accessing an array's `length` property:
 
@@ -540,6 +544,7 @@ non-empty strings (including the string `'0'`), and all numbers other than `0`.
 
 Often, you'll want to set a variable's value differently depending on whether a certain condition is true or false. Of course, you could achieve this with an `if` and `else` statemenet:
 
+    ```<span class="caution">caution</span> antipattern
     var propertyName;
 
     if (dim === 'width') {

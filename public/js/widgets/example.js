@@ -13,6 +13,11 @@ define([
     }).insertBefore(pre)[0];
 
     var content = $.trim(code.text());
+    var editorInfo = content.match(/^```(.+)\n/);
+
+    if ( editorInfo ) {
+      content = content.replace(/^.+\n/, '');
+    }
 
     var mode = /^</.test(content) ?
                 { name : 'xml', htmlMode : true } :
@@ -40,6 +45,15 @@ define([
     exploreButton.click(function() {
       self.trigger('explore', editor.getValue());
     });
+
+    if ( editorInfo ) {
+      $('<div>', {
+        'class' : 'editor-info'
+      })
+      .prependTo( container )
+      .html( editorInfo[1] );
+    }
+
   };
 
   Example.prototype = $.extend({}, _evented);
