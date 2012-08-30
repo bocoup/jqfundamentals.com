@@ -36,10 +36,9 @@ body {
 }
 
 .editor-info {
-  height: 0;
-  position: relative;
-  top: 6px;
-  left: 8px;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
   font-weight: bold;
   text-transform: uppercase;
   font-size: 80%;
@@ -47,6 +46,7 @@ body {
 
 .editor-info .caution {
   color: red;
+  padding-right: 5px;
 }
 
 .CodeMirror {

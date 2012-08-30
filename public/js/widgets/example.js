@@ -3,7 +3,7 @@ define([
   'widgets/_evented',
   'vendor/codemirror'
 ], function($, _evented, CodeMirror) {
-  var Example = function(el) {
+  var Example = function(el, config) {
     var code = $(el);
     var pre = code.parent();
     var self = this;
@@ -33,6 +33,18 @@ define([
 
     pre.remove();
 
+    if ( editorInfo ) {
+      $('<div>', {
+        'class' : 'editor-info'
+      })
+      .insertBefore( container )
+      .html( editorInfo[1] );
+    }
+
+    if ( !config.editorEnabled ) {
+      return;
+    }
+
     var buttonArea = $('<div>', {
       'class' : 'editor-buttons'
     }).prependTo(container);
@@ -43,16 +55,9 @@ define([
     }).appendTo(buttonArea);
 
     exploreButton.click(function() {
+      self.onExplore();
       self.trigger('explore', editor.getValue());
     });
-
-    if ( editorInfo ) {
-      $('<div>', {
-        'class' : 'editor-info'
-      })
-      .prependTo( container )
-      .html( editorInfo[1] );
-    }
 
   };
 
