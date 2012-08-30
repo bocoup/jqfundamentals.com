@@ -76,25 +76,30 @@ function render(filename, template, res) {
   });
 }
 
+function findResults(query) {
+  if ( !query || !query.trim() ) { return []; }
+
+  var q = query.toLowerCase();
+
+  return _.filter(fakeData, function(item) {
+    var possibles = [ item.name, item.username, item.company.name ];
+    return _.any(possibles, function(p) {
+      return p.toLowerCase().match(q);
+    });
+  });
+}
+
 app.get('/', function(req, res) {
   var homeMarkdown = [ contentDir, 'index.md' ].join('/');
   render( homeMarkdown, 'home', res );
 });
 
 app.get("/data/search.json", function(req, res) {
-  var query = req.query.q;
-  var results = [];
+  res.json({ results : findResults(req.query.q) });
+});
 
-  if (query && query.trim()) {
-    results = _.filter(fakeData, function(item) {
-      var possibles = [ item.name, item.username, item.company.name ];
-      return _.any(possibles, function(p) {
-        return p.toLowerCase().match(query.toLowerCase());
-      });
-    });
-  }
-
-  res.json({ results : results });
+app.get("/data/search.jsonp", function(req, res) {
+  res.jsonp({ results : findResults(req.query.q) });
 });
 
 app.get('/data/search/sample.json', function(req, res) {

@@ -227,31 +227,26 @@ As it turns out, for security reasons, XHRs to other domains are blocked by the 
 JSONP isn't exactly AJAX -- rather than using the browser's XHR functionality, it actually works by inserting a script tag into the page that contains the requested data, "padded" with a function wrapper. Nevertheless, jQuery lets you make a JSONP request with `$.ajax()` by specifying `'jsonp'` as the `dataType` in the configuration object.
 
     $.ajax({
-      url: 'http://search.twitter.com/search.json',
-      data: { q: 'kittens' },
+      url: '/data/search.jsonp',
+      data: { q: 'a' },
       dataType: 'jsonp',
       success: function( resp ) {
         $( '#target' ).html( 'Results: ' + resp.results.length );
       }
     });
 
+<div class="alert alert-info">
 An API that offers JSONP will specify the name of the callback parameter to use
 in the query string; generally, this name is `callback`, and so jQuery uses
 that as its default. However, you can override this callback name by specifying
-the `jsonp` property in the configuration object.
-
-    $.ajax({
-      url: 'http://search.twitter.com/search.json',
-      data: { q: 'kittens' },
-      dataType: 'jsonp',
-      jsonp: 'cb'
-    });
+the `jsonp` property in the configuration object passed to `$.ajax()`.
+</div>
 
 You can also use the `$.getJSON()` convenience method to make a JSONP request;
 if the URL includes `callback=?` or similar, then jQuery will treat it as a
 JSONP request.
 
-    $.getJSON( 'http://search.twitter.com/search.json?q=kittens&callback=?',
+    $.getJSON( '/data/search.jsonp?q=a&callback=?',
       function( resp ) {
         $( '#target' ).html( 'Results: ' + resp.results.length );
       }
