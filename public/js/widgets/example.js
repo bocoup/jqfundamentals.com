@@ -4,6 +4,8 @@ define([
   'vendor/codemirror'
 ], function($, _evented, CodeMirror) {
   var Example = function(el, config) {
+    this.onExplore = config.onExplore || $.noop;
+
     var code = $(el);
     var pre = code.parent();
     var self = this;
@@ -55,8 +57,9 @@ define([
     }).appendTo(buttonArea);
 
     exploreButton.click(function() {
-      self.onExplore();
-      self.trigger('explore', editor.getValue());
+      var content = editor.getValue();
+      self.onExplore( content );
+      self.trigger( 'explore', content );
     });
 
   };
