@@ -502,7 +502,7 @@ When we want to test whether a value is "falsy," we can use the `!` operator:
     var a = '';
 
     if ( !a ) {
-      // this code will run if a is false
+      // this code will run if a is falsy
       log( 'a was falsy' );
     }
 
@@ -510,6 +510,7 @@ The value `NaN` is a special case. Values that are `NaN` will evaluate to false
 in a simple conditional expression:
 
     var notANumber = 'four' - 'five';
+
     if ( !notANumber ) {
       // this code will run
       log( '!notANumber was truthy' );
@@ -518,6 +519,7 @@ in a simple conditional expression:
 However, if we compare the value `NaN` to `false`, we get back a falsy value:
 
     var notANumber = 'four' - 'five';
+
     if ( notANumber == false ) {
       // this code will not run!
       log( 'notANumber was falsy' );
