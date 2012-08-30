@@ -1,7 +1,3 @@
-body {
-  padding-top: 60px;
-}
-
 * { box-sizing: border-box; }
 
 .navbar .brand {
@@ -89,7 +85,7 @@ body {
 }
 
 #main {
-  margin-top: 0px;
+  margin-top: 80px;
 }
 
 #sandbox {
@@ -100,7 +96,7 @@ body {
 }
 
 .sandbox-visible #main {
-  margin-top: 380px;
+  margin-top: 460px;
 }
 
 .sandbox-visible #sandbox {
