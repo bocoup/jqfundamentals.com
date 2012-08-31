@@ -19,6 +19,7 @@ var htmlCache =     {};
 
 var fakeData =      [];
 var prod =          process.env.NODE_ENV === 'production';
+var cachebust =     'v' + new Date().getTime();
 
 for (var i = 0; i < 100; i++) {
   fakeData.push(Faker.Helpers.userCard());
@@ -31,6 +32,14 @@ app.use( express.favicon(
   __dirname + '/../public/img/favicon.ico',
   { maxAge: 8640000000 }
 ) );
+
+app.use(
+  '/public/' + cachebust,
+  express.static(
+    __dirname + ( prod ? '/../build' : '/../public' ),
+    { maxAge: 8640000000 }
+  )
+);
 
 app.use(
   '/public',
@@ -73,6 +82,7 @@ function render(filename, template, res) {
   dfd.promise.then(function(parts) {
     var config = parts[0];
     config.content = parts[1];
+    config.cachebust = cachebust;
 
     res.render(template, config, function(err, str) {
       htmlCache[key] = str;
@@ -141,7 +151,8 @@ app.get('/sandbox/:name', function(req, res) {
 
   fs.readFile(file, function(err, data) {
     res.render('iframe', {
-      content: data
+      content: data,
+      cachebust: cachebust
     });
   });
 });
