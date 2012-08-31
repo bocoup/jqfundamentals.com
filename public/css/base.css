@@ -14,6 +14,10 @@
   position: relative;
 }
 
+.row {
+  margin-top: 60px;
+}
+
 .editor {
   border: 1px solid #eee;
   margin: 0 0 10px 0;
@@ -164,6 +168,18 @@ footer {
 
 }
 
+@media (max-width: 979px) and (min-width: 768px) {
+  
+  .span4 {
+    width: 287px;
+  }
+
+  .span8 {
+    width: 426px;
+  }
+
+}
+
 @media (max-width: 767px) {
 
   [class*="span"], .row-fluid [class*="span"] {
@@ -192,12 +208,11 @@ footer {
   }
 
   #sandbox .span8 {
-    width: 60%;
+    width: 50%;
     float: left;
   }
 
   #sandbox .span4 {
-    width: 40%;
     float: left;
   }
 
@@ -215,6 +230,15 @@ footer {
   .btn-primary {
     font-size: 12px;
     padding: 4px 4px;
+  }
+
+}
+
+
+@media (max-width: 633px) {
+  #sandbox .span8 {
+    width: 47%;
+    float: left;
   }
 
 }
