@@ -28,7 +28,7 @@ that supports modern JavaScript features and includes good developer tools.
 Most pages on this site include a built-in editor where you can try out code.
 This code will run against the markup that's displayed in the box to the
 right of the editor. To run the code in the editor, click the <i
-class="icon-play"></i> button. Reset the editor to its original state
+class="icon-play"></i> button. Reset the results area to its original state
 by clicking the <i class="icon-repeat"></i> icon.
 
 ### Trying the examples
