@@ -175,7 +175,7 @@ footer {
   }
 
   .span8 {
-    width: 426px;
+    width: 406px;
   }
 
 }
@@ -234,7 +234,6 @@ footer {
 
 }
 
-
 @media (max-width: 633px) {
   #sandbox .span8 {
     width: 47%;
@@ -247,6 +246,10 @@ footer {
 
   .btn-primary, #sandbox {
     display: none;
+  }
+
+  .sandbox-visible #main {
+    margin-top: 80px;
   }
 
 }
