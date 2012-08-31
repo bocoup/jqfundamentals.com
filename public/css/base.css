@@ -164,14 +164,6 @@ footer {
 
 }
 
-@media (max-width: 979px) and (min-width: 768px) {
-
-  .span4 .results iframe{
-    width: 208px;
-  }
-
-}
-
 @media (max-width: 767px) {
 
   [class*="span"], .row-fluid [class*="span"] {
@@ -194,6 +186,11 @@ footer {
     width: 100%;
     padding: 0 20px 0 20px;
    }
+
+  .sandbox-visible #main {
+    margin-top: 420px;
+  }
+
   #sandbox .span8 {
     width: 60%;
     float: left;
@@ -207,11 +204,6 @@ footer {
   #sandbox::before {
     height: 325px;
   }
-
-  .sandbox-visible #main {
-    margin-top: 420px;
-  }
-
 
 }
 
