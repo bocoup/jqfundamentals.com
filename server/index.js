@@ -39,6 +39,11 @@ app.use(
   )
 );
 
+app.use(
+  '/legacy',
+  express.static( __dirname + '/../legacy' )
+);
+
 app.set('views', __dirname + '/../templates');
 app.set('view engine', 'jade');
 
