@@ -50,7 +50,10 @@ app.use(
 
 app.use(
   '/legacy',
-  express.static( __dirname + '/../legacy' )
+  express.static(
+    __dirname + '/../legacy',
+    { maxAge: 8640000000 }
+  )
 );
 
 app.set('views', __dirname + '/../templates');
