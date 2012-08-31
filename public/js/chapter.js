@@ -1,5 +1,5 @@
 /*! jQuery Fundamentals is Copyright 2012 Bocoup LLC */
 
-require([ 'controllers/chapter', ], function(ChapterController) {
-  ChapterController();
+require([ 'controllers/chapter' ], function(ChapterController) {
+  new ChapterController();
 });

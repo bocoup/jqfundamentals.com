@@ -35,7 +35,8 @@ module.exports = function(grunt) {
       globals: {
         CodeMirror : true,
         define : true,
-        require : true
+        require : true,
+        _gaq : true
       }
     },
     uglify: {},

@@ -25,7 +25,7 @@ define([
           editor.setValue(content);
           body.addClass(cls);
           editorBtn.html('Hide Editor');
-          _gaq.push([ '_trackEvent', 'code', 'explore' ])
+          _gaq.push([ '_trackEvent', 'code', 'explore' ]);
         } : $.noop
       });
     });
@@ -47,7 +47,7 @@ define([
 
       editor.on('reset', function() {
         results.reset();
-        _gaq.push([ '_trackEvent', 'editor', 'reset' ])
+        _gaq.push([ '_trackEvent', 'editor', 'reset' ]);
       });
 
       editorBtn.click(function() {
