@@ -47,6 +47,10 @@ define([
       return;
     }
 
+    if ( mode !== 'javascript' ) {
+      return;
+    }
+
     var buttonArea = $('<div>', {
       'class' : 'editor-buttons'
     }).prependTo(container);
