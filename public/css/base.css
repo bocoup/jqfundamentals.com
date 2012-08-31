@@ -9,6 +9,11 @@
   margin-left: 0;
 }
 
+.navbar-inner {
+  z-index: 13;
+  position: relative;
+}
+
 .editor {
   border: 1px solid #eee;
   margin: 0 0 10px 0;
@@ -91,7 +96,7 @@
 #sandbox {
   position: fixed;
   padding: 20px 0;
-  z-index: -1;
+  z-index: 12;
   margin-top: -400px;
 }
 
@@ -109,7 +114,7 @@
 
 #sandbox:before {
   position: absolute;
-  z-index: -2;
+  z-index: -1;
   width: 3000px;
   height: 365px;
   background: #eaeaea;
@@ -144,5 +149,89 @@ footer {
 
 .home-page-header h1 {
   margin-top: 0;
+}
+
+@media (max-width: 979px){
+
+  .navbar-fixed-top, .navbar-fixed-bottom {
+    position: fixed;
+  }
+
+  .navbar .container {
+    width: 724px;
+    padding: 0;
+  }
+
+}
+
+@media (max-width: 979px) and (min-width: 768px) {
+
+  .span4 .results iframe{
+    width: 208px;
+  }
+
+}
+
+@media (max-width: 767px) {
+
+  [class*="span"], .row-fluid [class*="span"] {
+    width: none;
+  }
+
+  .navbar-fixed-top, .navbar-fixed-bottom {
+    margin-left: 0;
+    }
+
+  .navbar .navbar-inner {
+    padding-right: 35px;
+  } 
+
+  .navbar .container {
+    width: 100%;
+  }
+
+  #sandbox {
+    width: 100%;
+    padding: 0 20px 0 20px;
+   }
+  #sandbox .span8 {
+    width: 60%;
+    float: left;
+  }
+
+  #sandbox .span4 {
+    width: 40%;
+    float: left;
+  }
+
+  #sandbox::before {
+    height: 325px;
+  }
+
+  .sandbox-visible #main {
+    margin-top: 420px;
+  }
+
+
+}
+
+@media (max-width: 637px) {
+  .navbar .nav {
+    margin: 0;
+  }
+
+  .btn-primary {
+    font-size: 12px;
+    padding: 4px 4px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .btn-primary, #sandbox {
+    display: none;
+  }
+
 }
 
