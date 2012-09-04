@@ -1,6 +1,5 @@
 require.config({
   baseUrl : '../public',
-  deps : [ 'js/chapter' ],
   shim : {
     'vendor/codemirror' : {
       deps : [ 'vendor/CodeMirror-2.25/lib/codemirror'],
