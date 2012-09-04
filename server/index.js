@@ -187,5 +187,15 @@ app.get('/chapter/:name', function(req, res) {
   render( chapterMarkdown, 'chapter/index', res );
 });
 
+// redirect to canonical pages
+
+app.get('/legacy/', function(req, res) {
+  res.redirect( 301, '/legacy' );
+});
+
+app.get('/chapter/:name/', function(req, res) {
+  res.redirect( 301, '/chapter/' + req.params.name )
+});
+
 prod ? app.listen() : app.listen('4444');
 console.log('jqfundamentals started on http://localhost:4444');
