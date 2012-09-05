@@ -10,8 +10,8 @@
   "author": "Rebecca Murphey",
   "license": "Copyright 2012 Bocoup. All rights reserved.",
   "dependencies" : {
-    "grunt-mocha" : "*",
-    "grunt-requirejs" : "*",
+    "grunt-mocha" : "0.1.3",
+    "grunt-requirejs" : "0.2.9",
     "express" : "3.x",
     "jade" : "~0.26.3",
     "js-yaml" : "~1.0.0",
