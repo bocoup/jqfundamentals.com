@@ -186,7 +186,7 @@ app.get('/chapter/:name', function(req, res) {
   render( chapterMarkdown, 'chapter/index', res );
 });
 
-prod ? app.listen() : app.listen('4444');
+prod ? app.listen('3000') : app.listen('4444');
 console.log(
   'jqfundamentals started on http://localhost' + (prod ? '' : ':4444')
 );
