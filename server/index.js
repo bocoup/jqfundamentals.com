@@ -187,4 +187,6 @@ app.get('/chapter/:name', function(req, res) {
 });
 
 prod ? app.listen() : app.listen('4444');
-console.log('jqfundamentals started on http://localhost:4444');
+console.log(
+  'jqfundamentals started on http://localhost' + (prod ? '' : ':4444')
+);
