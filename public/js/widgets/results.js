@@ -9,16 +9,18 @@ define([ 'jquery', 'widgets/_evented' ], function($, _evented) {
   Results.prototype = $.extend({
     _createIframe : function() {
       var self = this;
+      var el = $(this.el);
       this.ready = false;
 
-      $(this.el).empty();
+      el.empty();
+      var container = $('<div>', {
+        'class' : 'results-container'
+      }).appendTo(el);
 
       var iframe = $('<iframe>', {
         src : this.src,
-        width : 275,
-        height : 255,
         frameBorder : 0
-      }).appendTo(this.el);
+      }).appendTo(container);
 
       this.contentWindow = iframe[0].contentWindow;
 
