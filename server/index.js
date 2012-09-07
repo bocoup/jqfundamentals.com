@@ -56,7 +56,12 @@ app.use(
   )
 );
 
+
 app.use( app.router );
+
+app.use(function(err, req, res) {
+  error(res, 500);
+});
 
 app.set('views', __dirname + '/../templates');
 app.set('view engine', 'jade');
@@ -93,6 +98,8 @@ function render(filename, template, res) {
       htmlCache[key] = str;
       res.end(str);
     });
+  }, function() {
+    error(res, 404);
   });
 }
 
@@ -155,6 +162,11 @@ app.get('/sandbox/:name', function(req, res) {
 	var file = [ contentDir, req.params.name, 'sandbox', 'index.html' ].join('/');
 
   fs.readFile(file, function(err, data) {
+    if (err) {
+      error(res, 404);
+      return;
+    }
+
     res.render('iframe', {
       content: data,
       cachebust: cachebust
@@ -166,6 +178,11 @@ app.get('/exercises/:exercise/index.html', function(req, res) {
   var file = [ exerciseDir, req.params.exercise, 'index.html' ].join('/');
 
   fs.readFile(file, function(err, data) {
+    if (err) {
+      error(res, 404);
+      return;
+    }
+
     res.render('iframe', {
       content: data,
       cachebust: cachebust
@@ -188,13 +205,27 @@ app.get('/chapter/:name', function(req, res) {
   render( chapterMarkdown, 'chapter/index', res );
 });
 
+app.get('/500', function(req, res) {
+  error(res, 500);
+});
+
 app.get('/*', function(req, res) {
-  res.status(404);
-  res.render('404', {
-    title: 'Not found',
+  error(res, 404);
+});
+
+function error(res, code) {
+  var codes = {
+    '404' : 'Not found',
+    '500' : 'Server error'
+  };
+
+  res.status(code);
+  res.render('error', {
+    code: code,
+    title: codes[code],
     cachebust: cachebust
   });
-});
+}
 
 app.listen(port);
 
