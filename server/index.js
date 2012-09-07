@@ -19,6 +19,7 @@ var htmlCache =     {};
 
 var fakeData =      [];
 var prod =          process.env.NODE_ENV === 'production';
+var port =          process.env.NODE_ENV_PORT || 4444;
 var cachebust =     'v' + new Date().getTime();
 
 for (var i = 0; i < 100; i++) {
@@ -195,7 +196,6 @@ app.get('/*', function(req, res) {
   });
 });
 
-prod ? app.listen('3000') : app.listen('4444');
-console.log(
-  'jqfundamentals started on http://localhost' + (prod ? ':3000' : ':4444')
-);
+app.listen(port);
+
+console.log('jqfundamentals started on http://localhost:' + port);
