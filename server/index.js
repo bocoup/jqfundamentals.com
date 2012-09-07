@@ -26,7 +26,6 @@ for (var i = 0; i < 100; i++) {
 }
 
 app.use( express.compress() );
-app.use( app.router );
 
 app.use( express.favicon(
   __dirname + '/../public/img/favicon.ico',
@@ -55,6 +54,8 @@ app.use(
     { maxAge: 8640000000 }
   )
 );
+
+app.use( app.router );
 
 app.set('views', __dirname + '/../templates');
 app.set('view engine', 'jade');
@@ -184,6 +185,14 @@ app.get('/chapter/:name', function(req, res) {
 	var chapterName = req.params.name;
 	var chapterMarkdown = [ contentDir, chapterName, 'index.md' ].join('/');
   render( chapterMarkdown, 'chapter/index', res );
+});
+
+app.get('/*', function(req, res) {
+  res.status(404);
+  res.render('404', {
+    title: 'Not found',
+    cachebust: cachebust
+  });
 });
 
 prod ? app.listen('3000') : app.listen('4444');
