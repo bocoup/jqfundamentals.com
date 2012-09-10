@@ -408,11 +408,115 @@ Since we know how to get the length of an array, and we know that an array's fir
 
 There is a whole lot more that you can do with arrays; for a complete reference, see the [Mozilla Developer Network's Array documentation](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/).
 
+## Logic and Truthiness
+
+<a href="logic-and-truthiness"></a>
+
+JavaScript provides `if` and `else`, as well as the *ternary operator*, to allow us to do certain things only when certain conditions are met. JavaScript determines whether a condition is met by evaluating a value or an expression for its "truthiness." Because JavaScript is a dynamically typed language, we can use any value or combination of values; however, the rules by which JavaScript determines whether a given value or expression is `true` or `false` can be confusing.
+
+Here's an example of a simple `if` statement in JavaScript. It evaluates the truthiness of the number `1`; because `1` is **truthy**, the code inside the block -- delineated by `{` and `}` -- will run.
+
+    if ( 1 ) {
+      // this code will run!
+      log( '1 is truthy' );
+    }
+
+As it turns out, most values in JavaScript are truthy -- in fact, there are only five values in JavaScript that are **falsy**:
+
+- `undefined` (the default value of declared variables that are not assigned a
+  value)
+- `null`
+- `NaN` ("not a number")
+- `0` (the number zero)
+- `''` (an empty string)
+
+When we want to test whether a value is "falsy," we can use the `!` operator:
+
+    var a = '';
+
+    if ( !a ) {
+      // this code will run if a is falsy
+      log( 'a was falsy' );
+    }
+
+The value `NaN` is a special case. Values that are `NaN` will evaluate to false
+in a simple conditional expression:
+
+    var notANumber = 'four' - 'five';
+
+    if ( !notANumber ) {
+      // this code will run
+      log( '!notANumber was truthy' );
+    }
+
+However, if we compare the value `NaN` to `false`, we get back a falsy value:
+
+    var notANumber = 'four' - 'five';
+
+    if ( notANumber == false ) {
+      // this code will not run!
+      log( 'notANumber was falsy' );
+    } else {
+      // this code will run
+      log( 'notANumber was truthy' );
+    }
+
+It's important to remember that *all other values aside from the five values
+listed above* are truthy. This includes empty arrays, empty objects, all
+non-empty strings (including the string `'0'`), and all numbers other than `0`.
+
+<div class="alert">
+  It is possible to write single-line `if` and `else` statements without using curly braces. This practice is discouraged, as it can make code difficult to read and maintain. It is mentioned here simply because you may encounter it in others' code.
+</div>
+
+### Logical Operators
+
+Logical operators allow you to evaluate operands using AND (`&&`) and OR (`||`) operations.
+
+    var foo = 1;
+    var bar = 0;
+    var baz = 2;
+
+    foo || bar;     // returns 1, which is truthy
+    bar || foo;     // returns 1, which is truthy
+
+    foo && bar;     // returns 0, which is falsy
+    foo && baz;     // returns 2, which is truthy
+
+In the case of the `||` operator, the value returned is the first value that proves the statement truthy, or the last value. In the case of the `&&` operator, the value returned is the first value that proves the statement falsy, or the last value.
+
+You'll sometimes see logical operators used as a clever way to control code execution:
+
+    foo && bar();   // runs bar() only if foo is truthy
+
+    var bar = baz || createBar();  // use baz as value for bar unless
+                                   // baz is falsy; in that case, create bar
+
+This style is elegant and pleasantly terse, but it can be difficult to read, especially for beginners. You should be aware of what it means if you come across it in code, but you may want to refrain from using this style at first, and use traditional `if` and `else` statements for clarity.
+
+### The Ternary Operator
+
+Often, you'll want to set a variable's value differently depending on whether a certain condition is true or false. Of course, you could achieve this with an `if` and `else` statemenet:
+
+    ```<span class="caution">caution</span> antipattern
+    var propertyName;
+
+    if (dim === 'width') {
+      propertyName = 'clientWidth';
+    } else {
+      propertyName = 'clientHeight';
+    }
+
+However, the ternary operator provides a much more succinct way of conditionally setting the value of a variable:
+
+    var propertyName = ( dim === 'width' ) ? 'clientWidth' : 'clientHeight';
+
+The statement before the `?` is evaluated for its truthiness. If it is truthy, the first value (`'clientWidth'`) is used as the value of the `propertyName` variable; otherwise, the second value (`'clientHeight'`) is used.
+
 
 ## JavaScript gotchas
 
-In addition to variable scope, there are many other gotchas in JavaScript.
-Let's take a look at a few of them.
+In addition to variable scope and truthiness, there are many other gotchas in JavaScript. Let's take a look at a few of them.
 
 ### Naming things
 
@@ -478,86 +582,6 @@ errors*, and the result may not be what you'd expect.
     log( 1 + true );          // 2
     log( 1 == true );         // true
     log( 1 === true );        // false
-
-### Logic and Truthiness
-
-<a href="logic-and-truthiness"></a>
-
-JavaScript provides `if` and `else`, as well as the *ternary operator*, to allow us to do certain things only when certain conditions are met. JavaScript determines whether a condition is met by evaluating a value or an expression for its "truthiness." Because JavaScript is a dynamically typed language, we can use any value or combination of values; however, the rules by which JavaScript determines whether a given value or expression is `true` or `false` can be confusing.
-
-Here's an example of a simple `if` statement in JavaScript. It evaluates the truthiness of the number `1`; because `1` is **truthy**, the code inside the block -- delineated by `{` and `}` -- will run.
-
-    if ( 1 ) {
-      // this code will run!
-      log( '1 is truthy' );
-    }
-
-As it turns out, most values in JavaScript are truthy -- in fact, there are only five values in JavaScript that are **falsy**:
-
-- `undefined` (the default value of declared variables that are not assigned a
-  value)
-- `null`
-- `NaN` ("not a number")
-- `0` (the number zero)
-- `''` (an empty string)
-
-When we want to test whether a value is "falsy," we can use the `!` operator:
-
-    var a = '';
-
-    if ( !a ) {
-      // this code will run if a is falsy
-      log( 'a was falsy' );
-    }
-
-The value `NaN` is a special case. Values that are `NaN` will evaluate to false
-in a simple conditional expression:
-
-    var notANumber = 'four' - 'five';
-
-    if ( !notANumber ) {
-      // this code will run
-      log( '!notANumber was truthy' );
-    }
-
-However, if we compare the value `NaN` to `false`, we get back a falsy value:
-
-    var notANumber = 'four' - 'five';
-
-    if ( notANumber == false ) {
-      // this code will not run!
-      log( 'notANumber was falsy' );
-    } else {
-      // this code will run
-      log( 'notANumber was truthy' );
-    }
-
-It's important to remember that *all other values aside from the five values
-listed above* are truthy. This includes empty arrays, empty objects, all
-non-empty strings (including the string `'0'`), and all numbers other than `0`.
-
-<div class="alert">
-  It is possible to write single-line `if` and `else` statements without using curly braces. This practice is discouraged, as it can make code difficult to read and maintain. It is mentioned here simply because you may encounter it in others' code.
-</div>
-
-#### The Ternary Operator
-
-Often, you'll want to set a variable's value differently depending on whether a certain condition is true or false. Of course, you could achieve this with an `if` and `else` statemenet:
-
-    ```<span class="caution">caution</span> antipattern
-    var propertyName;
-
-    if (dim === 'width') {
-      propertyName = 'clientWidth';
-    } else {
-      propertyName = 'clientHeight';
-    }
-
-However, the ternary operator provides a much more succinct way of conditionally setting the value of a variable:
-
-    var propertyName = ( dim === 'width' ) ? 'clientWidth' : 'clientHeight';
-
-The statement before the `?` is evaluated for its truthiness. If it is truthy, the first value (`'clientWidth'`) is used as the value of the `propertyName` variable; otherwise, the second value (`'clientHeight'`) is used.
 
 ## Further reading
 
