@@ -385,7 +385,7 @@ bound to them.
     removedListItem.appendTo( '#my-unordered-list' );
     removedListItem.trigger( 'click' ); // no alert!
 
-The `.detach()` method is useful for temporarily removing elements from the document; for example, if you are going to make a lot of changes to your page's structure using jQuery, it will be more efficient to use `.detach()` to remove the affected elements, make your changes, and then re-attach the element using one of the insertion methods. Elements removed with `.detach()` will retain their event handlers; you can re-add them to the document with
+The `.detach()` method is useful for temporarily removing elements from the document; for example, if you are going to make a lot of changes to your page's structure using jQuery, it will be more efficient to use `.detach()` to remove the affected elements, make your changes, and then re-attach the element using one of the insertion methods. Elements removed with `.detach()` will retain their event handlers; you can re-add them to the document with `.appendTo()` or another DOM insertion method.
 
     $( '#my-unordered-list li' ).click(function() {
       alert $( this ).text();
