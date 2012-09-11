@@ -42,7 +42,7 @@ vocabulary terms that you should know. Let's consider a bit of HTML:
 
 ## Traversal
 
-jQuery lets us "traverse" -- or move through -- the HTML elements that make up our page. First, we make an initial selection, and then move through the DOM relative to that selection. As we move through the DOM, we're altering our original selection; in some cases, we're replacing the original selection with the new selection, while in other cases, we're adding to or subtracting from the original selection.
+jQuery lets us "traverse" &mdash; or move through &mdash; the HTML elements that make up our page. First, we make an initial selection, and then move through the DOM relative to that selection. As we move through the DOM, we're altering our original selection; in some cases, we're replacing the original selection with the new selection, while in other cases, we're adding to or subtracting from the original selection.
 
 ### Filtering selections
 
@@ -145,7 +145,7 @@ jQuery also provides the `.addBack()` method if you want to add your original se
       // now we're working with the original li's AND their siblings
       .addClass( 'urgent' );
 
-Confused? Just like the `.end()` method can result in code that's difficult to work with, the `.addBack()` method -- while sometimes useful -- can easily lead to complex code. A better solution would use the `.add()` method to combine two original selections instead:
+Confused? Just like the `.end()` method can result in code that's difficult to work with, the `.addBack()` method &mdash; while sometimes useful &mdash; can easily lead to complex code. A better solution would use the `.add()` method to combine two original selections instead:
 
     var specialListItems = $( 'li.special' );
     var otherListItems = specialListItems.siblings();
@@ -199,9 +199,9 @@ effect.
 When you can't achieve your goal via adding and removing classes, jQuery
 provides the `.css()` method to allow you to set the style of elements
 directly. This is usually required when you want to set numeric values that can
-only be calculated at runtime -- for example, positioning information. The
+only be calculated at runtime &mdash; for example, positioning information. The
 `.css()` method should *not* be used to set simple styles, such as `display:
-none` -- in almost all cases, it is preferable to achieve these changes via
+none` &mdash; in almost all cases, it is preferable to achieve these changes via
 classes and CSS.
 
 For example, consider the case where you want to style an element based on the
@@ -324,7 +324,7 @@ You could also insert the list item after the last list item by calling
     var listItems = $( '#my-unordered-list li' );
     listItems.last().after( listItems.first() );
 
-There are many other methods for placing elements -- you can place them
+There are many other methods for placing elements &mdash; you can place them
 [around](http://api.jquery.com/category/manipulation/dom-insertion-around/),
 [inside](http://api.jquery.com/category/manipulation/dom-insertion-inside/),
 and
@@ -346,7 +346,7 @@ make assumptions about the exact structure of your page's HTML.
 
 You can make a copy of an element or a set of elements using jQuery's
 `.clone()` method. This will make a copy of the elements, but note that the
-copy is only in memory -- you will need to place it in the document yourself.
+copy is only in memory &mdash; you will need to place it in the document yourself.
 You can manipulate the cloned element or elements before placing them into the
 document.
 

@@ -99,7 +99,7 @@ If the event you want to trigger has a shorthand method (see the table above), y
     $( 'li' ).click();
 
 <div class="alert alert-info">
-  When you `.trigger()` an event, you only trigger event handlers that were bound with JavaScript -- you don't trigger the default behavior of the event. For example, if you trigger the click event of an `a` element, it will not automatically navigate to the `href` of that element (though you could write code that would make it do so).
+  When you `.trigger()` an event, you only trigger event handlers that were bound with JavaScript &mdash; you don't trigger the default behavior of the event. For example, if you trigger the click event of an `a` element, it will not automatically navigate to the `href` of that element (though you could write code that would make it do so).
 </div>
 
 Once you have bound an event, you can unbind the event using jQuery's `.off()` method. This will remove any event handlers that were bound to the specified event:
@@ -147,7 +147,7 @@ We can also use namespaces to trigger only certain events:
 Another benefit of using `.on()` is the ability to bind to multiple events at
 once. For example, you might want to run the same code when a user scrolls the
 window or when a user resizes the window. The `.on()` method lets you pass both
-events -- in a space-separated string -- followed by the function that you want
+events &mdash; in a space-separated string &mdash; followed by the function that you want
 to handle both events:
 
     $( 'input[type="text"]' ).on('focus blur', function() {
@@ -231,13 +231,13 @@ It binds a click handler to all elements in a document (something you should
 *never* do in real code), as well as to the `document` and `window`. What
 happens when you click on an `a` element that's nested inside other elements?
 In fact, the click event will be triggered for the `a` element as well as for
-all of the elements that contain the `a` -- all the way up to the `document`
+all of the elements that contain the `a` &mdash; all the way up to the `document`
 and the `window`. (You can click on the <i class="icon-eye-open"></i> icon to
 try it in the sandbox yourself.)
 
-This behavior is called event bubbling -- the event is triggered on the element
-on which the user clicked, and -- unless you call `.stopPropagation()` on the
-event object -- the event is then triggered all the way up the DOM.
+This behavior is called event bubbling &mdash; the event is triggered on the element
+on which the user clicked, and &mdash; unless you call `.stopPropagation()` on the
+event object &mdash; the event is then triggered all the way up the DOM.
 
 You can see this more clearly when you consider the following markup:
 
@@ -257,7 +257,7 @@ to the `a`, and the bound click handler fires.
 
 ## Event delegation
 
-The bubbling behavior of events allows us to do "event delegation" -- binding
+The bubbling behavior of events allows us to do "event delegation" &mdash; binding
 handlers to high-level elements, and then detecting which low-level element
 initiated the event. For example, we could bind an event to an unordered list,
 and then determine which element initiated the event:
@@ -281,7 +281,7 @@ element.
 Event delegation has two main benefits. First, it allows us to bind fewer event
 handlers than we'd have to bind if we were listening to clicks on individual
 elements, which can be a big performance gain. Second, it allows us to bind to
-parent elements -- such as an unordered list -- and know that our event
+parent elements &mdash; such as an unordered list &mdash; and know that our event
 handlers will fire as expected *even if the contents of that parent element
 change*.
 

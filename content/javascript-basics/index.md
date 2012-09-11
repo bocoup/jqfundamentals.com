@@ -44,7 +44,7 @@ Here's a simple JavaScript program that adds a message to the page:
     greet( 'Rebecca', 'Thanks for joining us' );
 
 <div class="alert">
-  In the above example, we use a function called `log`. This is a helper function that is defined by the JavaScript that powers this site -- it is not a built-in JavaScript function. You can use `log` in the built-in editor for this site, but you'll need to use `console.log` in your normal code, and then view the output in your browser's console.
+  In the above example, we use a function called `log`. This is a helper function that is defined by the JavaScript that powers this site &mdash; it is not a built-in JavaScript function. You can use `log` in the built-in editor for this site, but you'll need to use `console.log` in your normal code, and then view the output in your browser's console.
 </div>
 
 You can try running this program by clicking the <i class="icon-eye-open"></i>
@@ -79,7 +79,7 @@ You'll also sometimes see multi-line comments used for inline comments:
 
 ### Variables
 
-Variables are the way that we store values so we can use them later. Variables can contain any value -- text, numbers, data (such as "arrays" and "objects"), even code (in the form of "functions"). We declare a variable using a `var` statement:
+Variables are the way that we store values so we can use them later. Variables can contain any value &mdash; text, numbers, data (such as "arrays" and "objects"), even code (in the form of "functions"). We declare a variable using a `var` statement:
 
     var myName = 'Rebecca';
 
@@ -135,7 +135,7 @@ Bottom line: naming functions using the function declaration approach can have u
 
 #### Functions and variable scope
 
-Variables that are declared inside a function with a `var` statement are only available inside of the function; this is generally desirable, and all variables should be declared with a `var` statement unless they are intended to be **global** -- that is, available anywhere in your code. This usually isn't what you want, unless you want it to be possible for other code to change the value of the variable.
+Variables that are declared inside a function with a `var` statement are only available inside of the function; this is generally desirable, and all variables should be declared with a `var` statement unless they are intended to be **global** &mdash; that is, available anywhere in your code. This usually isn't what you want, unless you want it to be possible for other code to change the value of the variable.
 
 What does it mean that a variable is only accessible inside of a function? Give
 the following code a try:
@@ -148,7 +148,7 @@ the following code a try:
     myFunction();
     log( typeof foo ); // logs undefined!
 
-In the example above, if we'd tried to actually use `foo` outside of the function -- rather than just checking its type -- our browser would have reported an error, and any code after the line where we used `foo` would not run.
+In the example above, if we'd tried to actually use `foo` outside of the function &mdash; rather than just checking its type &mdash; our browser would have reported an error, and any code after the line where we used `foo` would not run.
 
 The next example shows how we can have two variables with the same name, as long as each variable exists in a separate scope. In this example, we declare the variable `foo` and assign it the value `'qux'`; then, inside a function, we declare another variable named `foo`, and assign it the value `'bar'`. Notice how, outside of the function, the variable `foo` does not change, even when we create the variable `foo` inside the function.
 
@@ -172,7 +172,7 @@ concepts that people struggle with often. It's important to remember that:
 - variables declared without a `var` statement are always global
 
 Beware that variables that are not declared with the `var` keyword are
-implicitly global! In the following example, the variable `a` is available outside the function because it wasn't declared with the `var` keyword -- this is generally undesirable.
+implicitly global! In the following example, the variable `a` is available outside the function because it wasn't declared with the `var` keyword &mdash; this is generally undesirable.
 
     ```<span class="caution">caution</span> unsafe code
     function test() {
@@ -186,7 +186,7 @@ implicitly global! In the following example, the variable `a` is available outsi
 
 ### Objects
 
-As it turns out, most everything we work with in JavaScript is an object -- in fact, there are only five kinds of values that are *not* objects:
+As it turns out, most everything we work with in JavaScript is an object &mdash; in fact, there are only five kinds of values that are *not* objects:
 
 - strings (text)
 - booleans (true/false)
@@ -194,14 +194,14 @@ As it turns out, most everything we work with in JavaScript is an object -- in f
 - `undefined`
 - `null`
 
-These values are called **primitives**, but even some of these values can be treated as though they were objects -- more on that in a minute. But what's an object? Let's look at an example of a simple object:
+These values are called **primitives**, but even some of these values can be treated as though they were objects &mdash; more on that in a minute. But what's an object? Let's look at an example of a simple object:
 
     var person = {
       firstName : 'Boaz',
       lastName : 'Sender'
     };
 
-The object we've created here has two **properties**: `firstName` and `lastName`. We've created it using the "object literal syntax" -- that is, by putting a set of key-value pairs in `{ }`. Note that, for each pair, there is a colon between the key and the value, and there is a comma between each pair. Note also that there is *not* a comma after the last key-value pair -- if you accidentally include a comma after the last pair, you will get errors in older browsers.
+The object we've created here has two **properties**: `firstName` and `lastName`. We've created it using the "object literal syntax" &mdash; that is, by putting a set of key-value pairs in `{ }`. Note that, for each pair, there is a colon between the key and the value, and there is a comma between each pair. Note also that there is *not* a comma after the last key-value pair &mdash; if you accidentally include a comma after the last pair, you will get errors in older browsers.
 
 #### Accessing properties
 
@@ -239,7 +239,7 @@ Once we've created an object, we can modify its properties.
     log( 'First name: ' + person.firstName );
     log( 'Last name: ' + person.lastName );
 
-This aspect of JavaScript is both blessing and curse. It means that objects are incredibly flexible, but it also means that there's no "privacy." Any code can easily overwrite the value of a property of any object to which it has access -- another reason why it's important to keep variables out of the global scope unless it's OK for other code to modify them.
+This aspect of JavaScript is both blessing and curse. It means that objects are incredibly flexible, but it also means that there's no "privacy." Any code can easily overwrite the value of a property of any object to which it has access &mdash; another reason why it's important to keep variables out of the global scope unless it's OK for other code to modify them.
 
 #### Object methods
 
@@ -259,7 +259,7 @@ The `.greet()` method in the example above received a string, `name`, as its arg
 
 #### The meaning of `this`
 
-Inside of a method -- indeed, inside of any function -- there is a special keyword available to us: `this`. It refers to the object that is the context in which the function was called.
+Inside of a method &mdash; indeed, inside of any function &mdash; there is a special keyword available to us: `this`. It refers to the object that is the context in which the function was called.
 
 When we call `person.greet()`, the context object is `person` itself. This means that we can use `this` to access a property of the `person` object from directly within the `.greet()` method.
 
@@ -279,7 +279,7 @@ Let's look at how we could use `this` in our method.
 
     person.greet();
 
-Not so confusing so far, right? The confusion arises because *the meaning of `this` can change* -- as mentioned above, it depends on the context in which the function was called! Consider the following code:
+Not so confusing so far, right? The confusion arises because *the meaning of `this` can change* &mdash; as mentioned above, it depends on the context in which the function was called! Consider the following code:
 
     ```<span class="caution">caution</span> broken code
     var person = {
@@ -352,7 +352,7 @@ We've barely scratched the surface of objects, but you now know the basics you'l
       border: '1px solid blue'
     });
 
-As far as `this`, jQuery tends to take control over its meaning. In the case of [event handlers](/chapter/events), `this` will refer to the element to which you bound the handler; in the case of [iterating over a set of elements in a selection](/chapter/jquery-basics#explicit-iteration), `this` will refer to the current element in the iteration. You shouldn't need to worry about understanding `this` too much during your initial learning -- it's just a good thing to keep in mind as your learning continues.
+As far as `this`, jQuery tends to take control over its meaning. In the case of [event handlers](/chapter/events), `this` will refer to the element to which you bound the handler; in the case of [iterating over a set of elements in a selection](/chapter/jquery-basics#explicit-iteration), `this` will refer to the current element in the iteration. You shouldn't need to worry about understanding `this` too much during your initial learning &mdash; it's just a good thing to keep in mind as your learning continues.
 
 #### Further reading
 
@@ -414,14 +414,14 @@ There is a whole lot more that you can do with arrays; for a complete reference,
 
 JavaScript provides `if` and `else`, as well as the *ternary operator*, to allow us to do certain things only when certain conditions are met. JavaScript determines whether a condition is met by evaluating a value or an expression for its "truthiness." Because JavaScript is a dynamically typed language, we can use any value or combination of values; however, the rules by which JavaScript determines whether a given value or expression is `true` or `false` can be confusing.
 
-Here's an example of a simple `if` statement in JavaScript. It evaluates the truthiness of the number `1`; because `1` is **truthy**, the code inside the block -- delineated by `{` and `}` -- will run.
+Here's an example of a simple `if` statement in JavaScript. It evaluates the truthiness of the number `1`; because `1` is **truthy**, the code inside the block &mdash; delineated by `{` and `}` &mdash; will run.
 
     if ( 1 ) {
       // this code will run!
       log( '1 is truthy' );
     }
 
-As it turns out, most values in JavaScript are truthy -- in fact, there are only five values in JavaScript that are **falsy**:
+As it turns out, most values in JavaScript are truthy &mdash; in fact, there are only five values in JavaScript that are **falsy**:
 
 - `undefined` (the default value of declared variables that are not assigned a
   value)

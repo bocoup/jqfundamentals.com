@@ -79,7 +79,7 @@ object from our page's `document`, and then calling the `.ready()` function on
 that object, passing it the function we want to execute.
 
 Since this is something you'll find yourself doing a lot, there's a shorthand
-method for this if you prefer -- the `$()` function does double duty as an
+method for this if you prefer &mdash; the `$()` function does double duty as an
 alias for `$(document).ready()` if you pass it a function:
 
     $(function() {
@@ -183,7 +183,7 @@ the element you're after.
 ## Creating new elements
 
 The `$` function has one last role: creating new elements. If you pass an HTML
-snippet to `$()`, it will create a new element in memory -- that is, the
+snippet to `$()`, it will create a new element in memory &mdash; that is, the
 element will be created, but it won't be placed on the page until you place it
 on the page.
 
@@ -237,7 +237,7 @@ in a selection, using what's known as *implicit iteration*.
 Implicit iteration means that jQuery automatically iterates over all the
 elements in a selection when you call a setter method on that selection. This
 means that, when you want to do something to all of the elements in a
-selection, you don't have to call a setter method on every item in your selection --
+selection, you don't have to call a setter method on every item in your selection &mdash;
 you just call the method on the selection itself, and jQuery iterates over the
 elements for you.
 

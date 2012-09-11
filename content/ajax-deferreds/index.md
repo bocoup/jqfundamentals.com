@@ -15,10 +15,10 @@ links:
 
 ## AJAX
 
-AJAX -- "asynchronous JavaScript and XML" -- is a means of loading data from a
+AJAX -- "asynchronous JavaScript and XML" &mdash; is a means of loading data from a
 server without requiring a page reload. It uses a browser's built-in XMLHttpRequest (XHR) functionality to make a request to the server and then handle the data that the server returns.
 
-jQuery provides the `$.ajax` method -- and several convenience methods -- to make it easier to work with XHRs across browsers.
+jQuery provides the `$.ajax` method  &mdash; and several convenience methods  &mdash; to make it easier to work with XHRs across browsers.
 
 ### $.ajax
 
@@ -82,7 +82,7 @@ request succeeds or fails, and much more.
 
 ### A is for asynchronous
 
-AJAX requests run *asynchronously* -- that means that the `$.ajax` method
+AJAX requests run *asynchronously*  &mdash; that means that the `$.ajax` method
 returns before the request is finished, and therefore before the `success`
 callback runs. That means that this function's `return` statement runs before
 the request is complete. This means the `getSomeData` function below will return `data` before it is defined, causing the code to throw an error.
@@ -128,7 +128,7 @@ JSON is a string representation of data; it looks a whole lot like a normal Java
       }
     ] }
 
-It's important to remember that *JSON is a string representation of an object* -- the string must be parsed into an actual JavaScript object before working with it. When you're working with a JSON response to an XHR, jQuery takes care of this task for you, but it's crucial to understand the difference between the JSON representation of an object, and the object itself.
+It's important to remember that *JSON is a string representation of an object*  &mdash; the string must be parsed into an actual JavaScript object before working with it. When you're working with a JSON response to an XHR, jQuery takes care of this task for you, but it's crucial to understand the difference between the JSON representation of an object, and the object itself.
 
 <div class="alert alert-info">
   If you need to create a JSON string from a JavaScript object, or if you need to parse a JSON string outside of jQuery, modern browsers provide the `JSON.stringify()` and `JSON.parse()` methods. This functionality can be added to older browsers using the [json2.js](https://github.com/douglascrockford/JSON-js) library. jQuery also provides the `jQuery.parseJSON` method, which provides the same functionality as `JSON.parse()` across all browsers. However, jQuery does not provide a method that corresponds to `JSON.stringify()`.
@@ -136,8 +136,8 @@ It's important to remember that *JSON is a string representation of an object* -
 
 ### Convenience methods
 
-If we're just making a simple request -- and if we don't care about error
-handling -- jQuery provides several "convenience methods" that let us use an
+If we're just making a simple request  &mdash; and if we don't care about error
+handling  &mdash; jQuery provides several "convenience methods" that let us use an
 abbreviated syntax. Each of these methods takes a URL, an optional data object,
 and an optional callback for handling a successful request.
 
@@ -176,7 +176,7 @@ for a POST request, it will be sent as form data. jQuery provides the helpful `.
 
 ### jqXHR
 
-`$.ajax()` (and related convenience methods) returns a jqXHR object -- a *jQuery XML HTTP Request* -- which has a host of powerful methods. We can make a request using `$.ajax()`, and then capture the returned jqXHR object in a variable.
+`$.ajax()` (and related convenience methods) returns a jqXHR object  &mdash; a *jQuery XML HTTP Request*  &mdash; which has a host of powerful methods. We can make a request using `$.ajax()`, and then capture the returned jqXHR object in a variable.
 
     var req = $.ajax({
       url: '/data/people.json',
@@ -221,9 +221,9 @@ If we want to attach a callback that runs on success or failure, we can use the
 
 Many JavaScript developers are alarmed when they first try to use `$.ajax` to fetch data from another domain and their request fails. For example, you may try fetching data from a third-party API, and discover that your request consistently fails.
 
-As it turns out, for security reasons, XHRs to other domains are blocked by the browser. However, certain third-party APIs provide a response formatted as JSONP -- "JSON with Padding" -- which allows you to use their data even though it is hosted on another server.
+As it turns out, for security reasons, XHRs to other domains are blocked by the browser. However, certain third-party APIs provide a response formatted as JSONP  &mdash; "JSON with Padding"  &mdash; which allows you to use their data even though it is hosted on another server.
 
-JSONP isn't exactly AJAX -- rather than using the browser's XHR functionality, it actually works by inserting a script tag into the page that contains the requested data, "padded" with a function wrapper. Nevertheless, jQuery lets you make a JSONP request with `$.ajax()` by specifying `'jsonp'` as the `dataType` in the configuration object.
+JSONP isn't exactly AJAX  &mdash; rather than using the browser's XHR functionality, it actually works by inserting a script tag into the page that contains the requested data, "padded" with a function wrapper. Nevertheless, jQuery lets you make a JSONP request with `$.ajax()` by specifying `'jsonp'` as the `dataType` in the configuration object.
 
     $.ajax({
       url: '/data/search.jsonp',
@@ -251,7 +251,7 @@ JSONP request.
       }
     );
 
-[CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) -- cross-origin resource sharing -- is another option for enabling cross-origin requests. However, it is not supported on older browsers, and it requires server-side configuration and manipulation of the XHR headers in order to work.
+[CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing)  &mdash; cross-origin resource sharing  &mdash; is another option for enabling cross-origin requests. However, it is not supported on older browsers, and it requires server-side configuration and manipulation of the XHR headers in order to work.
 
 ## Deferreds
 
@@ -265,7 +265,7 @@ callbacks.
 
 You can create your own deferreds using `$.Deferred()`. Here, we run a function
 in a setTimeout, and "resolve" our deferred with the return value of that
-function. We return the deferred's "promise" -- an object to which we can
+function. We return the deferred's "promise"  &mdash; an object to which we can
 attach callbacks, but which doesn't have the ability to modify the outcome of
 deferred itself. We "reject" the deferred if anything goes wrong with running
 the provided function.
@@ -339,7 +339,7 @@ As of jQuery 1.8, the `.then()` method of a promise behaves like `.pipe()`.
 ### Reacting to maybe-asynchronous operations
 
 Sometimes we have an operation that might return immediately, or
-might be asynchronous -- for example, if a function does something
+might be asynchronous  &mdash; for example, if a function does something
 async the first time it runs, and then caches the value for future
 use. In this case, we can use `$.when()` to react to either case.
 
