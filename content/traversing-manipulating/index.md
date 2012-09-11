@@ -315,7 +315,7 @@ You could append the item to the list by calling `.append()` on the list:
 You could insert the list item after the last list item by calling
 `.insertAfter()` on the list item that you want to move:
 
-    var listItems = $( '#my-unorderd-list li' );
+    var listItems = $( '#my-unordered-list li' );
     listItems.first().insertAfter( listItems.last() );
 
 You could also insert the list item after the last list item by calling
