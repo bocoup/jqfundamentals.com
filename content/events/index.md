@@ -178,7 +178,7 @@ including the following:
 
     $( document ).on( 'click', function( event ) {
       console.log( event.type );    // The event type, eg. "click"
-      console.log( event.which );   // The button or kep that was pressed.
+      console.log( event.which );   // The button or key that was pressed.
       console.log( event.target );  // The originating element.
       console.log( event.pageX );   // The document mouse X coordinate.
       console.log( event.pageY );   // The document mouse Y coordinate.
