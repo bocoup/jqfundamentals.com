@@ -270,7 +270,7 @@ of the list item.
       // this: the current, raw DOM element
       // index: the current element's index in the selection
       // elem: the current, raw DOM element (same as this)
-      $( elem ).prepend( '<b>' + index + ': </p>' );
+      $( elem ).prepend( '<b>' + index + ': </b>' );
     });
 
 <div class="alert alert-info">
