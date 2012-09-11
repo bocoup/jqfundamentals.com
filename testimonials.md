@@ -1,3 +1,7 @@
+Hacker News: http://news.ycombinator.com/item?id=4500090
+
+Reddit: http://www.reddit.com/r/javascript/comments/znlhb/jquery_fundamentals_the_online_jquery_guide_gets/
+
 Man, @bocoup hit it out of the park with jqfundamentals.com - a great way to learn about JS and jQuery. - @rupl https://twitter.com/rupl/statuses/245509000202969088
 
 This is the basics guide that the main jQuery site desperately needs on theirs. Great job. - http://news.ycombinator.org/item?id=4501285
