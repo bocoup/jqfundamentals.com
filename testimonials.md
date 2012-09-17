@@ -15,3 +15,6 @@ jqfundamentals is where I learned jquery. Keep up the good work! - @faruzzy http
 To everybody who's ever asked me how to get started with jQuery, attn: RT @rmurphey: ohai new jqfundamentals.com bit.ly/Nkon7x - @kadamwhite
 
 I’ve been working with JavaScript and jQuery on and off for many years and even with that background experience I still found your tutorial to be excellent. Being able to run (and fiddle) with each example in context was really helpful in understanding how some of them worked. I’m not ashamed to say I’ve learned some stuff today that I didn’t know or had forgotten :) - carl.revell@aylnews.com
+
+jqFundamentals is easily the best jQuery (and JavaScript) primer that I've seen
+in a long time. - https://twitter.com/stephenmurdoch/statuses/245659981892952064
