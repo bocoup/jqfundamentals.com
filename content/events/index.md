@@ -188,7 +188,7 @@ including the following:
 
 When you specify a function to be used as an event handler, that function gets
 access to the *raw DOM element* that initiated the event as `this`. If you want
-to use jQuery to mainpulate the element, you will need to pass it to `$()`:
+to use jQuery to manipulate the element, you will need to pass it to `$()`:
 
     $( 'input' ).on( 'keydown', function( event ) {
       // this: The element on which the event handler was bound.
