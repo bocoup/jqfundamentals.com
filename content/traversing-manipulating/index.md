@@ -377,7 +377,7 @@ re-add the removed elements, the removed elements will no longer have events
 bound to them.
 
     $( '#my-unordered-list li' ).click(function() {
-      alert $( this ).text();
+      alert( $( this ).text() );
     });
 
     var removedListItem = $( '#my-unordered-list li' ).first().remove();
@@ -388,7 +388,7 @@ bound to them.
 The `.detach()` method is useful for temporarily removing elements from the document; for example, if you are going to make a lot of changes to your page's structure using jQuery, it will be more efficient to use `.detach()` to remove the affected elements, make your changes, and then re-attach the element using one of the insertion methods. Elements removed with `.detach()` will retain their event handlers; you can re-add them to the document with `.appendTo()` or another DOM insertion method.
 
     $( '#my-unordered-list li' ).click(function() {
-      alert $( this ).text();
+      alert( $( this ).text() );
     });
 
     var detachedListItem = $( '#my-unordered-list li' ).first().detach();
@@ -404,7 +404,7 @@ elements are returned, but just like with `.remove()`, all event handlers are
 unbound from the replaced elements.
 
     $( '#my-unordered-list li' ).click(function() {
-      alert $( this ).text();
+      alert( $( this ).text() );
     });
 
     var replacedListItem = $( '#my-unordered-list li' ).first()
