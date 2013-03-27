@@ -122,10 +122,12 @@ footer {
   font-size: 11px;
   background-repeat: no-repeat;
   background-size: 25px;
-  background-position: 10px 50%;
+  background-position: right 50%;
   background-image: url('../img/bob-bust.png');
-  padding-left: 50px;
+  padding-right: 33px;
   padding-top: 18px;
+  text-align: right;
+  margin-top: 25px
 }
 
 footer p {
@@ -273,4 +275,18 @@ iframe {
 #results .results-container {
   padding: 10px;
   border: 1px solid #eee;
+}
+
+.adsbybocoup {
+  font-size: 10px;
+  font-style: italic;
+  padding: 10px 0 0 0;
+}
+
+.advertisements p {
+  display: inline-block;
+  width: 200px;
+  margin: 3px 0 0 10px;
+  line-height: 1.4;
+  font-size: 12px;
 }
