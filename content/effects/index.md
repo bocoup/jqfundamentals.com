@@ -67,7 +67,7 @@ modify this object to override the defaults, or extend it with new names:
     // built-in speeds
     $( '.other-hidden' ).show( 'turtle' );
 
-Often, you'll want to do something once an animation is done &mdash; if you try to do it before the animation completes, it may affect the quality of the animation, or it may remove elments that are part of the animation. You can provide a callback function to the animation methods if you want to specify what should happen when the effect is complete. Inside the callback, `this` refers to the raw DOM element that the effect was applied to. Just like with event callbacks, we can turn it into a jQuery object by passing it to the `$()` function: `$( this )`.
+Often, you'll want to do something once an animation is done &mdash; if you try to do it before the animation completes, it may affect the quality of the animation, or it may remove elements that are part of the animation. You can provide a callback function to the animation methods if you want to specify what should happen when the effect is complete. Inside the callback, `this` refers to the raw DOM element that the effect was applied to. Just like with event callbacks, we can turn it into a jQuery object by passing it to the `$()` function: `$( this )`.
 
     $( 'p.old' ).fadeOut( 300, function() {
       $( this ).remove();
