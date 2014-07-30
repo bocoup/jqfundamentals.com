@@ -410,7 +410,7 @@ There is a whole lot more that you can do with arrays; for a complete reference,
 
 ## Logic and Truthiness
 
-<a href="logic-and-truthiness"></a>
+<a name="logic-and-truthiness"></a>
 
 JavaScript provides `if` and `else`, as well as the *ternary operator*, to allow us to do certain things only when certain conditions are met. JavaScript determines whether a condition is met by evaluating a value or an expression for its "truthiness." Because JavaScript is a dynamically typed language, we can use any value or combination of values; however, the rules by which JavaScript determines whether a given value or expression is `true` or `false` can be confusing.
 

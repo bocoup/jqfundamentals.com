@@ -1,7 +1,7 @@
 title: jQuery Basics
 previous:
   name: JavaScript Basics
-  path: /chapter/javascript-basics/
+  path: /chapter/javascript-basics
 sandbox: /sandbox/jquery-basics
 next:
   name: Traversing & Manipulating
@@ -274,7 +274,7 @@ of the list item.
     });
 
 <div class="alert alert-info">
-You'll notice that, inside the function that we pass to `.each()`, we have access to the current raw DOM element in two ways: as `this` and as `elem`. As discussed in the [JavaScript Basics section](/chatper/javascript-basics), `this` is a special keyword in JavaScript, referring to the object that is the current context of the function.
+You'll notice that, inside the function that we pass to `.each()`, we have access to the current raw DOM element in two ways: as `this` and as `elem`. As discussed in the [JavaScript Basics section](/chapter/javascript-basics), `this` is a special keyword in JavaScript, referring to the object that is the current context of the function.
 
 In jQuery, `this` almost always refers to the raw DOM element on which the function is currently operating. So, in the case of `.each()`, it refers to the current element in the set of elements we're iterating over.
 </div>
