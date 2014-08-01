@@ -146,7 +146,7 @@ and an optional callback for handling a successful request.
     });
 
     $.post( '/data/save', { name: 'Rebecca' }, function( resp ) {
-      console.log( JSON.parse( resp ) );
+      console.log( resp );
     });
 
 ### Sending data & working with forms

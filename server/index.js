@@ -7,8 +7,7 @@ var Faker =         require('Faker');
 var _ =             require('underscore');
 
 var app =           express(
-                      express.logger(),
-                      express.bodyParser()
+                      express.logger()
                     );
 
 var contentDir =    __dirname + '/../content';
@@ -27,6 +26,8 @@ for (var i = 0; i < 100; i++) {
 }
 
 app.use( express.compress() );
+
+app.use( express.bodyParser() );
 
 app.use( express.favicon(
   __dirname + '/../public/img/favicon.ico',
@@ -55,7 +56,6 @@ app.use(
     { maxAge: 8640000000 }
   )
 );
-
 
 app.use( app.router );
 
@@ -150,9 +150,12 @@ app.post("/data/save", function(req, res) {
 });
 
 app.get('/data/:filename', function(req, res) {
-  var file = [ dataDir, req.params.filename ].join('/');
-  res.sendfile(file, function(err) {
+  res.sendfile(req.params.filename, {
+    root: dataDir
+  }, function(err) {
     if (err) {
+      console.log(dataDir);
+      console.log(err);
       res.json({});
     }
   });
