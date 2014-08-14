@@ -1,5 +1,9 @@
 * { box-sizing: border-box; }
 
+#adzerk_ad {
+  vertical-align: top;
+}
+
 .navbar .brand {
   margin-left: 0;
   padding-left: 0;
@@ -122,12 +126,11 @@ footer {
   font-size: 11px;
   background-repeat: no-repeat;
   background-size: 25px;
-  background-position: right 50%;
+  background-position: right 0%;
   background-image: url('../img/bob-bust.png');
   padding-right: 33px;
-  padding-top: 18px;
   text-align: right;
-  margin-top: 25px
+  margin-top: 43px
 }
 
 footer p {
