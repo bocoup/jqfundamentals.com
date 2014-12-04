@@ -1,14 +1,18 @@
 var fs =            require('fs');
 var Q =             require('q');
 var yaml =          require('js-yaml');
-var express =       require('express');
 var md =            require('marked');
 var Faker =         require('Faker');
 var _ =             require('underscore');
 
-var app =           express(
-                      express.logger()
-                    );
+var express =       require('express');
+var app =           express();
+
+// Express middlewares
+var logger =        require('morgan');
+var compression =   require('compression');
+var bodyParser =    require('body-parser');
+var favicon =       require('serve-favicon');
 
 var contentDir =    __dirname + '/../content';
 var exerciseDir =   __dirname + '/../exercises';
@@ -25,11 +29,14 @@ for (var i = 0; i < 100; i++) {
   fakeData.push(Faker.Helpers.userCard());
 }
 
-app.use( express.compress() );
+app.use( logger('dev') );
+app.use( compression() );
+app.use( bodyParser.urlencoded({
+  extended: true
+}) );
+app.use( bodyParser.json() );
 
-app.use( express.bodyParser() );
-
-app.use( express.favicon(
+app.use( favicon(
   __dirname + '/../public/img/favicon.ico',
   { maxAge: 8640000000 }
 ) );
@@ -56,12 +63,6 @@ app.use(
     { maxAge: 8640000000 }
   )
 );
-
-app.use( app.router );
-
-app.use(function(err, req, res) {
-  error(res, 500);
-});
 
 app.set('views', __dirname + '/../templates');
 app.set('view engine', 'jade');
@@ -214,6 +215,10 @@ app.get('/500', function(req, res) {
 
 app.get('/*', function(req, res) {
   error(res, 404);
+});
+
+app.use(function(err, req, res) {
+  error(res, 500);
 });
 
 function error(res, code) {
