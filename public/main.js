@@ -11,5 +11,6 @@ require.config({
     'jquery' : 'vendor/jquery',
     'widgets' : 'js/widgets',
     'controllers' : 'js/controllers'
-  }
+  },
+  dir: '../build'
 });
