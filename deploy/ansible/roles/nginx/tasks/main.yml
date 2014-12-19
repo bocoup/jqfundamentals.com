@@ -1,0 +1,8 @@
+---
+# configure nginx
+
+- name: make sure nginx has a configuration file for jqf
+  template: src=jqf.conf dest=/etc/nginx/conf.d/jqf.conf backup=no
+
+- name: restart nginx
+  service: name=nginx state=restarted

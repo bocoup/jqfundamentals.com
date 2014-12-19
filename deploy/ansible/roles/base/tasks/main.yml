@@ -1,0 +1,23 @@
+---
+# configure base dependencies
+
+- name: update apt-cache if needed
+  apt: update_cache=yes
+
+- name: make sure python-apt is installed so we can add custom ppas
+  apt: name=python-apt state=present
+
+- name: make sure node ppa is available
+  apt_repository: repo='ppa:chris-lea/node.js'
+
+- name: make sure nodejs is installed
+  apt: name=nodejs state=present
+
+- name: make sure git is installed
+  apt: name=git state=present
+
+- name: make sure nginx is installed
+  apt: name=nginx state=present
+
+- name: libcurl is installed
+  apt: name=libcurl4-openssl-dev state=present

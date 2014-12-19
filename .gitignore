@@ -1,3 +1,5 @@
 node_modules/
 public/
+config/secrets/
 .DS_Store
+npm-debug.log

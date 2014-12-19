@@ -1,0 +1,8 @@
+---
+# configure services
+
+- name: make sure the app is loaded
+  template: src=app.conf dest=/etc/init/app.conf backup=no
+
+- name: restart app
+  service: name=app state=restarted

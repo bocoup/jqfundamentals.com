@@ -1,0 +1,9 @@
+---
+# deploy production machine for live use
+
+- hosts: all
+  gather_facts: false
+  sudo: yes
+  roles:
+    - deploy
+    - services

@@ -1,0 +1,28 @@
+---
+# start it up
+
+# remove this when this issue has been resolved:
+# https://github.com/ansible/ansible-modules-core/issues/18
+- name: horrible hack workaround
+  command: /bin/true
+
+- name: make sure code is on the box and in sync
+  synchronize:
+    src: ../../../../../
+    dest: "{{base_path}}"
+    rsync_opts:
+      - --include=build/***
+      - --include=content/***
+      - --include=data/***
+      - --include=exercises/***
+      - --include=legacy/***
+      - --include=public/***
+      - --include=server/***
+      - --include=templates/***
+      - --include=package.json
+      - --exclude='.*'
+      - --exclude='*'
+      - --delete-before
+
+- name: run npm install
+  npm: path={{base_path}} state=present

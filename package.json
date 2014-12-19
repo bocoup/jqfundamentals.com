@@ -1,11 +1,14 @@
 {
   "name": "jqfundamentals.com",
+  "private": true,
   "version": "0.2.0",
   "description": "jqfundamentals.com site",
   "main": "index.js",
   "scripts": {
     "test": "grunt mocha",
-    "serve": "node server"
+    "serve": "node server",
+    "provision": "grunt requirejs && ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/provision.yml",
+    "deploy": "grunt requirejs && ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/deploy.yml"
   },
   "author": "Rebecca Murphey",
   "license": "Copyright 2012 Bocoup. All rights reserved.",
