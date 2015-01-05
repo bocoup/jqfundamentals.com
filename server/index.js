@@ -36,25 +36,27 @@ app.use( bodyParser.urlencoded({
 }) );
 app.use( bodyParser.json() );
 
-app.use( favicon(
-  __dirname + '/../public/img/favicon.ico',
-  { maxAge: 8640000000 }
-) );
-
-app.use(
-  '/public/' + cachebust,
-  express.static(
-    __dirname + ( prod ? '/../build' : '/../public' ),
+if ( !prod ) {
+  app.use( favicon(
+    __dirname + '/../assets/img/favicon.ico',
     { maxAge: 8640000000 }
-  )
-);
+  ) );
 
-app.use(
-  '/public',
-  express.static(
-    __dirname + ( prod ? '/../build' : '/../public' )
-  )
-);
+  app.use(
+    '/public/' + cachebust,
+    express.static(
+      __dirname + '/../assets',
+      { maxAge: 8640000000 }
+    )
+  );
+
+  app.use(
+    '/public',
+    express.static(
+      __dirname + '/../assets'
+    )
+  );
+}
 
 app.use(
   '/legacy',

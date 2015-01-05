@@ -1,5 +1,5 @@
 require.config({
-  baseUrl : '../public',
+  baseUrl : '../assets',
   shim : {
     'vendor/codemirror' : {
       deps : [ 'vendor/CodeMirror-2.25/lib/codemirror'],
@@ -12,5 +12,5 @@ require.config({
     'widgets' : 'js/widgets',
     'controllers' : 'js/controllers'
   },
-  dir: '../build'
+  dir: '../public'
 });

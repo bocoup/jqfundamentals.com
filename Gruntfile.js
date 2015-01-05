@@ -12,14 +12,14 @@ module.exports = function(grunt) {
       options: {
         jshintrc: true
       },
-      files: ['Gruntfile.js', 'public/js/**/*.js' ]
+      files: ['Gruntfile.js', 'assets/js/**/*.js' ]
     },
     requirejs: {
       compile: {
         options: {
-          mainConfigFile: "public/main.js",
-          baseUrl: "public/",
-          dir: "build"
+          mainConfigFile: "assets/main.js",
+          baseUrl: "assets/",
+          dir: "public"
         }
       }
     },
