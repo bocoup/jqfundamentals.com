@@ -4,6 +4,7 @@ var yaml =          require('js-yaml');
 var md =            require('marked');
 var Faker =         require('Faker');
 var _ =             require('underscore');
+var path =          require('path');
 
 var express =       require('express');
 var app =           express();
@@ -38,14 +39,14 @@ app.use( bodyParser.json() );
 
 if ( !prod ) {
   app.use( favicon(
-    __dirname + '/../assets/img/favicon.ico',
+    path.join(__dirname, '/../assets/img/favicon.ico'),
     { maxAge: 8640000000 }
   ) );
 
   app.use(
     '/public/' + cachebust,
     express.static(
-      __dirname + '/../assets',
+      path.join(__dirname, '/../assets'),
       { maxAge: 8640000000 }
     )
   );
@@ -53,7 +54,7 @@ if ( !prod ) {
   app.use(
     '/public',
     express.static(
-      __dirname + '/../assets'
+      path.join(__dirname, '/../assets')
     )
   );
 }
@@ -61,12 +62,12 @@ if ( !prod ) {
 app.use(
   '/legacy',
   express.static(
-    __dirname + '/../legacy',
+    path.join(__dirname, '/../legacy'),
     { maxAge: 8640000000 }
   )
 );
 
-app.set('views', __dirname + '/../templates');
+app.set('views', path.join(__dirname, '/../templates'));
 app.set('view engine', 'jade');
 
 // allow template inheritance
