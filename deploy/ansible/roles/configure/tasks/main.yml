@@ -6,3 +6,23 @@
 
 - name: put hosts in /etc/hosts
   lineinfile: "dest=/etc/hosts line='127.0.0.1 {{hostname}} {{jqf_fqdn}}'"
+
+# Ensure the remote server recognizes github.com as a known host
+- name: get github.com public key
+  command: /usr/bin/ssh-keyscan github.com
+  register: github_keyscan
+
+- name: github key is recognized
+  lineinfile: dest=/etc/ssh/ssh_known_hosts
+    create=yes
+    regexp='^github.com'
+    line="{{github_keyscan.stdout}}"
+
+# Keep the SSH agent when sudoing so we can rely on key forwarding when
+# connecting to GitHub during deployment
+- name: keep SSH agent socket when sudoing
+  lineinfile: dest=/etc/sudoers
+    insertafter='^Defaults'
+    line='Defaults env_keep += "SSH_AUTH_SOCK"'
+    state=present
+    validate='visudo -cf %s'

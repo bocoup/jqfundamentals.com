@@ -6,9 +6,10 @@
   "main": "index.js",
   "scripts": {
     "test": "grunt mocha",
+    "build": "grunt requirejs",
     "serve": "node server",
-    "provision": "grunt requirejs && ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/provision.yml",
-    "deploy": "grunt requirejs && ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/deploy.yml"
+    "provision": "ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/provision.yml --ask-sudo-pass",
+    "deploy": "ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/deploy.yml --ask-sudo-pass"
   },
   "author": "Rebecca Murphey",
   "license": "Copyright 2012 Bocoup. All rights reserved.",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "grunt": "0.4.5",
+    "grunt-cli": "0.1.13",
     "grunt-contrib-jshint": "0.10.0",
     "grunt-contrib-requirejs": "0.4.4",
     "grunt-contrib-watch": "0.6.1",

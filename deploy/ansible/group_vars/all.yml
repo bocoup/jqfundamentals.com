@@ -2,8 +2,8 @@
 # defaults for all groups
 
 base_path: /mnt/jqf
-bin_path: "{{base_path}}/.bin"
 app_name: jqf
 app_port: 4444
 app_log_file: /var/log/{{app_name}}
-app_pid_file: /var/run/{{app_name}}.pid
+deploy_key_path: /home/robocoup/.ssh/id_rsa
+git_repo: git@github.com:bocoup-education/jqfundamentals.com.git

@@ -1,28 +1,23 @@
----
-# start it up
+- name: remove temporary build
+  command: rm -rf {{base_path}}.tmp
 
-# remove this when this issue has been resolved:
-# https://github.com/ansible/ansible-modules-core/issues/18
-- name: horrible hack workaround
-  command: /bin/true
+- name: temp build directory exists
+  file: path={{base_path}}.tmp state=directory
 
-- name: make sure code is on the box and in sync
-  synchronize:
-    src: ../../../../../
-    dest: "{{base_path}}"
-    rsync_opts:
-      - --include=build/***
-      - --include=content/***
-      - --include=data/***
-      - --include=exercises/***
-      - --include=legacy/***
-      - --include=public/***
-      - --include=server/***
-      - --include=templates/***
-      - --include=package.json
-      - --exclude='.*'
-      - --exclude='*'
-      - --delete-before
+- name: code is synchronized via git to temp directory
+  git: dest={{base_path}}.tmp repo={{git_repo}} version={{commit}} key_file={{deploy_key_path}}
+  when: env != 'development'
 
-- name: run npm install
-  npm: path={{base_path}} state=present
+- name: npm install has been run
+  npm: path={{base_path}}.tmp
+
+- name: production version of the application has been built
+  command: npm run build
+  args:
+    chdir: "{{base_path}}.tmp"
+
+- name: current production build is removed
+  command: rm -rf {{base_path}}
+
+- name: new production build is in place
+  command: mv {{base_path}}.tmp {{base_path}}
