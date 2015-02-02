@@ -1,5 +1,5 @@
-require.config({
-  baseUrl : './',
+requirejs.config({
+  baseUrl : '/public/',
   shim : {
     'vendor/codemirror' : {
       deps : [ 'vendor/CodeMirror-2.25/lib/codemirror'],
@@ -7,10 +7,10 @@ require.config({
     }
   },
   paths : {
-    'bootstrap' : 'vendor/bootstrap/js/bootstrap',
-    'jquery' : 'vendor/jquery',
-    'widgets' : 'js/widgets',
-    'controllers' : 'js/controllers'
+    bootstrap : 'vendor/bootstrap/js/bootstrap',
+    jquery : 'vendor/jquery',
+    widgets : 'js/widgets',
+    controllers : 'js/controllers'
   },
   dir: '../public'
 });
