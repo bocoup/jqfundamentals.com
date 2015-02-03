@@ -1,10 +1,25 @@
-This is a repo for the eventual makeover of jqfundamentals.com. To fire up the
-local server:
+# [jQuery Fundamentals]
 
-- make sure you have node installed
-- run `npm install` from the repo root
-- run `node server` or `supervisor server` to run the server at localhost:4444
-- run `grunt requirejs` to build the JS for production
-- run `NODE_ENV=production node server` to run the server in production mode
+> jQuery Fundamentals is designed to get you comfortable working through common problems you'll be called upon to solve using jQuery. To get the most out of this site, you'll want to read the content and try the various interactive examples. Each chapter will cover a concept and give you a chance to try example code related to the concept.
 
-Hosting details are [here](https://github.com/bocoup/control.bocoup.com/wiki/jqfundamentals.com) -- tl;dr use [control.bocoup.com](http://control.bocoup.com) to update the production site. [production.jqfundamentals.bocoup.com](http://production.jqfundamentals.bocoup.com) is the staging site and updates automatically.
+## Install and development
+
+You first need to have [`git`][git] and [`nodejs`][nodejs] installed in your machine.
+
+- Clone this repository
+- run `npm install` from the repo's root.
+- run `node server` to run the server at http://localhost:4444
+
+## Deploy
+
+With the rights to deploy to the production server, you also need [Ansible] to be installed on your machine.
+
+After that, you can simply run
+
+- `npm run provision` to provision the production machine; or
+- `npm run deploy` to just deploy content changes
+
+[jQuery Fundamentals]: http://jqfundamentals.com/
+[git]: http://www.git-scm.com/
+[nodejs]: http://nodejs.org/
+[Ansible]: http://www.ansible.com/home
