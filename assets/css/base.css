@@ -293,3 +293,16 @@ iframe {
   line-height: 1.4;
   font-size: 12px;
 }
+
+.github-ribbon {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  border: 0;
+}
+
+@media (max-width: 420px) {
+  .github-ribbon {
+    display: none;
+  }
+}
