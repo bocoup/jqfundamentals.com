@@ -5,5 +5,4 @@ base_path: /mnt/jqf
 app_name: jqf
 app_port: 4444
 app_log_file: /var/log/{{app_name}}
-deploy_key_path: /home/robocoup/.ssh/id_rsa
-git_repo: git@github.com:bocoup-education/jqfundamentals.com.git
+git_repo: git@github.com:bocoup/jqfundamentals.com.git
