@@ -8,8 +8,8 @@
     "test": "grunt mocha",
     "build": "grunt requirejs",
     "serve": "node server",
-    "provision": "ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/provision.yml",
-    "deploy": "ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/deploy.yml"
+    "provision": "ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/provision.yml --ask-sudo-pass",
+    "deploy": "ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/deploy.yml --ask-sudo-pass"
   },
   "author": "Rebecca Murphey",
   "license": "Copyright 2012 Bocoup. All rights reserved.",
