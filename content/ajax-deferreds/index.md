@@ -15,7 +15,7 @@ links:
 
 ## AJAX
 
-AJAX -- "asynchronous JavaScript and XML" &mdash; is a means of loading data from a
+AJAX &mdash; "asynchronous JavaScript and XML" &mdash; is a means of loading data from a
 server without requiring a page reload. It uses a browser's built-in XMLHttpRequest (XHR) functionality to make a request to the server and then handle the data that the server returns.
 
 jQuery provides the `$.ajax` method  &mdash; and several convenience methods  &mdash; to make it easier to work with XHRs across browsers.
