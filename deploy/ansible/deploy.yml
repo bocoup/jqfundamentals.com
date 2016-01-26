@@ -3,7 +3,8 @@
 
 - hosts: all
   gather_facts: false
-  sudo: yes
+  become: yes
+  become_method: sudo
   roles:
     - deploy
     - services
