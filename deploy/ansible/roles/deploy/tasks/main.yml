@@ -5,7 +5,7 @@
   file: path={{base_path}}.tmp state=directory
 
 - name: code is synchronized via git to temp directory
-  git: dest={{base_path}}.tmp repo={{git_repo}} version={{commit}} key_file={{deploy_key_path}}
+  git: dest={{base_path}}.tmp repo={{git_repo}} version={{commit}}
   when: env != 'development'
 
 - name: npm install has been run
