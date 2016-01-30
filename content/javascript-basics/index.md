@@ -496,7 +496,7 @@ This style is elegant and pleasantly terse, but it can be difficult to read, esp
 
 ### The Ternary Operator
 
-Often, you'll want to set a variable's value differently depending on whether a certain condition is true or false. Of course, you could achieve this with an `if` and `else` statemenet:
+Often, you'll want to set a variable's value differently depending on whether a certain condition is true or false. Of course, you could achieve this with an `if` and `else` statement:
 
     ```<span class="caution">caution</span> antipattern
     var propertyName;
