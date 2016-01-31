@@ -1,8 +1,6 @@
----
-# defaults for all groups
-
 base_path: /mnt/jqf
 app_name: jqf
 app_port: 4444
 app_log_file: /var/log/{{app_name}}
 git_repo: git@github.com:bocoup/jqfundamentals.com.git
+commit: master
