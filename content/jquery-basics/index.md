@@ -221,7 +221,7 @@ matches the selector:
     $( 'li' ).eq( 0 ).is( '.special' ); // false
     $( 'li' ).eq( 1 ).is( '.special' ); // true
 
-You can also pass the `.is()` method a jQuery object, a raw DOM element, or
+You can also pass to the `.is()` method a jQuery object, a raw DOM element, or
 even a function if you need to do a more complex test. See [the
 documentation](http://api.jquery.com/is/) for more details.
 
