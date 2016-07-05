@@ -596,3 +596,4 @@ do well to read the following articles:
 - [Functions](https://developer.mozilla.org/en/JavaScript/Guide/Functions)
 - [Immediately Invoked Function Expressions](http://benalman.com/news/2010/11/immediately-invoked-function-expression/)
 - [Arrays](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/)
+- [Introduction To Variables In JavaScript] (https://www.kompulsa.com/javascript-basics-introduction-to-variables/)
