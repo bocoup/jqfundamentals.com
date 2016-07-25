@@ -111,7 +111,7 @@ Functions are a fundamental building block of JavaScript programs; they provide 
       return a + b;
     }
 
-This function takes two **arguments**, `a` and `b`. It adds them together, and returns the result.
+This function takes two **parameters**, `a` and `b`. It adds them together, and returns the result.
 
 This is a valid bit of JavaScript, but as written, there's no way for us to *call* our function if we actually want to add two things. We can solve this by assigning our function to a variable:
 
@@ -119,7 +119,7 @@ This is a valid bit of JavaScript, but as written, there's no way for us to *cal
       return a + b;
     };
 
-What we've done here is take a **function expression** and assign it to a variable. Now that we've done this, we can call our function by using the name of the variable:
+What we've done here is take a **function expression** and assign it to a variable. Now that we've done this, we can call our function by using the name of the variable, passing `1` and `2` as **arguments** into the function:
 
     log( addTwoNumbers(1, 1) ); // logs 2
 
