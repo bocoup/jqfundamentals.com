@@ -121,7 +121,7 @@ This is a valid bit of JavaScript, but as written, there's no way for us to *cal
 
 What we've done here is take a **function expression** and assign it to a variable. Now that we've done this, we can call our function by using the name of the variable, passing `1` and `2` as **arguments** into the function:
 
-    log( addTwoNumbers(1, 1) ); // logs 2
+    log( addTwoNumbers(1, 2) ); // logs 3
 
 We could also use a **function declaration** to give our function a name:
 
