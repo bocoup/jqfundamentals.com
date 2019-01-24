@@ -8,8 +8,13 @@
   git: dest={{base_path}}.tmp repo={{git_repo}} version={{commit}}
   when: env != 'development'
 
-- name: npm install has been run
-  npm: path={{base_path}}.tmp
+# The `npm` Ansible module cannot be used on this system because it is
+# incompatible with the version of the npm CLI which is available on the
+# machine.
+- name: Install Node.js dependencies
+  command: npm install
+  args:
+    chdir: "{{base_path}}.tmp"
 
 - name: production version of the application has been built
   command: npm run build
