@@ -33,51 +33,51 @@ methods for event binding. jQuery provides a number of these shorthand methods, 
   <tbody>
     <tr>
       <td>click</td>
-      <td>`.click()`</td>
+      <td><code>.click()</code></td>
     </tr>
     <tr>
       <td>keydown</td>
-      <td>`.keydown()`</td>
+      <td><code>.keydown()</code></td>
     </tr>
     <tr>
       <td>keypress</td>
-      <td>`.keypress()`</td>
+      <td><code>.keypress()</code></td>
     </tr>
     <tr>
       <td>keyup</td>
-      <td>`.keyup()`</td>
+      <td><code>.keyup()</code></td>
     </tr>
     <tr>
       <td>mouseover</td>
-      <td>`.mouseover()`</td>
+      <td><code>.mouseover()</code></td>
     </tr>
     <tr>
       <td>mouseout</td>
-      <td>`.mouseout()`</td>
+      <td><code>.mouseout()</code></td>
     </tr>
     <tr>
       <td>mouseenter</td>
-      <td>`.mouseenter()`</td>
+      <td><code>.mouseenter()</code></td>
     </tr>
     <tr>
       <td>mouseleave</td>
-      <td>`.mouseleave()`</td>
+      <td><code>.mouseleave()</code></td>
     </tr>
     <tr>
       <td>scroll</td>
-      <td>`.scroll()`</td>
+      <td><code>.scroll()</code></td>
     </tr>
     <tr>
       <td>focus</td>
-      <td>`.focus()`</td>
+      <td><code>.focus()</code></td>
     </tr>
     <tr>
       <td>blur</td>
-      <td>`.blur()`</td>
+      <td><code>.blur()</code></td>
     </tr>
     <tr>
       <td>resize</td>
-      <td>`.resize()`</td>
+      <td><code>.resize()</code></td>
     </tr>
   </tbody>
 </table>
@@ -99,7 +99,9 @@ If the event you want to trigger has a shorthand method (see the table above), y
     $( 'li' ).click();
 
 <div class="alert alert-info">
-  When you `.trigger()` an event, you only trigger event handlers that were bound with JavaScript &mdash; you don't trigger the default behavior of the event. For example, if you trigger the click event of an `a` element, it will not automatically navigate to the `href` of that element (though you could write code that would make it do so).
+
+When you `.trigger()` an event, you only trigger event handlers that were bound with JavaScript &mdash; you don't trigger the default behavior of the event. For example, if you trigger the click event of an `a` element, it will not automatically navigate to the `href` of that element (though you could write code that would make it do so).
+
 </div>
 
 Once you have bound an event, you can unbind the event using jQuery's `.off()` method. This will remove any event handlers that were bound to the specified event:

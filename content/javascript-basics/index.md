@@ -44,7 +44,9 @@ Here's a simple JavaScript program that adds a message to the page:
     greet( 'Rebecca', 'Thanks for joining us' );
 
 <div class="alert">
-  In the above example, we use a function called `log`. This is a helper function that is defined by the JavaScript that powers this site &mdash; it is not a built-in JavaScript function. You can use `log` in the built-in editor for this site, but you'll need to use `console.log` in your normal code, and then view the output in your browser's console.
+
+In the above example, we use a function called `log`. This is a helper function that is defined by the JavaScript that powers this site &mdash; it is not a built-in JavaScript function. You can use `log` in the built-in editor for this site, but you'll need to use `console.log` in your normal code, and then view the output in your browser's console.
+
 </div>
 
 You can try running this program by clicking the <i class="icon-eye-open"></i>
@@ -264,7 +266,9 @@ Inside of a method &mdash; indeed, inside of any function &mdash; there is a spe
 When we call `person.greet()`, the context object is `person` itself. This means that we can use `this` to access a property of the `person` object from directly within the `.greet()` method.
 
 <div class="alert alert-info">
-The meaning of `this` can be incredibly perplexing to new JavaScript developers, and you should take comfort in knowing that jQuery largely makes it so that you don't need to understand it for a while. However, no discussion of objects and methods is complete without talking about `this` at least a little. In short, if this section is confusing, feel free to skip to <a href="#objects-in-jquery">Objects in jQuery</a>, and come back to it when you're ready.
+
+The meaning of `this` can be incredibly perplexing to new JavaScript developers, and you should take comfort in knowing that jQuery largely makes it so that you don't need to understand it for a while. However, no discussion of objects and methods is complete without talking about `this` at least a little. In short, if this section is confusing, feel free to skip to [Objects in jQuery](#objects-in-jquery), and come back to it when you're ready.
+
 </div>
 
 Let's look at how we could use `this` in our method.
@@ -339,7 +343,9 @@ We could do the same thing using `.apply()`, but we'd pass the arguments within 
     sayIt.apply( person, [ 'Hello', '!!1!!1' ] );
 
 <div class="alert alert-info">
+
 For more details about `.call()` and `.apply()`, see the MDN documentation on [`.call()`](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/call) and [`.apply()`](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/apply).
+
 </div>
 
 <a name="objects-in-jquery"></a>
@@ -368,7 +374,9 @@ The preferred way to create an array is to use the *array literal notation*:
     var myArray = [ 'a', 'b', 'c' ];
 
 <div class="alert alert-info">
+
 You will sometimes see code that creates an array using the `new Array('a', 'b', 'c')` construct. This is generally frowned upon among JavaScript developers; it provides no advantages over the literal construct, and has some disadvantages, such as the fact that `new Array(3)` will create an array with three undefined elements, rather than the array `[ 3 ]`.
+
 </div>
 
 You can access properties of arrays (sometimes called **elements**) with the same bracket notation we used for objects. Each element is automatically given a name based on its position in the array. Be careful, though: the numbers start at zero! Lets look at an example array with three elements:
@@ -466,7 +474,9 @@ listed above* are truthy. This includes empty arrays, empty objects, all
 non-empty strings (including the string `'0'`), and all numbers other than `0`.
 
 <div class="alert">
-  It is possible to write single-line `if` and `else` statements without using curly braces. This practice is discouraged, as it can make code difficult to read and maintain. It is mentioned here simply because you may encounter it in others' code.
+
+It is possible to write single-line `if` and `else` statements without using curly braces. This practice is discouraged, as it can make code difficult to read and maintain. It is mentioned here simply because you may encounter it in others' code.
+
 </div>
 
 ### Logical Operators

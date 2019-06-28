@@ -131,7 +131,9 @@ JSON is a string representation of data; it looks a whole lot like a normal Java
 It's important to remember that *JSON is a string representation of an object*  &mdash; the string must be parsed into an actual JavaScript object before working with it. When you're working with a JSON response to an XHR, jQuery takes care of this task for you, but it's crucial to understand the difference between the JSON representation of an object, and the object itself.
 
 <div class="alert alert-info">
-  If you need to create a JSON string from a JavaScript object, or if you need to parse a JSON string outside of jQuery, modern browsers provide the `JSON.stringify()` and `JSON.parse()` methods. This functionality can be added to older browsers using the [json2.js](https://github.com/douglascrockford/JSON-js) library. jQuery also provides the `jQuery.parseJSON` method, which provides the same functionality as `JSON.parse()` across all browsers. However, jQuery does not provide a method that corresponds to `JSON.stringify()`.
+
+If you need to create a JSON string from a JavaScript object, or if you need to parse a JSON string outside of jQuery, modern browsers provide the `JSON.stringify()` and `JSON.parse()` methods. This functionality can be added to older browsers using the [json2.js](https://github.com/douglascrockford/JSON-js) library. jQuery also provides the `jQuery.parseJSON` method, which provides the same functionality as `JSON.parse()` across all browsers. However, jQuery does not provide a method that corresponds to `JSON.stringify()`.
+
 </div>
 
 ### Convenience methods
@@ -235,10 +237,12 @@ JSONP isn't exactly AJAX  &mdash; rather than using the browser's XHR functional
     });
 
 <div class="alert alert-info">
+
 An API that offers JSONP will specify the name of the callback parameter to use
 in the query string; generally, this name is `callback`, and so jQuery uses
 that as its default. However, you can override this callback name by specifying
 the `jsonp` property in the configuration object passed to `$.ajax()`.
+
 </div>
 
 You can also use the `$.getJSON()` convenience method to make a JSONP request;

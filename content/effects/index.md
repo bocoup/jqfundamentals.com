@@ -19,7 +19,9 @@ See the [effects documentation](http://api.jquery.com/category/effects/) for
 complete details on jQuery effects.
 
 <div class="alert alert-info">
-  **An important note about animations:** In modern browsers, and especially on mobile devices, it is often much more efficient to achieve animations using CSS rather than JavaScript. The details of doing this are beyond the scope of this guide, but if you are only targeting mobile devices or browsers that support CSS animations, then you should use CSS for animations where possible. You may also want to consider setting `jQuery.fx.off` to true on low-resource devices; doing so will cause animation methods to immediately set elements to the desired state, rather than animating to that state.
+
+**An important note about animations:** In modern browsers, and especially on mobile devices, it is often much more efficient to achieve animations using CSS rather than JavaScript. The details of doing this are beyond the scope of this guide, but if you are only targeting mobile devices or browsers that support CSS animations, then you should use CSS for animations where possible. You may also want to consider setting `jQuery.fx.off` to true on low-resource devices; doing so will cause animation methods to immediately set elements to the desired state, rather than animating to that state.
+
 </div>
 
 ## Built-in effects
@@ -122,7 +124,11 @@ increment an existing value.
       }
     );
 
-<div class="alert alert-info">Note that if you want to animate a CSS property whose name includes a hyphen, you will need to use a "[camel case](http://en.wikipedia.org/wiki/CamelCase)" version of the property name if you do not quote the property name. For example, the `font-size` property must be referred to as `fontSize`.</div>
+<div class="alert alert-info">
+
+Note that if you want to animate a CSS property whose name includes a hyphen, you will need to use a "[camel case](http://en.wikipedia.org/wiki/CamelCase)" version of the property name if you do not quote the property name. For example, the `font-size` property must be referred to as `fontSize`.
+
+</div>
 
 ## Managing animations
 

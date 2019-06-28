@@ -22,7 +22,9 @@ and at how we can use jQuery to perform its core functionality: getting some
 elements and doing something with them.
 
 <div class="alert alert-info">
+
 This guide assumes that you understand [HTML](https://developer.mozilla.org/en-US/docs/HTML/Introduction) and [CSS Selectors](http://www.w3.org/TR/CSS2/selector.html). If you are not familiar with how you can use CSS selectors to target elements, you should spend some time getting up to speed before trying to work through this guide.
+
 </div>
 
 ## What&rsquo;s $, anyway?
@@ -54,12 +56,14 @@ current browser environment supports, and you use the `$.ajax` method to make
 an AJAX request.
 
 <div class="alert">
+
 For the rest of this guide, we'll use `$` instead of `jQuery` for the sake of
 brevity. Note that if your page contains more than one JavaScript library, then
 `$` may be used by another library, which can cause jQuery not to work. If you
 experience this, you should consider using
 [jQuery.noConflict](http://api.jquery.com/jQuery.noConflict/) before loading
 the other libraries.
+
 </div>
 
 
@@ -87,9 +91,11 @@ alias for `$(document).ready()` if you pass it a function:
     });
 
 <div class="alert">
-  For the rest of this guide, we'll assume that the code we're looking at is
+
+For the rest of this guide, we'll assume that the code we're looking at is
 enclosed in `$(document).ready(function() { ... });`, and we'll leave that part
 out for brevity.
+
 </div>
 
 ## Get some elements
@@ -274,9 +280,11 @@ of the list item.
     });
 
 <div class="alert alert-info">
+
 You'll notice that, inside the function that we pass to `.each()`, we have access to the current raw DOM element in two ways: as `this` and as `elem`. As discussed in the [JavaScript Basics section](/chapter/javascript-basics), `this` is a special keyword in JavaScript, referring to the object that is the current context of the function.
 
 In jQuery, `this` almost always refers to the raw DOM element on which the function is currently operating. So, in the case of `.each()`, it refers to the current element in the set of elements we're iterating over.
+
 </div>
 
 ### Chaining

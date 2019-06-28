@@ -188,12 +188,13 @@ If your use case requires adding and removing a class repeatedly, jQuery provide
 #### Changing style
 
 <div class="alert alert-info">
-    Whenever possible, you should use classes
+
+Whenever possible, you should use classes
 combined with CSS rules to affect the *presentation* of elements, and use
 jQuery only to add and remove those classes as shown above. In this section,
 we'll see how to alter the style of an element directly, but CSS rules combined
-with classes are always preferable if they can achieve the desired
-effect.
+with classes are always preferable if they can achieve the desired effect.
+
 </div>
 
 When you can't achieve your goal via adding and removing classes, jQuery
@@ -246,7 +247,9 @@ the element using the `.prop()` method.
     $( 'input[type="checkbox"]' ).prop( 'checked', 'checked' );
 
 <div class="alert alert-info">
-    The `.prop()` method was introduced in jQuery 1.6; prior versions of jQuery used the `.attr()` method for this purpose. It continues to work in later versions of jQuery, but in the case of the `checked` property, it ultimately just calls the `.prop()` method. If you are using a version of jQuery later than 1.6, you should always use the `.prop()` method to set the `checked` property and other DOM element properties. See the [documentation](http://api.jquery.com/prop/) for a more detailed explanation.
+
+The `.prop()` method was introduced in jQuery 1.6; prior versions of jQuery used the `.attr()` method for this purpose. It continues to work in later versions of jQuery, but in the case of the `checked` property, it ultimately just calls the `.prop()` method. If you are using a version of jQuery later than 1.6, you should always use the `.prop()` method to set the `checked` property and other DOM element properties. See the [documentation](http://api.jquery.com/prop/) for a more detailed explanation.
+
 </div>
 
 
@@ -359,10 +362,12 @@ document.
     $( '#my-unordered-list' ).append( clones );
 
 <div class="alert alert-info">
-  **Note:** jQuery will not prevent you from
+
+**Note:** jQuery will not prevent you from
 cloning an element with an ID, but you should ensure that you change or remove
 the cloned element's `id` attribute before inserting it into the document, as a
 document should never have more than one element with a particular ID.
+
 </div>
 
 ### Removing elements
