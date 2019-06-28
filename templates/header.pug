@@ -1,13 +1,13 @@
 head
-  meta(charset="utf-8")
+  meta(charset="UTF-8")
 
-  - if (title)
+  if title
     title jQuery Fundamentals :: #{title}
-  - else
+  else
     title jQuery Fundamentals
 
   block css
 
   link(rel="shortcut icon", href="/favicon.ico")
   link(rel="stylesheet", href="/public/vendor/bootstrap/css/bootstrap.min.css")
-  link(rel="stylesheet", href="/public/#{cachebust}/css/base.css")
+  link(rel="stylesheet", href=`/public/${cachebust}/css/base.css`)

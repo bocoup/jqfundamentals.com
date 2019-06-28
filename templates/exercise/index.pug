@@ -1,4 +1,4 @@
-extends ../layout
+extends ../layout.pug
 
 block css
   link(rel="stylesheet", href="/public/vendor/CodeMirror-2.25/lib/codemirror.css")
@@ -13,15 +13,14 @@ block body
         h2 #{title}
         #editor
 
-  #main(data-exercise="#{exercise}")
+  #main(data-exercise=exercise)
     .row
       #exercise-html.span8
       .span4
-        .well.instructions
-          !{content}
+        .well.instructions !{content}
 
 block scripts
-  script(src="/public/#{cachebust}/vendor/require.js", data-main="/public/#{cachebust}/main")
+  script(src=`/public/${cachebust}/vendor/require.js`, data-main=`/public/${cachebust}/main`)
 
   script
-    require([ 'js/exercise' ]);
+    | require([ 'js/exercise' ]);

@@ -1,10 +1,10 @@
 var fs =            require('fs');
-var Q =             require('q');
 var yaml =          require('js-yaml');
 var md =            require('marked');
 var Faker =         require('Faker');
 var _ =             require('underscore');
 var path =          require('path');
+var { promisify } = require('util');
 
 var express =       require('express');
 var app =           express();
@@ -39,14 +39,14 @@ app.use( bodyParser.json() );
 
 if ( !prod ) {
   app.use( favicon(
-    path.join(__dirname, '/../assets/img/favicon.ico'),
+    path.join(__dirname, '..', 'assets/img/favicon.ico'),
     { maxAge: 8640000000 }
   ) );
 
   app.use(
     '/public/' + cachebust,
     express.static(
-      path.join(__dirname, '/../assets'),
+      path.join(__dirname, '..', 'assets'),
       { maxAge: 8640000000 }
     )
   );
@@ -54,7 +54,7 @@ if ( !prod ) {
   app.use(
     '/public',
     express.static(
-      path.join(__dirname, '/../assets')
+      path.join(__dirname, '..', 'assets')
     )
   );
 }
@@ -62,13 +62,13 @@ if ( !prod ) {
 app.use(
   '/legacy',
   express.static(
-    path.join(__dirname, '/../legacy'),
+    path.join(__dirname, '..', 'legacy'),
     { maxAge: 8640000000 }
   )
 );
 
-app.set('views', path.join(__dirname, '/../templates'));
-app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, '..', 'templates'));
+app.set('view engine', 'pug');
 
 // allow template inheritance
 app.set('view options', {
@@ -76,35 +76,36 @@ app.set('view options', {
 });
 
 function render(filename, template, res) {
-	var dfd = Q.defer();
-  var key = filename + '-' + template;
+  var key = `${filename}-${template}`;
 
   if (prod && htmlCache[key]) {
     res.end(htmlCache[key]);
     return;
   }
 
-	fs.readFile(filename, 'utf8', function(err, data) {
-		if (err) {
-			dfd.reject(err);
-		} else {
-			var parts = data.split('---\n');
-			dfd.resolve( [ yaml.load(parts[0]), md(parts[1]) ] );
-		}
-	});
+  var readFile = promisify(fs.readFile);
+  var rendr = promisify(res.render.bind(res));
 
-  dfd.promise.then(function(parts) {
-    var config = parts[0];
-    config.content = parts[1];
-    config.cachebust = cachebust;
+  readFile(filename, 'utf8')
+    .catch(err => {
+      console.log(err);
+      error(res, 404);
+    }).then(data => {
+      var parts = data.split('---\n');
+      var config = yaml.load(parts.shift());
+      config.content = md(parts.shift());
+      config.cachebust = cachebust;
 
-    res.render(template, config, function(err, str) {
-      htmlCache[key] = str;
-      res.end(str);
+      console.log(config);
+
+      return rendr(template, config).then(str => {
+        htmlCache[key] = str;
+        res.end(str);
+      });
+    }).catch(err => {
+      console.log(err);
+      error(res, 500);
     });
-  }, function() {
-    error(res, 404);
-  });
 }
 
 function findResults(query) {
@@ -203,7 +204,7 @@ app.get('/exercises/:exercise', function(req, res) {
     req.params.exercise,
     'index.md'
   ].join('/');
-  render( exerciseMarkdown, 'exercise', res);
+  render( exerciseMarkdown, 'exercise', res );
 });
 
 app.get('/chapter/:name', function(req, res) {
