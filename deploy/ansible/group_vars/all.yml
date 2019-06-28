@@ -1,6 +1,45 @@
+#########
+# GENERAL
+#########
+
 base_path: /mnt/jqf
 app_name: jqf
 app_port: 4444
 app_log_file: /var/log/{{app_name}}
 git_repo: https://github.com/bocoup/jqfundamentals.com
+
+##############
+# PROVISIONING
+##############
+
+# Keys to be added to apt.
+apt_keys:
+  - "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+  - "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+
+# Ppas to be added to apt. Useful ppas (replace trusty with your Ubuntu
+# version codename, if necessary):
+# Git latest:     ppa:git-core/ppa
+# Node.js 10.x (LTS): deb https://deb.nodesource.com/node_10.x trusty main
+# Node.js 12.x:       deb https://deb.nodesource.com/node_12.x trusty main
+apt_ppas:
+  - "ppa:git-core/ppa"
+  - "deb https://deb.nodesource.com/node_10.x trusty main"
+
+# Any apt packages to install. Apt package versions may be specified like
+# - git=2.1.0
+apt_packages:
+  - python-apt
+  - git
+  - nodejs
+  - nginx
+  - build-essential
+  - libcurl4-openssl-dev
+
+###################
+# DEPLOY EXTRA VARS
+###################
+
+# Specify any ref (eg. branch, tag, SHA) to be deployed. This ref must be
+# pushed to the remote git_repo.
 commit: master
