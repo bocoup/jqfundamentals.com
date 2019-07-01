@@ -26,6 +26,8 @@ var prod =          process.env.NODE_ENV === 'production';
 var port =          process.env.NODE_ENV_PORT || 4444;
 var cachebust =     'v' + new Date().getTime();
 
+var readFile = promisify(fs.readFile);
+
 for (var i = 0; i < 100; i++) {
   fakeData.push(Faker.Helpers.userCard());
 }
@@ -83,14 +85,13 @@ function render(filename, template, res) {
     return;
   }
 
-  var readFile = promisify(fs.readFile);
   var rendr = promisify(res.render.bind(res));
 
   readFile(filename, 'utf8')
     .catch(err => {
-      console.log(err);
-      error(res, 404);
-    }).then(data => {
+      err._code = 404;
+      throw err;
+    }).then(async data => {
       var parts = data.split('---\n');
       var config = yaml.load(parts.shift());
       config.content = md(parts.shift());
@@ -98,13 +99,12 @@ function render(filename, template, res) {
 
       console.log(config);
 
-      return rendr(template, config).then(str => {
-        htmlCache[key] = str;
-        res.end(str);
-      });
+      var str = await rendr(template, config);
+      htmlCache[key] = str;
+      res.end(str);
     }).catch(err => {
-      console.log(err);
-      error(res, 500);
+      console.error(err);
+      error(err, err._code);
     });
 }
 
@@ -221,7 +221,7 @@ app.get('/*', function(req, res) {
   error(res, 404);
 });
 
-function error(res, code) {
+function error(res, code = 500) {
   var codes = {
     '404' : 'Not found',
     '500' : 'Server error'
