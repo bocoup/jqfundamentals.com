@@ -104,7 +104,7 @@ function render(filename, template, res) {
       res.end(str);
     }).catch(err => {
       console.error(err);
-      error(err, err._code);
+      error(res, err._code);
     });
 }
 
