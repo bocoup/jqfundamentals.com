@@ -220,10 +220,6 @@ app.get('/*', function(req, res) {
   error(res, 404);
 });
 
-app.use(function(err, req, res) {
-  error(res, 500);
-});
-
 function error(res, code) {
   var codes = {
     '404' : 'Not found',
