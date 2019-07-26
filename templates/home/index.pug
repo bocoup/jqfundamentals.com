@@ -1,15 +1,14 @@
-extends ../layout
+extends ../layout.pug
 
 block body
-
   #main.row
     .span4
       ul.nav.nav-tabs.nav-stacked
         for item in menu
           li
-            a(href="#{item.path}")= item.name
+            a(href=item.path)= item.name
 
     .span8
       .page-header.home-page-header
         h1= title
-      !{content}
+      | !{content}

@@ -1,10 +1,10 @@
 var fs =            require('fs');
-var Q =             require('q');
 var yaml =          require('js-yaml');
 var md =            require('marked');
 var Faker =         require('Faker');
 var _ =             require('underscore');
 var path =          require('path');
+var { promisify } = require('util');
 
 var express =       require('express');
 var app =           express();
@@ -26,6 +26,8 @@ var prod =          process.env.NODE_ENV === 'production';
 var port =          process.env.NODE_ENV_PORT || 4444;
 var cachebust =     'v' + new Date().getTime();
 
+var readFile = promisify(fs.readFile);
+
 for (var i = 0; i < 100; i++) {
   fakeData.push(Faker.Helpers.userCard());
 }
@@ -39,14 +41,14 @@ app.use( bodyParser.json() );
 
 if ( !prod ) {
   app.use( favicon(
-    path.join(__dirname, '/../assets/img/favicon.ico'),
+    path.join(__dirname, '..', 'assets/img/favicon.ico'),
     { maxAge: 8640000000 }
   ) );
 
   app.use(
     '/public/' + cachebust,
     express.static(
-      path.join(__dirname, '/../assets'),
+      path.join(__dirname, '..', 'assets'),
       { maxAge: 8640000000 }
     )
   );
@@ -54,7 +56,7 @@ if ( !prod ) {
   app.use(
     '/public',
     express.static(
-      path.join(__dirname, '/../assets')
+      path.join(__dirname, '..', 'assets')
     )
   );
 }
@@ -62,13 +64,13 @@ if ( !prod ) {
 app.use(
   '/legacy',
   express.static(
-    path.join(__dirname, '/../legacy'),
+    path.join(__dirname, '..', 'legacy'),
     { maxAge: 8640000000 }
   )
 );
 
-app.set('views', path.join(__dirname, '/../templates'));
-app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, '..', 'templates'));
+app.set('view engine', 'pug');
 
 // allow template inheritance
 app.set('view options', {
@@ -76,35 +78,34 @@ app.set('view options', {
 });
 
 function render(filename, template, res) {
-	var dfd = Q.defer();
-  var key = filename + '-' + template;
+  var key = `${filename}-${template}`;
 
   if (prod && htmlCache[key]) {
     res.end(htmlCache[key]);
     return;
   }
 
-	fs.readFile(filename, 'utf8', function(err, data) {
-		if (err) {
-			dfd.reject(err);
-		} else {
-			var parts = data.split('---\n');
-			dfd.resolve( [ yaml.load(parts[0]), md(parts[1]) ] );
-		}
-	});
+  var rendr = promisify(res.render.bind(res));
 
-  dfd.promise.then(function(parts) {
-    var config = parts[0];
-    config.content = parts[1];
-    config.cachebust = cachebust;
+  readFile(filename, 'utf8')
+    .catch(err => {
+      err._code = 404;
+      throw err;
+    }).then(async data => {
+      var parts = data.split('---\n');
+      var config = yaml.load(parts.shift());
+      config.content = md(parts.shift());
+      config.cachebust = cachebust;
 
-    res.render(template, config, function(err, str) {
+      console.log(config);
+
+      var str = await rendr(template, config);
       htmlCache[key] = str;
       res.end(str);
+    }).catch(err => {
+      console.error(err);
+      error(res, err._code);
     });
-  }, function() {
-    error(res, 404);
-  });
 }
 
 function findResults(query) {
@@ -203,7 +204,7 @@ app.get('/exercises/:exercise', function(req, res) {
     req.params.exercise,
     'index.md'
   ].join('/');
-  render( exerciseMarkdown, 'exercise', res);
+  render( exerciseMarkdown, 'exercise', res );
 });
 
 app.get('/chapter/:name', function(req, res) {
@@ -220,7 +221,7 @@ app.get('/*', function(req, res) {
   error(res, 404);
 });
 
-function error(res, code) {
+function error(res, code = 500) {
   var codes = {
     '404' : 'Not found',
     '500' : 'Server error'

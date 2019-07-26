@@ -1,8 +1,8 @@
-!!! 5
+<!DOCTYPE html>
 html
   head
     link(rel="stylesheet", href="/public/vendor/bootstrap/css/bootstrap.min.css")
-    style
+    style.
       body { margin : 0; padding: 0; font-family: Helvetica, Arial, sans-serif; }
       .selected { color : red; }
       .hidden { display : none; visibility: visible; }
@@ -11,4 +11,4 @@ html
     | !{content}
 
   script(src="/public/vendor/jquery.js")
-  script(src="/public/#{cachebust}/js/sandbox.js")
+  script(src=`/public/${cachebust}/js/sandbox.js`)

@@ -1,4 +1,4 @@
-title: A guide to the basics of&nbsp;jQuery
+title: A guide to the basics of jQuery
 menu:
   - name: JavaScript Basics
     path: /chapter/javascript-basics

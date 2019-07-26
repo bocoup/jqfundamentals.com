@@ -1,23 +1,26 @@
 ---
-# configure base dependencies
+# Get the box up and running. These tasks run before the box is configured
+# or the project is cloned or built. All system dependencies should be
+# installed here.
 
-- name: update apt-cache if needed
-  apt: update_cache=yes
+# Can't use ansible's apt_repository module because we need to fetch gpg keys
+# that are hosted on SNI-enabled servers. Python doesn't support SNI natively
+# until 2.7.9 and ubuntu 14.04 ships with 2.7.6. Updating the system python is
+# not a road we'll be going down.
+- name: add keys to apt
+  shell: wget -qO - {{item}} | apt-key add -
+  with_items: "{{ apt_keys }}"
+# If you are running this on a system with python 2.7.9+, use this instead
+#- name: add keys to apt
+#  apt_key: url={{item}} state=present
+#  with_items: apt_keys
 
-- name: make sure python-apt is installed so we can add custom ppas
-  apt: name=python-apt state=present
+- name: add ppas to apt
+  apt_repository: repo="{{item}}" state=present update_cache=yes
+  with_items: "{{apt_ppas}}"
 
-- name: make sure node ppa is available
-  apt_repository: repo='ppa:chris-lea/node.js'
-
-- name: make sure nodejs is installed
-  apt: name=nodejs state=present
-
-- name: make sure git is installed
-  apt: name=git state=present
-
-- name: make sure nginx is installed
-  apt: name=nginx state=present
-
-- name: libcurl is installed
-  apt: name=libcurl4-openssl-dev state=present
+- name: install apt packages
+  apt: name={{item}} state=latest update_cache=yes force=yes
+  with_items: "{{apt_packages}}"
+  environment:
+    LC_ALL: en_US.UTF-8

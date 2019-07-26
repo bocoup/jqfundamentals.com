@@ -1,4 +1,4 @@
-extends ../layout
+extends ../layout.pug
 
 block css
   link(rel="stylesheet", href="/public/vendor/CodeMirror-2.25/lib/codemirror.css")
@@ -17,7 +17,7 @@ block fixed_header
       .span4#results
 
 block body
-  #main(data-chapter="#{sandbox}")
+  #main(data-chapter=`${sandbox}`)
     if title
       .page-header
         h1= title
@@ -29,20 +29,20 @@ block body
             li.nav-header Additional Resources
             for link in links
               li
-                a(href="#{link.path}")= link.name
+                a(href=link.path)= link.name
 
       .span8
         | !{content}
         ul.pager
           if previous
             li.previous
-              a(href="#{previous.path}") &larr;&nbsp;Previous:&nbsp;#{previous.name}
+              a(href=previous.path) &larr;&nbsp;Previous:&nbsp;#{previous.name}
           if next
             li.next
-              a(href="#{next.path}") Next:&nbsp;#{next.name}&nbsp;&rarr;
+              a(href=next.path) Next:&nbsp;#{next.name}&nbsp;&rarr;
 
 block scripts
-  script(src="/public/#{cachebust}/vendor/require.js", data-main="/public/#{cachebust}/main")
+  script(src=`/public/${cachebust}/vendor/require.js`, data-main=`/public/${cachebust}/main`)
 
   script
-    require([ 'js/chapter' ]);
+    | require([ 'js/chapter' ]);
