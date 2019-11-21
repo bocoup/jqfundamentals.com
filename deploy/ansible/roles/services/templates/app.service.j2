@@ -1,0 +1,15 @@
+[Unit]
+Description=jqfundamentals Node.js application
+Wants=network.target
+After=network.target
+
+[Service]
+Type=simple
+Environment=NODE_ENV={{env}}
+Environment=NODE_ENV_PORT={{app_port}}
+WorkingDirectory={{base_path}}
+ExecStart=/usr/bin/node {{base_path}}/server
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

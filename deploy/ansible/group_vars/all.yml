@@ -12,6 +12,8 @@ git_repo: https://github.com/bocoup/jqfundamentals.com
 # PROVISIONING
 ##############
 
+ansible_python_interpreter: /usr/bin/python3
+
 # Keys to be added to apt.
 apt_keys:
   - "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
@@ -22,7 +24,7 @@ apt_keys:
 # Node.js 10.x (LTS): deb https://deb.nodesource.com/node_10.x trusty main
 # Node.js 12.x:       deb https://deb.nodesource.com/node_12.x trusty main
 apt_ppas:
-  - "deb https://deb.nodesource.com/node_10.x trusty main"
+  - "deb https://deb.nodesource.com/node_10.x bionic main"
 
 # Any apt packages to install. Apt package versions may be specified like
 # - git=2.1.0

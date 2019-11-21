@@ -1,8 +1,14 @@
 ---
 # configure services
 
-- name: make sure the app is loaded
-  template: src=app.conf dest=/etc/init/app.conf backup=no
+- name: define a service to run production site
+  become: yes
+  template:
+    src: app.service.j2
+    dest: /etc/systemd/system/app.service
 
-- name: restart app
-  service: name=app state=restarted
+- name: enable system service
+  systemd:
+    name: app
+    enabled: true
+    state: restarted

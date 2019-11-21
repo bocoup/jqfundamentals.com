@@ -1,12 +1,16 @@
 - name: remove temporary build
   command: rm -rf {{base_path}}.tmp
 
+- name: change ownership of `www-data`'s home directory
+  file: path=/var/www state=directory owner=www-data
+
 - name: temp build directory exists
-  file: path={{base_path}}.tmp state=directory
+  file: path={{base_path}}.tmp state=directory owner=www-data
 
 - name: code is synchronized via git to temp directory
   git: dest={{base_path}}.tmp repo={{git_repo}} version={{commit}}
   when: env != 'development'
+  become_user: www-data
 
 # The `npm` Ansible module cannot be used on this system because it is
 # incompatible with the version of the npm CLI which is available on the
@@ -15,6 +19,7 @@
   command: npm install
   args:
     chdir: "{{base_path}}.tmp"
+  become_user: www-data
 
 - name: production version of the application has been built
   command: npm run build
