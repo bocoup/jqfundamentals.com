@@ -16,7 +16,6 @@ var bodyParser =    require('body-parser');
 var favicon =       require('serve-favicon');
 
 var contentDir =    __dirname + '/../content';
-var exerciseDir =   __dirname + '/../exercises';
 
 var dataDir =       __dirname + '/../data';
 var htmlCache =     {};
@@ -180,31 +179,6 @@ app.get('/sandbox/:name', function(req, res) {
       cachebust: cachebust
     });
   });
-});
-
-app.get('/exercises/:exercise/index.html', function(req, res) {
-  var file = [ exerciseDir, req.params.exercise, 'index.html' ].join('/');
-
-  fs.readFile(file, function(err, data) {
-    if (err) {
-      error(res, 404);
-      return;
-    }
-
-    res.render('iframe', {
-      content: data,
-      cachebust: cachebust
-    });
-  });
-});
-
-app.get('/exercises/:exercise', function(req, res) {
-  var exerciseMarkdown = [
-    exerciseDir,
-    req.params.exercise,
-    'index.md'
-  ].join('/');
-  render( exerciseMarkdown, 'exercise', res );
 });
 
 app.get('/chapter/:name', function(req, res) {
