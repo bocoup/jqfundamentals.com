@@ -1,0 +1,19 @@
+branches:
+  only:
+  - master
+  - hookshot-replacement
+before_install:
+- openssl aes-256-cbc -K $encrypted_e6cc0fb2b8da_key -iv $encrypted_e6cc0fb2b8da_iv
+  -in travis.enc -out travis -d
+- sudo apt update
+- sudo apt install software-properties-common
+- sudo apt-add-repository --yes --update ppa:ansible/ansible
+- sudo apt install -y ansible
+addons:
+  ssh_known_hosts: people.bocoup.com
+script:
+- eval "$(ssh-agent -s)"
+- chmod 600 $KEY_FILE
+- ssh-add $KEY_FILE
+- ansible-playbook deploy/ansible/deploy.yml --user $ANSIBLE_USER --inventory=deploy/ansible/inventory/production
+  -e "ansible_ssh_extra_args='-o StrictHostKeyChecking=no'"
