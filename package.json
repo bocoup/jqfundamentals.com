@@ -23,7 +23,7 @@
     "morgan": "1.9.1",
     "pug": "^2.0.4",
     "serve-favicon": "2.5.0",
-    "underscore": "1.9.1"
+    "underscore": "1.12.1"
   },
   "devDependencies": {
     "grunt": "1.0.4",
