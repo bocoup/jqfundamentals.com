@@ -1,0 +1,23 @@
+branches:
+  only:
+    - master
+before_install:
+  - sudo apt update
+  - sudo apt install software-properties-common
+  - sudo apt-add-repository --yes --update ppa:ansible/ansible
+  - sudo apt install -y ansible
+  # The private SSH key checked into this repository is protected with a
+  # passphrase. The passphrase is stored in the `SSH_PASSPHRASE` environment
+  # variable in the TravisCI environment. Create a utility script to allow SSH
+  # key to be unlocked during the "script" lifecyle event (see below) without
+  # prompting for command-line input.
+  - echo 'echo $SSH_PASSPHRASE' > ./dummy-askpass.sh
+  - chmod +x ./dummy-askpass.sh
+  - chmod 0600 ./deploy/id_ed25519-robocoup-jqfundamentals.com
+  # Add the SSH fingerprint of the production system so that SSH connections
+  # are not susceptible to man-in-the-middle attacks.
+  - echo 'jqfundamentals.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBG9H/L3aKp9ZP7Vx+v0xjD2nYeIHWS9K4L1MTlwet8c9Jh8Qngd1Z3mz4esFmK1sE38PsUKoqdCMhoBOGsGxcIk=' >> $HOME/.ssh/known_hosts
+script:
+  - eval "$(ssh-agent -s)"
+  - DISPLAY=1 SSH_ASKPASS=./dummy-askpass.sh ssh-add ./deploy/id_ed25519-robocoup-jqfundamentals.com < /dev/null
+  - ansible-playbook deploy/ansible/deploy.yml --user robocoup --inventory=deploy/ansible/inventory/production
