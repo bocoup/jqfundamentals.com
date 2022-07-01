@@ -602,7 +602,7 @@ Guide](https://developer.mozilla.org/en/JavaScript/Guide). Specifically, you'll
 do well to read the following articles:
 
 - [JavaScript Overview](https://developer.mozilla.org/en/JavaScript/Guide/JavaScript_Overview)
-- [Values, variables, and literals](https://developer.mozilla.org/en/JavaScript/Guide/Values%2C_Variables%2C_and_Literals)
+- [Values, variables, and literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types)
 - [Functions](https://developer.mozilla.org/en/JavaScript/Guide/Functions)
 - [Immediately Invoked Function Expressions](http://benalman.com/news/2010/11/immediately-invoked-function-expression/)
 - [Arrays](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/)
