@@ -153,17 +153,7 @@ app.post("/data/save", function(req, res) {
   res.json(data || {});
 });
 
-app.get('/data/:filename', function(req, res) {
-  res.sendfile(req.params.filename, {
-    root: dataDir
-  }, function(err) {
-    if (err) {
-      console.log(dataDir);
-      console.log(err);
-      res.json({});
-    }
-  });
-});
+app.use('/data', express.static('data'));
 
 app.get('/sandbox/:name', function(req, res) {
 	var file = [ contentDir, req.params.name, 'sandbox', 'index.html' ].join('/');
