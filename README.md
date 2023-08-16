@@ -1,3 +1,5 @@
+### This site was retired on 2023-08-16.
+
 # [jQuery Fundamentals]
 
 > jQuery Fundamentals is designed to get you comfortable working through common problems you'll be called upon to solve using jQuery. To get the most out of this site, you'll want to read the content and try the various interactive examples. Each chapter will cover a concept and give you a chance to try example code related to the concept.
